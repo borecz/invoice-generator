@@ -122,3 +122,95 @@ export async function getCustomersForUser() {
   console.log("getCustomersForUser: Customers fetched successfully:", data);
   return { data, error: null };
 }
+
+export async function updateCustomer(
+  customerId: string,
+  customerData: CustomerData
+) {
+  const supabase = await createSupabaseServerActionClient();
+  const { session, error: sessionError } = await readUserSession();
+
+  if (sessionError || !session || !session.user) {
+    console.error(
+      "updateCustomer Error: User not authenticated.",
+      sessionError?.message
+    );
+    return {
+      data: null,
+      error: { message: "User not authenticated. Please log in." },
+    };
+  }
+
+  const userId = session.user.id;
+
+  if (!customerData.name) {
+    return { data: null, error: { message: "Customer name is required." } };
+  }
+
+  const dataToUpdate = {
+    name: customerData.name,
+    email: customerData.email || null,
+    phone: customerData.phone || null,
+    address: customerData.address || null,
+    company: customerData.company || null,
+    notes: customerData.notes || null,
+  };
+
+  console.log("updateCustomer: Data to update:", dataToUpdate);
+
+  const { data, error } = await supabase
+    .from("customers")
+    .update(dataToUpdate)
+    .eq("id", customerId)
+    .eq("user_id", userId) // Ensure user can only update their own customers
+    .select();
+
+  if (error) {
+    console.error("updateCustomer Supabase Error:", error.message);
+    return {
+      data: null,
+      error: { message: `Failed to update customer: ${error.message}` },
+    };
+  }
+
+  console.log("updateCustomer: Customer updated successfully:", data);
+  return { data, error: null };
+}
+
+export async function deleteCustomer(customerId: string) {
+  const supabase = await createSupabaseServerActionClient();
+  const { session, error: sessionError } = await readUserSession();
+
+  if (sessionError || !session || !session.user) {
+    console.error(
+      "deleteCustomer Error: User not authenticated.",
+      sessionError?.message
+    );
+    return {
+      data: null,
+      error: { message: "User not authenticated. Please log in." },
+    };
+  }
+
+  const userId = session.user.id;
+
+  console.log("deleteCustomer: Deleting customer:", customerId);
+
+  const { data, error } = await supabase
+    .from("customers")
+    .delete()
+    .eq("id", customerId)
+    .eq("user_id", userId) // Ensure user can only delete their own customers
+    .select();
+
+  if (error) {
+    console.error("deleteCustomer Supabase Error:", error.message);
+    return {
+      data: null,
+      error: { message: `Failed to delete customer: ${error.message}` },
+    };
+  }
+
+  console.log("deleteCustomer: Customer deleted successfully:", data);
+  return { data, error: null };
+}

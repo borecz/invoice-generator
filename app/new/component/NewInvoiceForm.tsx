@@ -2,15 +2,16 @@
 
 import React, { useEffect, useState } from "react";
 import { useForm, FormProvider, useFieldArray } from "react-hook-form";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
+import { Checkbox } from "@/components/ui/checkbox";
 import { saveInvoice } from "@/app/invoices/actions";
 import { useAuth } from '@/app/hooks/useAuth';
-import { getCustomersForUser } from '@/app/customers/actions';
+import { getCustomersForUser, addCustomer } from '@/app/customers/actions';
 import {
   Select,
   SelectContent,
@@ -58,6 +59,7 @@ interface InvoiceFormData {
   customerType: 'existing' | 'new';
   customerId?: string;
   inlineCustomer?: InlineCustomerData;
+  saveCustomer?: boolean;
   invoiceDate: string;
   dueDate: string;
   items: InvoiceItem[];
@@ -66,11 +68,13 @@ interface InvoiceFormData {
 
 export const NewInvoiceForm = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { user, loading: authLoading } = useAuth();
   const methods = useForm<InvoiceFormData>({
     defaultValues: {
       invoiceNumber: `INV-${Date.now()}`,
       customerType: 'existing',
+      saveCustomer: false,
       invoiceDate: new Date().toISOString().split('T')[0],
       dueDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
       items: [{ itemName: '', itemQty: 1, itemPrice: 0, itemTotal: 0 }],
@@ -123,6 +127,18 @@ export const NewInvoiceForm = () => {
     }
   }, [user, authLoading]);
 
+  // Handle pre-selected customer from URL parameter
+  useEffect(() => {
+    const customerId = searchParams.get('customerId');
+    if (customerId && customers.length > 0) {
+      const customer = customers.find(c => c.id === customerId);
+      if (customer) {
+        methods.setValue('customerType', 'existing');
+        methods.setValue('customerId', customerId);
+      }
+    }
+  }, [customers, searchParams, methods]);
+
   // Watch for form changes
   const watchedItems = methods.watch("items");
   const customerType = methods.watch("customerType");
@@ -143,8 +159,10 @@ export const NewInvoiceForm = () => {
     setSubmitStatus(null);
 
     try {
-      // Prepare customer data based on type
       let customerData;
+      let savedCustomerId: string | null = null;
+      let customerSaveMessage = '';
+
       if (data.customerType === 'existing') {
         if (!data.customerId) {
           setSubmitStatus({ message: "Please select a customer", type: 'error' });
@@ -158,13 +176,37 @@ export const NewInvoiceForm = () => {
           setIsSubmitting(false);
           return;
         }
-        customerData = {
-          inline_customer: {
+
+        // If user wants to save the customer, create it first
+        if (data.saveCustomer) {
+          const customerResult = await addCustomer({
             name: data.inlineCustomer.name,
-            email: data.inlineCustomer.email || null,
-            address: data.inlineCustomer.address || null,
+            email: data.inlineCustomer.email || '',
+            address: data.inlineCustomer.address || '',
+          });
+
+          if (customerResult.error) {
+            setSubmitStatus({
+              message: `Failed to save customer: ${customerResult.error.message}`,
+              type: 'error'
+            });
+            setIsSubmitting(false);
+            return;
+          } else if (customerResult.data && customerResult.data.length > 0) {
+            savedCustomerId = customerResult.data[0].id;
+            customerData = { customer_id: savedCustomerId };
+            customerSaveMessage = ' Customer has been added to your database.';
           }
-        };
+        } else {
+          // Use inline customer data without saving
+          customerData = {
+            inline_customer: {
+              name: data.inlineCustomer.name,
+              email: data.inlineCustomer.email || null,
+              address: data.inlineCustomer.address || null,
+            }
+          };
+        }
       }
 
       const invoiceData = {
@@ -186,7 +228,8 @@ export const NewInvoiceForm = () => {
       if (result.error) {
         setSubmitStatus({ message: result.error.message, type: 'error' });
       } else {
-        setSubmitStatus({ message: "Invoice created successfully!", type: 'success' });
+        const successMessage = `Invoice created successfully!${customerSaveMessage}`;
+        setSubmitStatus({ message: successMessage, type: 'success' });
         // Redirect to dashboard after a short delay
         setTimeout(() => {
           router.push('/dashboard');
@@ -291,7 +334,10 @@ export const NewInvoiceForm = () => {
                       </p>
                     </div>
                   ) : (
-                    <Select onValueChange={(value) => methods.setValue("customerId", value)}>
+                    <Select
+                      value={methods.watch("customerId") || ""}
+                      onValueChange={(value) => methods.setValue("customerId", value)}
+                    >
                       <SelectTrigger>
                         <SelectValue placeholder="Select a customer" />
                       </SelectTrigger>
@@ -389,6 +435,24 @@ export const NewInvoiceForm = () => {
                       )}
                     </div>
                   </div>
+
+                  {/* Save Customer Option */}
+                  <div className="flex items-center space-x-2 p-3 border border-orange-200 rounded-lg bg-orange-50">
+                    <Checkbox
+                      id="saveCustomer"
+                      checked={methods.watch("saveCustomer")}
+                      onCheckedChange={(checked) => methods.setValue("saveCustomer", !!checked)}
+                    />
+                    <Label htmlFor="saveCustomer" className="text-sm font-medium text-gray-700 cursor-pointer">
+                      Save this customer to my database for future use
+                    </Label>
+                  </div>
+                  <p className="text-xs text-gray-500 mt-1">
+                    {methods.watch("saveCustomer")
+                      ? "✓ This customer will be saved to your database and can be selected for future invoices."
+                      : "Customer information will only be used for this invoice and won't be saved permanently."
+                    }
+                  </p>
                 </div>
               )}
 

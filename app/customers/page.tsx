@@ -20,6 +20,17 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import {
   AlertCircle,
   ArrowLeft,
   Bell,
@@ -36,7 +47,7 @@ import {
   Users,
   X,
 } from 'lucide-react';
-import { getCustomersForUser, addCustomer } from '@/app/customers/actions';
+import { getCustomersForUser, addCustomer, updateCustomer, deleteCustomer } from '@/app/customers/actions';
 import { useAuth } from '@/app/hooks/useAuth';
 
 interface Customer {
@@ -73,6 +84,9 @@ const CustomersPage = () => {
   const [formMessage, setFormMessage] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showForm, setShowForm] = useState(false);
+  const [editingCustomer, setEditingCustomer] = useState<Customer | null>(null);
+  const [deletingCustomer, setDeletingCustomer] = useState<Customer | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState<'name' | 'created_at' | 'company'>('name');
 
@@ -137,19 +151,35 @@ const CustomersPage = () => {
     setIsSubmitting(true);
 
     try {
-      const result = await addCustomer(data);
-      if (result.error) {
-        setFormError(result.error.message);
+      let result;
+      if (editingCustomer) {
+        result = await updateCustomer(editingCustomer.id, data);
+        if (result.error) {
+          setFormError(result.error.message);
+        } else {
+          setFormMessage('Customer updated successfully!');
+          reset();
+          setShowForm(false);
+          setEditingCustomer(null);
+          fetchCustomers();
+          // Clear success message after 3 seconds
+          setTimeout(() => setFormMessage(null), 3000);
+        }
       } else {
-        setFormMessage('Customer added successfully!');
-        reset();
-        setShowForm(false);
-        fetchCustomers();
-        // Clear success message after 3 seconds
-        setTimeout(() => setFormMessage(null), 3000);
+        result = await addCustomer(data);
+        if (result.error) {
+          setFormError(result.error.message);
+        } else {
+          setFormMessage('Customer added successfully!');
+          reset();
+          setShowForm(false);
+          fetchCustomers();
+          // Clear success message after 3 seconds
+          setTimeout(() => setFormMessage(null), 3000);
+        }
       }
     } catch (e: any) {
-      setFormError(e.message || 'An unexpected error occurred while adding the customer.');
+      setFormError(e.message || `An unexpected error occurred while ${editingCustomer ? 'updating' : 'adding'} the customer.`);
     } finally {
       setIsSubmitting(false);
     }
@@ -166,6 +196,51 @@ const CustomersPage = () => {
 
   const handleCreateInvoice = (customerId: string) => {
     router.push(`/new?customerId=${customerId}`);
+  };
+
+  const handleEditCustomer = (customer: Customer) => {
+    setEditingCustomer(customer);
+    // Pre-populate the form with customer data
+    reset({
+      name: customer.name,
+      email: customer.email || '',
+      phone: customer.phone || '',
+      address: customer.address || '',
+      company: customer.company || '',
+      notes: customer.notes || '',
+    });
+    setShowForm(true);
+    setFormError(null);
+    setFormMessage(null);
+  };
+
+  const handleCancelEdit = () => {
+    setEditingCustomer(null);
+    setShowForm(false);
+    setFormError(null);
+    reset();
+  };
+
+  const handleDeleteCustomer = async (customer: Customer) => {
+    setIsDeleting(true);
+    setFormError(null);
+
+    try {
+      const result = await deleteCustomer(customer.id);
+      if (result.error) {
+        setFormError(result.error.message);
+      } else {
+        setFormMessage(`Customer "${customer.name}" deleted successfully!`);
+        fetchCustomers();
+        // Clear success message after 3 seconds
+        setTimeout(() => setFormMessage(null), 3000);
+      }
+    } catch (e: any) {
+      setFormError(e.message || 'An unexpected error occurred while deleting the customer.');
+    } finally {
+      setIsDeleting(false);
+      setDeletingCustomer(null);
+    }
   };
 
   if (authLoading) {
@@ -299,7 +374,14 @@ const CustomersPage = () => {
               </div>
             </div>
             <Button
-              onClick={() => setShowForm(!showForm)}
+              onClick={() => {
+                if (!showForm) {
+                  setEditingCustomer(null);
+                  reset();
+                  setFormError(null);
+                }
+                setShowForm(!showForm);
+              }}
               className="bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600"
             >
               <Plus className="h-4 w-4 mr-2" />
@@ -326,23 +408,31 @@ const CustomersPage = () => {
             <CardHeader>
               <CardTitle className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <User className="h-5 w-5 text-orange-500" />
-                  Add New Customer
+                  {editingCustomer ? (
+                    <>
+                      <Edit className="h-5 w-5 text-blue-500" />
+                      Edit Customer
+                    </>
+                  ) : (
+                    <>
+                      <User className="h-5 w-5 text-orange-500" />
+                      Add New Customer
+                    </>
+                  )}
                 </div>
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={() => {
-                    setShowForm(false);
-                    setFormError(null);
-                    reset();
-                  }}
+                  onClick={handleCancelEdit}
                 >
                   <X className="h-4 w-4" />
                 </Button>
               </CardTitle>
               <CardDescription>
-                Add a new customer to your database
+                {editingCustomer
+                  ? `Update information for ${editingCustomer.name}`
+                  : 'Add a new customer to your database'
+                }
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -431,11 +521,7 @@ const CustomersPage = () => {
                     <Button
                       type="button"
                       variant="outline"
-                      onClick={() => {
-                        setShowForm(false);
-                        setFormError(null);
-                        reset();
-                      }}
+                      onClick={handleCancelEdit}
                     >
                       Cancel
                     </Button>
@@ -447,12 +533,12 @@ const CustomersPage = () => {
                       {isSubmitting ? (
                         <>
                           <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                          Adding...
+                          {editingCustomer ? 'Updating...' : 'Adding...'}
                         </>
                       ) : (
                         <>
                           <Save className="h-4 w-4 mr-2" />
-                          Add Customer
+                          {editingCustomer ? 'Update Customer' : 'Add Customer'}
                         </>
                       )}
                     </Button>
@@ -617,15 +703,43 @@ const CustomersPage = () => {
                                     <FileText className="h-4 w-4 mr-2" />
                                     Create Invoice
                                   </DropdownMenuItem>
-                                  <DropdownMenuItem>
+                                  <DropdownMenuItem onClick={() => handleEditCustomer(customer)}>
                                     <Edit className="h-4 w-4 mr-2" />
                                     Edit Customer
                                   </DropdownMenuItem>
                                   <DropdownMenuSeparator />
-                                  <DropdownMenuItem className="text-red-600">
-                                    <Trash2 className="h-4 w-4 mr-2" />
-                                    Delete Customer
-                                  </DropdownMenuItem>
+                                  <AlertDialog>
+                                    <AlertDialogTrigger asChild>
+                                      <DropdownMenuItem
+                                        className="text-red-600"
+                                        onSelect={(e) => {
+                                          e.preventDefault();
+                                          setDeletingCustomer(customer);
+                                        }}
+                                      >
+                                        <Trash2 className="h-4 w-4 mr-2" />
+                                        Delete Customer
+                                      </DropdownMenuItem>
+                                    </AlertDialogTrigger>
+                                    <AlertDialogContent>
+                                      <AlertDialogHeader>
+                                        <AlertDialogTitle>Delete Customer</AlertDialogTitle>
+                                        <AlertDialogDescription>
+                                          Are you sure you want to delete "{customer.name}"? This action cannot be undone.
+                                        </AlertDialogDescription>
+                                      </AlertDialogHeader>
+                                      <AlertDialogFooter>
+                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                        <AlertDialogAction
+                                          onClick={() => handleDeleteCustomer(customer)}
+                                          className="bg-red-600 hover:bg-red-700"
+                                          disabled={isDeleting}
+                                        >
+                                          {isDeleting ? 'Deleting...' : 'Delete'}
+                                        </AlertDialogAction>
+                                      </AlertDialogFooter>
+                                    </AlertDialogContent>
+                                  </AlertDialog>
                                 </DropdownMenuContent>
                               </DropdownMenu>
                             </td>
@@ -676,15 +790,43 @@ const CustomersPage = () => {
                               <FileText className="h-4 w-4 mr-2" />
                               Create Invoice
                             </DropdownMenuItem>
-                            <DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => handleEditCustomer(customer)}>
                               <Edit className="h-4 w-4 mr-2" />
                               Edit Customer
                             </DropdownMenuItem>
                             <DropdownMenuSeparator />
-                            <DropdownMenuItem className="text-red-600">
-                              <Trash2 className="h-4 w-4 mr-2" />
-                              Delete Customer
-                            </DropdownMenuItem>
+                            <AlertDialog>
+                              <AlertDialogTrigger asChild>
+                                <DropdownMenuItem
+                                  className="text-red-600"
+                                  onSelect={(e) => {
+                                    e.preventDefault();
+                                    setDeletingCustomer(customer);
+                                  }}
+                                >
+                                  <Trash2 className="h-4 w-4 mr-2" />
+                                  Delete Customer
+                                </DropdownMenuItem>
+                              </AlertDialogTrigger>
+                              <AlertDialogContent>
+                                <AlertDialogHeader>
+                                  <AlertDialogTitle>Delete Customer</AlertDialogTitle>
+                                  <AlertDialogDescription>
+                                    Are you sure you want to delete "{customer.name}"? This action cannot be undone.
+                                  </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                  <AlertDialogAction
+                                    onClick={() => handleDeleteCustomer(customer)}
+                                    className="bg-red-600 hover:bg-red-700"
+                                    disabled={isDeleting}
+                                  >
+                                    {isDeleting ? 'Deleting...' : 'Delete'}
+                                  </AlertDialogAction>
+                                </AlertDialogFooter>
+                              </AlertDialogContent>
+                            </AlertDialog>
                           </DropdownMenuContent>
                         </DropdownMenu>
                       </div>
