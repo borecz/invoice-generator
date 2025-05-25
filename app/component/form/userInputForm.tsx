@@ -9,7 +9,22 @@ import { YourDetailsForm } from "@/app/component/form/yourDetails/yourDetailsFor
 import { useGetValue } from "@/app/hooks/useGetValue";
 import { getInitialValue } from "@/lib/getInitialValue";
 
-export const UserInputForm = () => {
+interface Customer {
+  id: string;
+  name: string;
+}
+
+interface UserInputFormProps {
+  customers: Customer[];
+  customersLoading: boolean;
+  customersError: string | null;
+}
+
+export const UserInputForm: React.FC<UserInputFormProps> = ({
+  customers,
+  customersLoading,
+  customersError,
+}) => {
   const step = useGetValue("step", getInitialValue("step", "1"));
 
   return (
@@ -18,7 +33,11 @@ export const UserInputForm = () => {
         <YourDetailsForm />
       </div>
       <div className={step === "2" ? "block" : "hidden"}>
-        <CompanyDetailsForm />
+        <CompanyDetailsForm 
+          customers={customers} 
+          customersLoading={customersLoading} 
+          customersError={customersError} 
+        />
       </div>
       <div className={step === "3" ? "block" : "hidden"}>
         <InvoiceDetailsForm />

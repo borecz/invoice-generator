@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
+import React, { useEffect } from 'react'; // Added useEffect
 import {
   BarChart4,
   CodeXml,
@@ -19,15 +20,65 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import DemoPreview from "./components/demoPreview";
+import LogoutButton from "@/app/component/auth/LogoutButton";
+import { useAuth } from '@/app/hooks/useAuth';
+import { Button } from '@/components/ui/button'; // Import Button for Login/Signup
 
 const Home = () => {
+  const { user, session, loading, error } = useAuth();
+
+  useEffect(() => {
+    if (!loading) {
+      console.log("LandingPage: useAuth hook data:");
+      console.log("LandingPage: User:", user);
+      console.log("LandingPage: Session:", session);
+      if (error) {
+        console.error("LandingPage: useAuth error:", error);
+      }
+    }
+  }, [user, session, loading, error]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-xl">Loading authentication state...</p>
+      </div>
+    );
+  }
+
   return (
     <div className="bg-[#f7f7f7] flex justify-center items-center overflow-x-hidden">
       <div className="border-l border-r max-w-4xl w-full mx-auto border-dashed h-full flex justify-center flex-col border-gray-300">
+        
+        {/* Conditional rendering for user info / login-signup */}
+        <div className="flex justify-end items-center p-4 space-x-4">
+          {user ? (
+            <>
+              <span className="text-sm text-gray-700">Welcome, {user.email}</span>
+              <Link href="/invoices">
+                <Button variant="link" className="text-sm">My Invoices</Button>
+              </Link>
+              <Link href="/customers">
+                <Button variant="link" className="text-sm">My Customers</Button>
+              </Link>
+              <LogoutButton />
+            </>
+          ) : (
+            <>
+              <Link href="/auth/login">
+                <Button variant="outline">Login</Button>
+              </Link>
+              <Link href="/auth/signup">
+                <Button>Sign Up</Button>
+              </Link>
+            </>
+          )}
+        </div>
+
         <a
           href="https://www.producthunt.com/posts/invoice-generator-9bce3e1b-dab2-4a7a-ba7e-e315be868119"
           target="_blank"
-          className="flex justify-center items-center mt-10"
+          className="flex justify-center items-center mt-2" // Adjusted margin
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -61,12 +112,21 @@ const Home = () => {
           </div>
           <div className="pt-10 pb-11 flex gap-3 items-center mx-auto border-gray-300 border-b w-full justify-center border-dashed relative">
             <Plus className="text-orange-500 group-hover:text-orange-500 w-7 h-7 absolute bottom-0 right-0 translate-x-1/2 translate-y-1/2" />
-            <Link
-              href="/new"
-              className="inline-flex items-center justify-center whitespace-nowrap rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring font-medium disabled:pointer-events-none disabled:opacity-50 bg-gradient-to-br from-orange-500 to-pink-400 text-white hover:bg-black/90 px-6 py-2 text-lg"
-            >
-              Generate Invoice
-            </Link>
+            {user ? (
+              <Link
+                href="/new"
+                className="inline-flex items-center justify-center whitespace-nowrap rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring font-medium disabled:pointer-events-none disabled:opacity-50 bg-gradient-to-br from-orange-500 to-pink-400 text-white hover:bg-black/90 px-6 py-2 text-lg"
+              >
+                Generate Invoice
+              </Link>
+            ) : (
+              <Link
+                href="/auth/login" // If not logged in, "Generate Invoice" takes to login
+                className="inline-flex items-center justify-center whitespace-nowrap rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring font-medium disabled:pointer-events-none disabled:opacity-50 bg-gradient-to-br from-orange-500 to-pink-400 text-white hover:bg-black/90 px-6 py-2 text-lg"
+              >
+                Generate Invoice (Login Required)
+              </Link>
+            )}
             <a
               target="_blank"
               href="https://github.com/pranavp10/invoice-generator"
@@ -88,6 +148,8 @@ const Home = () => {
               </svg>
               Github
             </a>
+            {/* LogoutButton is now shown at the top if user is logged in */}
+            {/* <LogoutButton /> */} 
           </div>
           <div className=" group border-b  border-dashed text-balance text-center w-full font-semibold border-gray-300 ">
             <div className="grid grid-cols-2 px-4 relative py-6 text-3xl md:text-7xl max-w-lg mx-auto">

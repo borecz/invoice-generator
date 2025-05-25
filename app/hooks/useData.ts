@@ -12,6 +12,7 @@ export const useData = () => {
   const yourZip = useGetValue("yourZip");
 
   const email = useGetValue("email");
+  // const customerName = useGetValue("customerName"); // Removed customerName
   const companyName = useGetValue("companyName");
   const companyAddress = useGetValue("companyAddress");
   const companyCity = useGetValue("companyCity");
@@ -76,6 +77,7 @@ export const useData = () => {
   };
 
   const companyDetails = {
+    // customerName, // Removed customerName
     companyName,
     companyAddress,
     companyCity,
