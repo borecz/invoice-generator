@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { signInWithEmailPassword } from '@/app/auth/actions'; // Import server action
+import { useRouter } from 'next/navigation';
 
 // Removed onSubmit prop
 // interface LoginFormProps {
@@ -16,41 +17,52 @@ const LoginForm: React.FC = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setError(null);
     setMessage(null);
+    setIsLoading(true);
+
+    // Basic validation
+    if (!email || !password) {
+      setError('Please fill in all fields.');
+      setIsLoading(false);
+      return;
+    }
 
     const formData = new FormData();
     formData.append('email', email);
     formData.append('password', password);
 
     try {
+      // Show loading message
+      setMessage('Signing in...');
+
+      // Call the server action
       const result = await signInWithEmailPassword(formData);
 
       if (result.error) {
-        console.error('LoginForm: Sign in error from server action:', result.error.message);
+        setMessage(null);
         setError(result.error.message);
-      } else if (result.data?.user) {
-        console.log('LoginForm: Sign in successful from server action.');
-        console.log('LoginForm: User data:', result.data.user);
-        console.log('LoginForm: Session data:', result.data.session);
+      } else if (result.success) {
         setMessage('Sign in successful! Redirecting...');
-        // Here you would typically redirect the user, e.g.:
-        // import { useRouter } from 'next/navigation';
-        // const router = useRouter();
-        // router.push('/dashboard'); 
-        // For now, a message is displayed and page can be manually reloaded to reflect session change.
-        // A redirect can also be done in the server action itself.
+        // Wait a moment for the session to be established, then redirect
+        setTimeout(() => {
+          router.push('/dashboard');
+        }, 500);
       } else {
-        // This case should ideally be covered by error from server action,
-        // but as a fallback or if server action returns success with no user (unlikely for signin)
+        setMessage(null);
         setError('Sign in failed. Please check your credentials.');
       }
     } catch (catchError: any) {
+      setMessage(null);
       console.error('Client-side error calling server action:', catchError.message);
-      setError('An unexpected error occurred on the client. Please try again.');
+      setError('An unexpected error occurred. Please try again.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -88,8 +100,8 @@ const LoginForm: React.FC = () => {
           className="mt-1 block w-full"
         />
       </div>
-      <Button type="submit" className="w-full">
-        Login
+      <Button type="submit" className="w-full" disabled={isLoading}>
+        {isLoading ? 'Signing in...' : 'Login'}
       </Button>
     </form>
   );

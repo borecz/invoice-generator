@@ -1,33 +1,41 @@
 "use client";
 
 import React from 'react';
-import SignUpForm from '@/app/component/auth/SignUpForm'; // Adjusted import path
+import SignUpForm from '@/app/component/auth/SignUpForm';
 import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 const SignUpPage = () => {
-  const handleSignUp = async (values: { email?: string; password?: string }) => {
-    console.log('Sign Up Page received:', values);
-    // Actual sign-up logic will be added here later
-    alert(`Sign Up attempt with: ${values.email}`);
-  };
-
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          Create your account
-        </h2>
-        <p className="mt-2 text-center text-sm text-gray-600">
-          Or{' '}
-          <Link href="/auth/login" className="font-medium text-indigo-600 hover:text-indigo-500">
-            sign in to your existing account
-          </Link>
-        </p>
+        <div className="text-center">
+          <h1 className="text-4xl font-bold text-gray-900 mb-2">Invoice Generator</h1>
+          <h2 className="text-2xl font-semibold text-gray-700 mb-4">
+            Create your account
+          </h2>
+          <p className="text-sm text-gray-600">
+            Or{' '}
+            <Link href="/auth/login">
+              <Button variant="link" className="p-0 h-auto font-medium text-orange-600 hover:text-orange-500">
+                sign in to your existing account
+              </Button>
+            </Link>
+          </p>
+        </div>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          <SignUpForm onSubmit={handleSignUp} />
+        <div className="bg-white py-8 px-4 shadow-lg sm:rounded-lg sm:px-10 border border-gray-200">
+          <SignUpForm />
+
+          <div className="mt-6 text-center">
+            <Link href="/">
+              <Button variant="link" className="text-sm text-gray-500 hover:text-gray-700">
+                ← Back to homepage
+              </Button>
+            </Link>
+          </div>
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
-import { createServerClient, type CookieOptions } from '@supabase/ssr';
-import { NextResponse, type NextRequest } from 'next/server';
+import { createServerClient, type CookieOptions } from "@supabase/ssr";
+import { NextResponse, type NextRequest } from "next/server";
 
 export async function middleware(req: NextRequest) {
   const res = NextResponse.next();
@@ -13,21 +13,24 @@ export async function middleware(req: NextRequest) {
         get(name: string) {
           return req.cookies.get(name)?.value;
         },
-        set(name:string, value: string, options: CookieOptions) {
+        set(name: string, value: string, options: CookieOptions) {
           res.cookies.set({ name, value, ...options });
         },
         remove(name: string, options: CookieOptions) {
-          res.cookies.set({ name, value: '', ...options });
+          res.cookies.set({ name, value: "", ...options });
         },
       },
     }
   );
 
   // Get the current session
-  const { data: { session }, error } = await supabase.auth.getSession();
+  const {
+    data: { session },
+    error,
+  } = await supabase.auth.getSession();
 
   if (error) {
-    console.error('Middleware: Error getting session:', error.message);
+    console.error("Middleware: Error getting session:", error.message);
     // Allow request to proceed if there's an error, or handle differently
     return res;
   }
@@ -36,20 +39,27 @@ export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   // Define protected routes
-  const protectedRoutes = ['/new', '/dashboard', '/invoices', '/customers']; // Added /customers
+  const protectedRoutes = ["/new", "/dashboard", "/invoices", "/customers"]; // Added /customers
   // Define auth routes (for logged-in users to be redirected away from)
-  const authRoutes = ['/auth/login', '/auth/signup'];
+  const authRoutes = ["/auth/login", "/auth/signup"];
 
   // If user is not authenticated and trying to access a protected route
-  if (!authenticated && protectedRoutes.some(route => pathname.startsWith(route))) {
-    console.log(`Middleware: Unauthenticated access to ${pathname}. Redirecting to /auth/login.`);
-    return NextResponse.redirect(new URL('/auth/login', req.url));
+  if (
+    !authenticated &&
+    protectedRoutes.some((route) => pathname.startsWith(route))
+  ) {
+    console.log(
+      `Middleware: Unauthenticated access to ${pathname}. Redirecting to /auth/login.`
+    );
+    return NextResponse.redirect(new URL("/auth/login", req.url));
   }
 
   // If user is authenticated and trying to access an auth route
-  if (authenticated && authRoutes.some(route => pathname.startsWith(route))) {
-    console.log(`Middleware: Authenticated access to ${pathname}. Redirecting to /new.`);
-    return NextResponse.redirect(new URL('/new', req.url));
+  if (authenticated && authRoutes.some((route) => pathname.startsWith(route))) {
+    console.log(
+      `Middleware: Authenticated access to ${pathname}. Redirecting to /dashboard.`
+    );
+    return NextResponse.redirect(new URL("/dashboard", req.url));
   }
 
   return res;
@@ -66,7 +76,7 @@ export const config = {
      * - / (public landing page, if you want it to be always accessible) - adjust as needed
      * - /auth/callback (Supabase auth callback)
      */
-    '/((?!_next/static|_next/image|favicon.ico|auth/callback).*)',
+    "/((?!_next/static|_next/image|favicon.ico|auth/callback).*)",
     // Explicitly include routes that need checking, if the above is too broad or misses some.
     // '/new/:path*', // if /new has sub-paths
     // '/dashboard/:path*', // if /dashboard has sub-paths

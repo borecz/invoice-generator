@@ -16,11 +16,26 @@ const SignUpForm: React.FC = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setError(null);
     setMessage(null);
+    setIsLoading(true);
+
+    // Basic validation
+    if (!email || !password) {
+      setError('Please fill in all fields.');
+      setIsLoading(false);
+      return;
+    }
+
+    if (password.length < 6) {
+      setError('Password must be at least 6 characters long.');
+      setIsLoading(false);
+      return;
+    }
 
     // Create FormData to pass to the server action
     const formData = new FormData();
@@ -28,7 +43,13 @@ const SignUpForm: React.FC = () => {
     formData.append('password', password);
 
     try {
+      // Show loading message
+      setMessage('Creating account...');
+
       const result = await signUpWithEmailPassword(formData);
+
+      // Clear loading message
+      setMessage(null);
 
       if (result.error) {
         console.error('SignUpForm: Sign up error from server action:', result.error.message);
@@ -42,21 +63,28 @@ const SignUpForm: React.FC = () => {
              setMessage('User already registered. Please try logging in or check your email for confirmation if you recently signed up.');
         } else if (result.data.user?.email_confirmed_at || result.data.session ) {
             setMessage('Sign up successful! You are now logged in.');
-            // Optionally reset form:
-            // setEmail('');
-            // setPassword('');
-            // Or redirect, e.g., router.push('/dashboard');
+            // Note: If auto-login is enabled, the server action will redirect to dashboard
         } else {
             setMessage('Sign up successful! Please check your email to confirm your account.');
         }
-        // console.log('Sign up action result:', result.data); // Already logged above
 
       } else {
          setError('Sign up failed for an unknown reason. Please try again.');
       }
     } catch (catchError: any) {
+      setMessage(null);
+
+      // Check if this is a redirect error (which is expected on successful auto-login)
+      if (catchError.message?.includes('NEXT_REDIRECT')) {
+        // This is expected - the server action is redirecting after successful signup with auto-login
+        console.log('SignUpForm: Redirect detected - signup successful with auto-login');
+        return;
+      }
+
       console.error('Client-side error calling server action:', catchError.message);
       setError('An unexpected error occurred on the client. Please try again.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -94,8 +122,8 @@ const SignUpForm: React.FC = () => {
           className="mt-1 block w-full"
         />
       </div>
-      <Button type="submit" className="w-full">
-        Sign Up
+      <Button type="submit" className="w-full" disabled={isLoading}>
+        {isLoading ? 'Creating account...' : 'Sign Up'}
       </Button>
     </form>
   );

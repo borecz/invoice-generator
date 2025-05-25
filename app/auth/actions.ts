@@ -1,12 +1,12 @@
 "use server";
 
-import { createServerClient, type CookieOptions } from '@supabase/ssr';
-import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
+import { createServerClient, type CookieOptions } from "@supabase/ssr";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 // Helper function to create a Supabase client for server actions
-const createSupabaseServerActionClient = () => {
-  const cookieStore = cookies();
+const createSupabaseServerActionClient = async () => {
+  const cookieStore = await cookies();
   return createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -19,7 +19,7 @@ const createSupabaseServerActionClient = () => {
           cookieStore.set({ name, value, ...options });
         },
         remove(name: string, options: CookieOptions) {
-          cookieStore.set({ name, value: '', ...options });
+          cookieStore.set({ name, value: "", ...options });
         },
       },
     }
@@ -27,12 +27,15 @@ const createSupabaseServerActionClient = () => {
 };
 
 export async function signUpWithEmailPassword(formData: FormData) {
-  const email = formData.get('email') as string;
-  const password = formData.get('password') as string;
-  const supabase = createSupabaseServerActionClient();
+  const email = formData.get("email") as string;
+  const password = formData.get("password") as string;
+  const supabase = await createSupabaseServerActionClient();
 
   if (!email || !password) {
-    return { error: { message: 'Email and password are required.' }, data: null };
+    return {
+      error: { message: "Email and password are required." },
+      data: null,
+    };
   }
 
   const { data, error } = await supabase.auth.signUp({
@@ -45,24 +48,38 @@ export async function signUpWithEmailPassword(formData: FormData) {
   });
 
   if (error) {
-    console.error('Server Action SignUp Error:', error.message);
+    console.error("Server Action SignUp Error:", error.message);
     return { error: { message: error.message }, data: null };
   }
 
   // On successful sign-up, Supabase sends a confirmation email.
   // The user object might be null until the email is confirmed, depending on your Supabase settings.
   // data.user will contain the user session if email confirmation is disabled or already confirmed.
-  console.log("Server Action signUpWithEmailPassword: Success. User:", data.user, "Session:", data.session);
+  console.log(
+    "Server Action signUpWithEmailPassword: Success. User:",
+    data.user,
+    "Session:",
+    data.session
+  );
+
+  // If user is automatically logged in (email confirmation disabled), redirect to dashboard
+  if (data.session && data.user) {
+    redirect("/dashboard");
+  }
+
   return { error: null, data };
 }
 
 export async function signInWithEmailPassword(formData: FormData) {
-  const email = formData.get('email') as string;
-  const password = formData.get('password') as string;
-  const supabase = createSupabaseServerActionClient();
+  const email = formData.get("email") as string;
+  const password = formData.get("password") as string;
+  const supabase = await createSupabaseServerActionClient();
 
   if (!email || !password) {
-    return { error: { message: 'Email and password are required.' }, data: null };
+    return {
+      error: { message: "Email and password are required." },
+      data: null,
+    };
   }
 
   const { data, error } = await supabase.auth.signInWithPassword({
@@ -71,42 +88,49 @@ export async function signInWithEmailPassword(formData: FormData) {
   });
 
   if (error) {
-    console.error('Server Action SignIn Error:', error.message);
+    console.error("Server Action SignIn Error:", error.message);
     return { error: { message: error.message }, data: null };
   }
-  
+
   // If sign-in is successful, the user session is set in the cookies.
   // The `data.user` object will contain the user details.
-  // Typically, you would redirect after successful login.
-  // For now, just returning the data.
-  // For example, to redirect: redirect('/dashboard');
-  console.log("Server Action signInWithEmailPassword: Success. User:", data.user, "Session:", data.session);
-  return { error: null, data };
+  console.log(
+    "Server Action signInWithEmailPassword: Success. User:",
+    data.user,
+    "Session:",
+    data.session
+  );
+
+  // Return success data instead of redirecting immediately
+  // Let the client handle the redirect after session is established
+  return { error: null, data, success: true };
 }
 
 export async function signOut() {
-  const supabase = createSupabaseServerActionClient();
+  const supabase = await createSupabaseServerActionClient();
   const { error } = await supabase.auth.signOut();
 
   if (error) {
-    console.error('Server Action SignOut Error:', error.message);
+    console.error("Server Action SignOut Error:", error.message);
     return { error: { message: error.message } };
   }
 
-  // Typically, you would redirect after successful logout.
-  // redirect('/'); // Or to login page
-  return { error: null };
+  // Redirect to home page after successful logout
+  redirect("/");
 }
 
 export async function readUserSession() {
-  const supabase = createSupabaseServerActionClient();
-  const { data: { session }, error } = await supabase.auth.getSession();
+  const supabase = await createSupabaseServerActionClient();
+  const {
+    data: { session },
+    error,
+  } = await supabase.auth.getSession();
 
   if (error) {
-    console.error('Server Action Read User Session Error:', error.message);
+    console.error("Server Action Read User Session Error:", error.message);
     return { error: { message: error.message }, session: null };
   }
-  
+
   if (!session) {
     console.log("Server Action readUserSession: No active session.");
     return { error: { message: "User not authenticated." }, session: null };
@@ -117,11 +141,14 @@ export async function readUserSession() {
 
 // Utility function to get the current user directly (can be used in Server Components)
 export async function getCurrentUser() {
-  const supabase = createSupabaseServerActionClient();
-  const { data: { user }, error } = await supabase.auth.getUser();
+  const supabase = await createSupabaseServerActionClient();
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
 
   if (error) {
-    console.error('Server Action Get Current User Error:', error.message);
+    console.error("Server Action Get Current User Error:", error.message);
     return null;
   }
   if (!user) {

@@ -9,18 +9,23 @@ const LogoutButton = () => {
   const router = useRouter();
 
   const handleLogout = async () => {
-    const { error } = await signOut();
+    try {
+      // Call the server action - it will redirect on success
+      await signOut();
 
-    if (error) {
-      console.error('Logout error:', error.message);
-      // Optionally, display an error message to the user
-      alert(`Logout failed: ${error.message}`);
-    } else {
-      console.log('Logout successful');
-      // Redirect to homepage or login page after logout
-      router.push('/'); 
-      // You might also want to refresh the page or revalidate data
-      // router.refresh(); // If you need to ensure server components re-fetch data
+      // If we reach here, there was likely an error (since successful logout redirects)
+      console.error('Logout failed - no redirect occurred');
+      alert('Logout failed. Please try again.');
+    } catch (catchError: any) {
+      // Check if this is a redirect error (which is expected on successful logout)
+      if (catchError.message?.includes('NEXT_REDIRECT')) {
+        // This is expected - the server action is redirecting
+        console.log('LogoutButton: Redirect detected - logout successful');
+        return;
+      }
+
+      console.error('Logout error:', catchError.message);
+      alert(`Logout failed: ${catchError.message}`);
     }
   };
 

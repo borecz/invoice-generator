@@ -49,7 +49,7 @@ const DashboardPage = () => {
         </p>
         <p className="text-gray-500 mb-2">This is your protected dashboard area.</p>
         <p className="text-gray-500 mb-6">You can view your invoices or manage your account settings here (eventually!).</p>
-        
+
         <div className="space-y-4">
           <Link href="/new">
             <Button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white">

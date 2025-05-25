@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import Image from "next/image";
 import { UserInputForm } from "@/app/component/form/userInputForm";
 import { FormSteps } from "@/app/component/form/step/fromSteps";
 import { UserDataPreview } from "@/app/new/component/userDataPreview";
@@ -103,11 +102,11 @@ export const NewInvoiceForm = () => {
                         alert("Missing required fields: Invoice #, Customer, or Items.");
                         return;
                     }
-                    
+
                     const invoiceData = {
                       invoice_number: values.invoiceNumber,
                       customer_id: values.customerId, // Use customerId
-                      invoice_date: values.invoiceDate, 
+                      invoice_date: values.invoiceDate,
                       due_date: values.dueDate,
                       items: values.item?.map((i: any) => ({
                         itemName: i.itemName,
@@ -150,7 +149,7 @@ export const NewInvoiceForm = () => {
           <div className="relative min-h-screen h-full w-full flex justify-center items-center p-4 md:p-0">
             <div className="absolute inset-0 -z-10 h-full w-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]"></div>
             {/* Pass form data to UserDataPreview, it might need customer name from selected customer */}
-            <UserDataPreview customers={customers} /> 
+            <UserDataPreview customers={customers} />
           </div>
         </FormProvider>
       ) : (
