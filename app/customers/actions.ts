@@ -31,7 +31,10 @@ const createSupabaseServerActionClient = async () => {
 interface CustomerData {
   name: string;
   email?: string;
+  phone?: string;
   address?: string;
+  company?: string;
+  notes?: string;
 }
 
 export async function addCustomer(customerData: CustomerData) {
@@ -59,7 +62,10 @@ export async function addCustomer(customerData: CustomerData) {
     user_id: userId,
     name: customerData.name,
     email: customerData.email || null,
+    phone: customerData.phone || null,
     address: customerData.address || null,
+    company: customerData.company || null,
+    notes: customerData.notes || null,
     // created_at is defaulted by Supabase
   };
 
@@ -101,7 +107,7 @@ export async function getCustomersForUser() {
 
   const { data, error } = await supabase
     .from("customers")
-    .select("id, name, email, address, created_at")
+    .select("id, name, email, phone, address, company, notes, created_at")
     .eq("user_id", userId)
     .order("name", { ascending: true });
 

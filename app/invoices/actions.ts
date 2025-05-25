@@ -34,9 +34,16 @@ interface InvoiceItem {
   itemTotal: number;
 }
 
+interface InlineCustomer {
+  name: string;
+  email?: string | null;
+  address?: string | null;
+}
+
 interface InvoiceData {
   invoice_number: string;
-  customer_id?: string | null; // Changed from customer_name to customer_id, optional
+  customer_id?: string | null;
+  inline_customer?: InlineCustomer;
   invoice_date: string;
   due_date?: string | null;
   items: InvoiceItem[];
@@ -63,17 +70,17 @@ export async function saveInvoice(invoiceData: InvoiceData) {
   const userId = session.user.id;
 
   // 2. Prepare data for insertion
-  // Assuming invoiceData comes directly from the form and matches the expected structure
   const {
     invoice_number,
-    customer_id, // Changed from customer_name
+    customer_id,
+    inline_customer,
     invoice_date,
     due_date,
     items,
     total_amount,
   } = invoiceData;
 
-  // Customer ID is now optional at this level, but might be required by form logic
+  // Validate required fields
   if (
     !invoice_number ||
     !invoice_date ||
@@ -89,10 +96,23 @@ export async function saveInvoice(invoiceData: InvoiceData) {
     };
   }
 
+  // Validate customer information
+  if (!customer_id && (!inline_customer || !inline_customer.name)) {
+    return {
+      data: null,
+      error: {
+        message: "Either customer ID or inline customer name is required.",
+      },
+    };
+  }
+
   const dataToInsert = {
     user_id: userId,
     invoice_number,
-    customer_id: customer_id || null, // Use customer_id
+    customer_id: customer_id || null,
+    customer_name: inline_customer?.name || null,
+    customer_email: inline_customer?.email || null,
+    customer_address: inline_customer?.address || null,
     invoice_date,
     due_date: due_date || null,
     items: JSON.stringify(items),
@@ -152,6 +172,10 @@ export async function getInvoicesForUser() {
       invoice_date,
       total_amount,
       status,
+      customer_id,
+      customer_name,
+      customer_email,
+      customer_address,
       customers ( name )
     `
     )
