@@ -18,26 +18,31 @@ export const metadata: Metadata = {
     },
   },
   title:
-    "Free Invoice Generator: Create & Send Professional Invoices in Minutes",
+    "InvoicePro - Professional Invoicing Software for Modern Businesses",
   description:
-    "Get paid on time with our free invoice maker. Create professional invoices & get them to clients instantly.",
+    "Streamline your billing with InvoicePro. Create professional invoices, track payments, manage customers, and get paid faster. Free trial available.",
   keywords: [
-    "invoice generator",
-    "free invoice template",
-    "invoice maker",
-    "online invoice",
-    "create invoice",
+    "invoice software",
+    "invoicing platform",
+    "billing software",
+    "invoice management",
+    "professional invoices",
+    "payment tracking",
+    "customer management",
+    "business invoicing",
+    "SaaS invoicing",
+    "invoice automation",
   ],
   robots: "index, follow",
   openGraph: {
     title:
-      "Free Invoice Generator: Create & Send Professional Invoices in Minutes",
+      "InvoicePro - Professional Invoicing Software for Modern Businesses",
     description:
-      "Get paid on time with our free invoice maker. Create professional invoices & get them to clients instantly.",
+      "Streamline your billing with InvoicePro. Create professional invoices, track payments, manage customers, and get paid faster. Free trial available.",
     url: process.env.NEXT_PUBLIC_URL,
     type: "website",
     images: "/og-image.jpeg",
-    siteName: "Invoice Generator",
+    siteName: "InvoicePro",
   },
   twitter: {
     card: "summary_large_image",
