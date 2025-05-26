@@ -31,6 +31,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
+import { ThemeToggle } from '@/app/components/ui/ThemeToggle';
 
 const Home = () => {
   const { user, session, loading, error } = useAuth();
@@ -116,9 +117,9 @@ const Home = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-background">
       {/* Navigation */}
-      <nav className="border-b border-gray-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 sticky top-0 z-50">
+      <nav className="border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 theme-transition">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-3">
@@ -129,19 +130,20 @@ const Home = () => {
                 className="rounded-lg"
                 alt="InvoicePro Logo"
               />
-              <span className="text-xl font-bold text-gray-900">InvoicePro</span>
+              <span className="text-xl font-bold text-foreground">InvoicePro</span>
             </div>
 
             <div className="hidden md:flex items-center space-x-8">
-              <a href="#features" className="text-gray-600 hover:text-gray-900 transition-colors">Features</a>
-              <a href="#pricing" className="text-gray-600 hover:text-gray-900 transition-colors">Pricing</a>
-              <a href="#testimonials" className="text-gray-600 hover:text-gray-900 transition-colors">Testimonials</a>
+              <a href="#features" className="text-muted-foreground hover:text-foreground transition-colors">Features</a>
+              <a href="#pricing" className="text-muted-foreground hover:text-foreground transition-colors">Pricing</a>
+              <a href="#testimonials" className="text-muted-foreground hover:text-foreground transition-colors">Testimonials</a>
             </div>
 
             <div className="flex items-center space-x-4">
+              <ThemeToggle />
               {user ? (
                 <>
-                  <span className="text-sm text-gray-700">Welcome, {user.email?.split('@')[0]}</span>
+                  <span className="text-sm text-muted-foreground">Welcome, {user.email?.split('@')[0]}</span>
                   <Link href="/dashboard">
                     <Button variant="outline" size="sm">Dashboard</Button>
                   </Link>

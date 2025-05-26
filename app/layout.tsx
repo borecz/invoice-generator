@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { GeistSans } from "geist/font/sans";
 import Script from "next/script";
+import { ThemeProvider } from "./contexts/ThemeContext";
 
 export const viewport: Viewport = {
   themeColor: "#f97316",
@@ -81,7 +82,11 @@ export default function RootLayout({
         <meta name="msapplication-TileColor" content="#f97316" />
         <meta name="theme-color" content="#f97316" />
       </head>
-      <body className={`${GeistSans.className}`}>{children}</body>
+      <body className={`${GeistSans.className} theme-transition`}>
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   );
 }

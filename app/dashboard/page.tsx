@@ -42,6 +42,7 @@ import {
 } from 'lucide-react';
 import { getInvoicesForUser } from '@/app/invoices/actions';
 import { getCustomersForUser } from '@/app/customers/actions';
+import { ThemeToggle } from '@/app/components/ui/ThemeToggle';
 
 interface Invoice {
   id: string;
@@ -186,9 +187,9 @@ const DashboardPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       {/* Header Navigation */}
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-40">
+      <header className="bg-header border-b border-border sticky top-0 z-40 theme-transition">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo and Brand */}
@@ -201,9 +202,9 @@ const DashboardPage = () => {
                   className="rounded-lg"
                   alt="InvoicePro Logo"
                 />
-                <span className="text-xl font-bold text-gray-900">InvoicePro</span>
+                <span className="text-xl font-bold text-header">InvoicePro</span>
               </Link>
-              <div className="hidden md:flex items-center space-x-2 text-sm text-gray-500">
+              <div className="hidden md:flex items-center space-x-2 text-sm text-muted-foreground">
                 <span>/</span>
                 <span>Dashboard</span>
               </div>
@@ -226,6 +227,9 @@ const DashboardPage = () => {
                   </Button>
                 </Link>
               </div>
+
+              {/* Theme Toggle */}
+              <ThemeToggle />
 
               {/* Notifications */}
               <Button variant="ghost" size="sm" className="relative">
@@ -290,10 +294,10 @@ const DashboardPage = () => {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Welcome Section */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+          <h1 className="text-3xl font-bold text-foreground mb-2">
             Welcome back, {user.email?.split('@')[0]}!
           </h1>
-          <p className="text-gray-600">
+          <p className="text-muted-foreground">
             Here's what's happening with your invoices today.
           </p>
         </div>
