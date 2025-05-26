@@ -122,20 +122,27 @@ export async function signOut() {
 export async function readUserSession() {
   const supabase = await createSupabaseServerActionClient();
   const {
-    data: { session },
+    data: { user },
     error,
-  } = await supabase.auth.getSession();
+  } = await supabase.auth.getUser();
 
   if (error) {
     console.error("Server Action Read User Session Error:", error.message);
     return { error: { message: error.message }, session: null };
   }
 
-  if (!session) {
-    console.log("Server Action readUserSession: No active session.");
+  if (!user) {
+    console.log("Server Action readUserSession: No active user.");
     return { error: { message: "User not authenticated." }, session: null };
   }
-  console.log("Server Action readUserSession: Active session found.", session);
+
+  // Create a session-like object for backward compatibility
+  const session = {
+    user: user,
+    access_token: null, // We don't need the token for server-side operations
+  };
+
+  console.log("Server Action readUserSession: Active user found.", user);
   return { error: null, session };
 }
 

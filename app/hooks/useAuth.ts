@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import { supabase } from '@/lib/supabase/client'; // Your client-side Supabase instance
-import type { AuthSession, User } from '@supabase/supabase-js';
+import { useState, useEffect } from "react";
+import { supabase } from "@/lib/supabase/client"; // Your client-side Supabase instance
+import type { AuthSession, User } from "@supabase/supabase-js";
 
 interface AuthState {
   user: User | null;
@@ -20,43 +20,92 @@ export function useAuth(): AuthState {
   });
 
   useEffect(() => {
-    // Immediately try to get the current session
-    const getCurrentSession = async () => {
+    // Immediately try to get the current user (more secure than getSession)
+    const getCurrentUser = async () => {
       try {
-        const { data: { session }, error } = await supabase.auth.getSession();
+        const {
+          data: { user },
+          error,
+        } = await supabase.auth.getUser();
         if (error) {
-          console.error("useAuth: Error getting initial session:", error.message);
-          setAuthState(prev => ({ ...prev, loading: false, error }));
+          console.error("useAuth: Error getting initial user:", error.message);
+          setAuthState((prev) => ({ ...prev, loading: false, error }));
           return;
         }
-        console.log("useAuth: Initial session fetch successful. Session:", session);
-        console.log("useAuth: Initial user:", session?.user ?? null);
-        setAuthState(prev => ({
+        console.log("useAuth: Initial user fetch successful. User:", user);
+        setAuthState((prev) => ({
           ...prev,
-          user: session?.user ?? null,
-          session: session,
+          user: user,
+          session: user ? { user, access_token: null } : null, // Create session-like object for compatibility
           loading: false,
         }));
       } catch (catchError: any) {
-        console.error("useAuth: Catch error getting initial session:", catchError.message);
-        setAuthState(prev => ({ ...prev, loading: false, error: catchError }));
+        console.error(
+          "useAuth: Catch error getting initial user:",
+          catchError.message
+        );
+        setAuthState((prev) => ({
+          ...prev,
+          loading: false,
+          error: catchError,
+        }));
       }
     };
 
-    getCurrentSession();
+    getCurrentUser();
 
     // Set up the auth state change listener
     const { data: authListener } = supabase.auth.onAuthStateChange(
       async (event, session) => {
-        console.log('useAuth: onAuthStateChange event:', event);
-        console.log('useAuth: onAuthStateChange session:', session);
-        console.log('useAuth: onAuthStateChange user:', session?.user ?? null);
-        setAuthState({
-          user: session?.user ?? null,
-          session: session,
-          loading: false,
-          error: null, // Clear previous errors on new auth state
-        });
+        console.log("useAuth: onAuthStateChange event:", event);
+
+        // For security, re-fetch user data using getUser() instead of trusting session data
+        if (event === "SIGNED_IN" || event === "TOKEN_REFRESHED") {
+          try {
+            const {
+              data: { user },
+              error,
+            } = await supabase.auth.getUser();
+            if (error) {
+              console.error(
+                "useAuth: Error re-fetching user after auth change:",
+                error.message
+              );
+              setAuthState({
+                user: null,
+                session: null,
+                loading: false,
+                error,
+              });
+            } else {
+              console.log("useAuth: Re-fetched user after auth change:", user);
+              setAuthState({
+                user: user,
+                session: user ? { user, access_token: null } : null,
+                loading: false,
+                error: null,
+              });
+            }
+          } catch (catchError: any) {
+            console.error(
+              "useAuth: Catch error re-fetching user:",
+              catchError.message
+            );
+            setAuthState({
+              user: null,
+              session: null,
+              loading: false,
+              error: catchError,
+            });
+          }
+        } else if (event === "SIGNED_OUT") {
+          setAuthState({
+            user: null,
+            session: null,
+            loading: false,
+            error: null,
+          });
+        }
       }
     );
 

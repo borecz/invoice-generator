@@ -260,7 +260,9 @@ const DashboardPage = () => {
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem>
-                    Profile Settings
+                    <Link href="/settings" className="w-full">
+                      Profile Settings
+                    </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem>
                     Billing

@@ -23,23 +23,29 @@ export async function middleware(req: NextRequest) {
     }
   );
 
-  // Get the current session
+  // Get the current user (more secure than getSession)
   const {
-    data: { session },
+    data: { user },
     error,
-  } = await supabase.auth.getSession();
+  } = await supabase.auth.getUser();
 
   if (error) {
-    console.error("Middleware: Error getting session:", error.message);
+    console.error("Middleware: Error getting user:", error.message);
     // Allow request to proceed if there's an error, or handle differently
     return res;
   }
 
-  const authenticated = !!session;
+  const authenticated = !!user;
   const { pathname } = req.nextUrl;
 
   // Define protected routes
-  const protectedRoutes = ["/new", "/dashboard", "/invoices", "/customers"]; // Added /customers
+  const protectedRoutes = [
+    "/new",
+    "/dashboard",
+    "/invoices",
+    "/customers",
+    "/settings",
+  ]; // Added /customers and /settings
   // Define auth routes (for logged-in users to be redirected away from)
   const authRoutes = ["/auth/login", "/auth/signup"];
 
