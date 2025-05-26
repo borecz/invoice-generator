@@ -2,10 +2,9 @@
 
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { cookies } from "next/headers";
-import { readUserSession } from "@/app/auth/actions"; // Assuming this is where your readUserSession is
+import { readUserSession } from "@/app/[locale]/auth/actions";
 
 // Helper function to create a Supabase client for server actions
-// This is similar to the one in auth/actions.ts, consider refactoring to a shared utility if used often
 const createSupabaseServerActionClient = async () => {
   const cookieStore = await cookies();
   return createServerClient(
@@ -124,9 +123,9 @@ export async function saveInvoice(invoiceData: InvoiceData) {
 
   // 3. Perform insert operation
   const { data, error } = await supabase
-    .from("invoices") // Make sure 'invoices' is your table name
+    .from("invoices")
     .insert([dataToInsert])
-    .select(); // .select() will return the inserted rows
+    .select();
 
   if (error) {
     console.error("saveInvoice Supabase Error:", error.message);
@@ -151,9 +150,6 @@ export async function getInvoicesForUser() {
       "getInvoicesForUser Error: User not authenticated.",
       sessionError?.message
     );
-    // Depending on how you want to handle this on the client,
-    // you might return an error object or an empty array.
-    // Returning an object with an error property is consistent with saveInvoice.
     return {
       data: null,
       error: { message: "User not authenticated. Please log in." },
@@ -191,5 +187,98 @@ export async function getInvoicesForUser() {
   }
 
   console.log("getInvoicesForUser: Invoices fetched successfully:", data);
+  return { data, error: null };
+}
+
+export async function getInvoiceById(invoiceId: string) {
+  const supabase = await createSupabaseServerActionClient();
+  const { session, error: sessionError } = await readUserSession();
+
+  if (sessionError || !session || !session.user) {
+    return {
+      data: null,
+      error: { message: "User not authenticated. Please log in." },
+    };
+  }
+
+  const userId = session.user.id;
+
+  const { data, error } = await supabase
+    .from("invoices")
+    .select("*")
+    .eq("id", invoiceId)
+    .eq("user_id", userId)
+    .single();
+
+  if (error) {
+    console.error("getInvoiceById Supabase Error:", error.message);
+    return {
+      data: null,
+      error: { message: `Failed to fetch invoice: ${error.message}` },
+    };
+  }
+
+  return { data, error: null };
+}
+
+export async function updateInvoiceStatus(invoiceId: string, status: string) {
+  const supabase = await createSupabaseServerActionClient();
+  const { session, error: sessionError } = await readUserSession();
+
+  if (sessionError || !session || !session.user) {
+    return {
+      data: null,
+      error: { message: "User not authenticated. Please log in." },
+    };
+  }
+
+  const userId = session.user.id;
+
+  const { data, error } = await supabase
+    .from("invoices")
+    .update({ status })
+    .eq("id", invoiceId)
+    .eq("user_id", userId)
+    .select();
+
+  if (error) {
+    console.error("updateInvoiceStatus Supabase Error:", error.message);
+    return {
+      data: null,
+      error: { message: `Failed to update invoice status: ${error.message}` },
+    };
+  }
+
+  return { data, error: null };
+}
+
+export async function deleteInvoice(invoiceId: string) {
+  const supabase = await createSupabaseServerActionClient();
+  const { session, error: sessionError } = await readUserSession();
+
+  if (sessionError || !session || !session.user) {
+    return {
+      data: null,
+      error: { message: "User not authenticated. Please log in." },
+    };
+  }
+
+  const userId = session.user.id;
+
+  const { data, error } = await supabase
+    .from("invoices")
+    .delete()
+    .eq("id", invoiceId)
+    .eq("user_id", userId)
+    .select();
+
+  if (error) {
+    console.error("deleteInvoice Supabase Error:", error.message);
+    return {
+      data: null,
+      error: { message: `Failed to delete invoice: ${error.message}` },
+    };
+  }
+
   return { data, error: null };
 }

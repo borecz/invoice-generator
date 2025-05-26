@@ -2,10 +2,22 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { signOut } from '@/app/auth/actions'; // Import server action
+import { signOut } from '@/app/[locale]/auth/actions'; // Import server action
 import { useRouter } from 'next/navigation'; // For redirecting
 
-const LogoutButton = () => {
+interface LogoutButtonProps {
+  variant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link";
+  size?: "default" | "sm" | "lg" | "icon";
+  className?: string;
+  children?: React.ReactNode;
+}
+
+const LogoutButton: React.FC<LogoutButtonProps> = ({
+  variant = "outline",
+  size = "default",
+  className = "",
+  children = "Logout"
+}) => {
   const router = useRouter();
 
   const handleLogout = async () => {
@@ -30,8 +42,8 @@ const LogoutButton = () => {
   };
 
   return (
-    <Button onClick={handleLogout} variant="outline">
-      Logout
+    <Button onClick={handleLogout} variant={variant} size={size} className={className}>
+      {children}
     </Button>
   );
 };

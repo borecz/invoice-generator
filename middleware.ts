@@ -1,8 +1,43 @@
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import createIntlMiddleware from "next-intl/middleware";
+import { locales, defaultLocale } from "./i18n";
+
+// Create the internationalization middleware
+const intlMiddleware = createIntlMiddleware({
+  locales,
+  defaultLocale,
+  localePrefix: "as-needed",
+});
 
 export async function middleware(req: NextRequest) {
-  const res = NextResponse.next();
+  const { pathname } = req.nextUrl;
+
+  // Skip i18n middleware for static files and API routes
+  const isStaticFile =
+    pathname.startsWith("/_next") ||
+    pathname.startsWith("/api") ||
+    pathname.includes(".") ||
+    pathname.startsWith("/auth/callback");
+
+  if (isStaticFile) {
+    return NextResponse.next();
+  }
+
+  // Handle internationalization first
+  const intlResponse = intlMiddleware(req);
+
+  // If intl middleware returns a redirect, return it
+  if (intlResponse.status === 302 || intlResponse.status === 307) {
+    return intlResponse;
+  }
+
+  // Create a new response based on the intl response
+  const res = new NextResponse(intlResponse.body, {
+    status: intlResponse.status,
+    statusText: intlResponse.statusText,
+    headers: intlResponse.headers,
+  });
 
   // Create a Supabase client configured to use cookies
   const supabase = createServerClient(
@@ -36,7 +71,10 @@ export async function middleware(req: NextRequest) {
   }
 
   const authenticated = !!user;
-  const { pathname } = req.nextUrl;
+
+  // Extract locale from pathname for route checking
+  const pathnameWithoutLocale =
+    pathname.replace(/^\/[a-z]{2}(?=\/|$)/, "") || "/";
 
   // Define protected routes
   const protectedRoutes = [
@@ -45,27 +83,36 @@ export async function middleware(req: NextRequest) {
     "/invoices",
     "/customers",
     "/settings",
-  ]; // Added /customers and /settings
+  ];
   // Define auth routes (for logged-in users to be redirected away from)
   const authRoutes = ["/auth/login", "/auth/signup"];
 
   // If user is not authenticated and trying to access a protected route
   if (
     !authenticated &&
-    protectedRoutes.some((route) => pathname.startsWith(route))
+    protectedRoutes.some((route) => pathnameWithoutLocale.startsWith(route))
   ) {
     console.log(
       `Middleware: Unauthenticated access to ${pathname}. Redirecting to /auth/login.`
     );
-    return NextResponse.redirect(new URL("/auth/login", req.url));
+    // Preserve locale in redirect
+    const locale = pathname.match(/^\/([a-z]{2})(?=\/|$)/)?.[1];
+    const redirectPath = locale ? `/${locale}/auth/login` : "/auth/login";
+    return NextResponse.redirect(new URL(redirectPath, req.url));
   }
 
   // If user is authenticated and trying to access an auth route
-  if (authenticated && authRoutes.some((route) => pathname.startsWith(route))) {
+  if (
+    authenticated &&
+    authRoutes.some((route) => pathnameWithoutLocale.startsWith(route))
+  ) {
     console.log(
       `Middleware: Authenticated access to ${pathname}. Redirecting to /dashboard.`
     );
-    return NextResponse.redirect(new URL("/dashboard", req.url));
+    // Preserve locale in redirect
+    const locale = pathname.match(/^\/([a-z]{2})(?=\/|$)/)?.[1];
+    const redirectPath = locale ? `/${locale}/dashboard` : "/dashboard";
+    return NextResponse.redirect(new URL(redirectPath, req.url));
   }
 
   return res;
@@ -79,14 +126,10 @@ export const config = {
      * - _next/static (static files)
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
-     * - / (public landing page, if you want it to be always accessible) - adjust as needed
-     * - /auth/callback (Supabase auth callback)
+     * - auth/callback (Supabase auth callback)
+     * - api routes
+     * - static files
      */
-    "/((?!_next/static|_next/image|favicon.ico|auth/callback).*)",
-    // Explicitly include routes that need checking, if the above is too broad or misses some.
-    // '/new/:path*', // if /new has sub-paths
-    // '/dashboard/:path*', // if /dashboard has sub-paths
-    // '/auth/login',
-    // '/auth/signup',
+    "/((?!_next/static|_next/image|favicon.ico|auth/callback|api|.*\\..*).*)",
   ],
 };

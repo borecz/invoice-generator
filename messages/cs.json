@@ -1,0 +1,202 @@
+{
+  "common": {
+    "loading": "Načítání...",
+    "error": "Chyba",
+    "success": "Úspěch",
+    "cancel": "Zrušit",
+    "save": "Uložit",
+    "delete": "Smazat",
+    "edit": "Upravit",
+    "create": "Vytvořit",
+    "update": "Aktualizovat",
+    "search": "Hledat",
+    "filter": "Filtrovat",
+    "clear": "Vymazat",
+    "close": "Zavřít",
+    "back": "Zpět",
+    "next": "Další",
+    "previous": "Předchozí",
+    "submit": "Odeslat",
+    "confirm": "Potvrdit",
+    "yes": "Ano",
+    "no": "Ne"
+  },
+  "navigation": {
+    "dashboard": "Přehled",
+    "invoices": "Faktury",
+    "customers": "Zákazníci",
+    "settings": "Nastavení",
+    "newInvoice": "Nová Faktura",
+    "addCustomer": "Přidat Zákazníka",
+    "profile": "Profil",
+    "logout": "Odhlásit se",
+    "login": "Přihlásit se",
+    "signup": "Začít",
+    "backToHomepage": "Zpět na Domovskou Stránku"
+  },
+  "header": {
+    "notifications": "Oznámení",
+    "account": "Účet",
+    "profileSettings": "Nastavení Profilu"
+  },
+  "landing": {
+    "title": "InvoicePro - Profesionální Fakturační Software pro Moderní Firmy",
+    "description": "Zjednodušte fakturaci s InvoicePro. Vytvářejte profesionální faktury, sledujte platby, spravujte zákazníky a dostávejte platby rychleji. Dostupná bezplatná zkušební verze.",
+    "hero": {
+      "title": "Profesionální Fakturace Jednoduše",
+      "subtitle": "Vytvářejte, odesílejte a sledujte faktury snadno. Dostávejte platby rychleji s naší výkonnou fakturační platformou navrženou pro moderní firmy.",
+      "cta": "Začít Bezplatnou Zkušební Verzi",
+      "watchDemo": "Sledovat Demo"
+    },
+    "features": {
+      "title": "Vše, co potřebujete k rychlejším platbám",
+      "subtitle": "Výkonné funkce navržené pro zjednodušení vašeho fakturačního procesu",
+      "invoice": {
+        "title": "Profesionální Faktury",
+        "description": "Vytvářejte krásné, profesionální faktury během několika minut s naším intuitivním editorem."
+      },
+      "tracking": {
+        "title": "Sledování Plateb",
+        "description": "Sledujte stav plateb a odesílejte automatické připomínky klientům."
+      },
+      "customers": {
+        "title": "Správa Zákazníků",
+        "description": "Organizujte své klienty a jejich informace na jednom centrálním místě."
+      },
+      "reports": {
+        "title": "Finanční Reporty",
+        "description": "Získejte přehled o svém podnikání s podrobnými finančními reporty."
+      },
+      "automation": {
+        "title": "Automatizované Pracovní Postupy",
+        "description": "Ušetřete čas s automatickým generováním faktur a připomínkami plateb."
+      },
+      "integration": {
+        "title": "Snadná Integrace",
+        "description": "Připojte se k vašim oblíbeným nástrojům a platebním procesorům."
+      }
+    },
+    "pricing": {
+      "title": "Jednoduché, transparentní ceny",
+      "subtitle": "Vyberte si plán, který je pro vaše podnikání správný",
+      "monthly": "Měsíčně",
+      "annually": "Ročně",
+      "save": "Ušetřete 20%",
+      "free": {
+        "title": "Zdarma",
+        "price": "0 Kč",
+        "description": "Perfektní pro začátek",
+        "features": {
+          "0": "Až 5 faktur měsíčně",
+          "1": "Základní šablony faktur",
+          "2": "Emailová podpora",
+          "3": "Sledování plateb"
+        }
+      },
+      "pro": {
+        "title": "Pro",
+        "price": "490 Kč",
+        "description": "Pro rostoucí firmy",
+        "features": {
+          "0": "Neomezené faktury",
+          "1": "Vlastní branding",
+          "2": "Pokročilé reporty",
+          "3": "Prioritní podpora",
+          "4": "Připomínky plateb",
+          "5": "Podpora více měn"
+        }
+      },
+      "enterprise": {
+        "title": "Enterprise",
+        "price": "1 290 Kč",
+        "description": "Pro velké organizace",
+        "features": {
+          "0": "Vše v Pro",
+          "1": "Týmová spolupráce",
+          "2": "Přístup k API",
+          "3": "Vlastní integrace",
+          "4": "Dedikovaná podpora",
+          "5": "Pokročilá bezpečnost"
+        }
+      }
+    },
+    "cta": {
+      "title": "Připraveni dostávat platby rychleji?",
+      "subtitle": "Připojte se k tisícům firem, které důvěřují InvoicePro pro své fakturační potřeby. Začněte svou bezplatnou zkušební verzi dnes.",
+      "button": "Začít Bezplatnou Zkušební Verzi",
+      "dashboard": "Přejít na Přehled"
+    }
+  },
+  "dashboard": {
+    "welcome": "Vítejte zpět",
+    "overview": "Přehled",
+    "recentActivity": "Nedávná Aktivita",
+    "quickActions": "Rychlé Akce",
+    "metrics": {
+      "totalRevenue": "Celkové Příjmy",
+      "pendingInvoices": "Čekající Faktury",
+      "paidInvoices": "Zaplacené Faktury",
+      "totalCustomers": "Celkem Zákazníků"
+    }
+  },
+  "invoices": {
+    "title": "Faktury",
+    "create": "Vytvořit Fakturu",
+    "draft": "Koncept",
+    "sent": "Odesláno",
+    "paid": "Zaplaceno",
+    "overdue": "Po Splatnosti",
+    "amount": "Částka",
+    "dueDate": "Datum Splatnosti",
+    "customer": "Zákazník",
+    "status": "Stav",
+    "actions": "Akce"
+  },
+  "customers": {
+    "title": "Zákazníci",
+    "add": "Přidat Zákazníka",
+    "name": "Jméno",
+    "email": "Email",
+    "phone": "Telefon",
+    "company": "Společnost",
+    "address": "Adresa",
+    "totalInvoices": "Celkem Faktur",
+    "totalRevenue": "Celkové Příjmy"
+  },
+  "settings": {
+    "title": "Nastavení",
+    "profile": "Profil",
+    "business": "Podnikání",
+    "invoicePreferences": "Předvolby Faktur",
+    "notifications": "Oznámení",
+    "security": "Bezpečnost",
+    "integrations": "Integrace",
+    "billing": "Fakturace a Předplatné"
+  },
+  "auth": {
+    "login": {
+      "title": "Vítejte zpět",
+      "subtitle": "Přihlaste se ke svému účtu pro pokračování",
+      "email": "Email",
+      "password": "Heslo",
+      "forgotPassword": "Zapomenuté heslo?",
+      "noAccount": "Nemáte účet?",
+      "signUp": "Zaregistrovat se"
+    },
+    "signup": {
+      "title": "Vytvořte si účet",
+      "subtitle": "Začněte se svou bezplatnou zkušební verzí dnes",
+      "email": "Email",
+      "password": "Heslo",
+      "confirmPassword": "Potvrdit Heslo",
+      "hasAccount": "Už máte účet?",
+      "signIn": "Přihlásit se"
+    }
+  },
+  "languageSwitcher": {
+    "title": "Jazyk a Země",
+    "language": "Jazyk",
+    "country": "Země",
+    "currentShop": "Aktuální Obchod"
+  }
+}

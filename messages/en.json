@@ -1,0 +1,202 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "update": "Update",
+    "search": "Search",
+    "filter": "Filter",
+    "clear": "Clear",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "submit": "Submit",
+    "confirm": "Confirm",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "invoices": "Invoices",
+    "customers": "Customers",
+    "settings": "Settings",
+    "newInvoice": "New Invoice",
+    "addCustomer": "Add Customer",
+    "profile": "Profile",
+    "logout": "Log out",
+    "login": "Login",
+    "signup": "Get Started",
+    "backToHomepage": "Back to Homepage"
+  },
+  "header": {
+    "notifications": "Notifications",
+    "account": "Account",
+    "profileSettings": "Profile Settings"
+  },
+  "landing": {
+    "title": "InvoicePro - Professional Invoicing Software for Modern Businesses",
+    "description": "Streamline your billing with InvoicePro. Create professional invoices, track payments, manage customers, and get paid faster. Free trial available.",
+    "hero": {
+      "title": "Professional Invoicing Made Simple",
+      "subtitle": "Create, send, and track invoices with ease. Get paid faster with our powerful invoicing platform designed for modern businesses.",
+      "cta": "Start Free Trial",
+      "watchDemo": "Watch Demo"
+    },
+    "features": {
+      "title": "Everything you need to get paid faster",
+      "subtitle": "Powerful features designed to streamline your invoicing process",
+      "invoice": {
+        "title": "Professional Invoices",
+        "description": "Create beautiful, professional invoices in minutes with our intuitive editor."
+      },
+      "tracking": {
+        "title": "Payment Tracking",
+        "description": "Track payment status and send automated reminders to clients."
+      },
+      "customers": {
+        "title": "Customer Management",
+        "description": "Organize your clients and their information in one central location."
+      },
+      "reports": {
+        "title": "Financial Reports",
+        "description": "Get insights into your business with detailed financial reporting."
+      },
+      "automation": {
+        "title": "Automated Workflows",
+        "description": "Save time with automated invoice generation and payment reminders."
+      },
+      "integration": {
+        "title": "Easy Integration",
+        "description": "Connect with your favorite tools and payment processors."
+      }
+    },
+    "pricing": {
+      "title": "Simple, transparent pricing",
+      "subtitle": "Choose the plan that's right for your business",
+      "monthly": "Monthly",
+      "annually": "Annually",
+      "save": "Save 20%",
+      "free": {
+        "title": "Free",
+        "price": "$0",
+        "description": "Perfect for getting started",
+        "features": {
+          "0": "Up to 5 invoices per month",
+          "1": "Basic invoice templates",
+          "2": "Email support",
+          "3": "Payment tracking"
+        }
+      },
+      "pro": {
+        "title": "Pro",
+        "price": "$19",
+        "description": "For growing businesses",
+        "features": {
+          "0": "Unlimited invoices",
+          "1": "Custom branding",
+          "2": "Advanced reporting",
+          "3": "Priority support",
+          "4": "Payment reminders",
+          "5": "Multi-currency support"
+        }
+      },
+      "enterprise": {
+        "title": "Enterprise",
+        "price": "$49",
+        "description": "For large organizations",
+        "features": {
+          "0": "Everything in Pro",
+          "1": "Team collaboration",
+          "2": "API access",
+          "3": "Custom integrations",
+          "4": "Dedicated support",
+          "5": "Advanced security"
+        }
+      }
+    },
+    "cta": {
+      "title": "Ready to get paid faster?",
+      "subtitle": "Join thousands of businesses that trust InvoicePro for their invoicing needs. Start your free trial today.",
+      "button": "Start Free Trial",
+      "dashboard": "Go to Dashboard"
+    }
+  },
+  "dashboard": {
+    "welcome": "Welcome back",
+    "overview": "Overview",
+    "recentActivity": "Recent Activity",
+    "quickActions": "Quick Actions",
+    "metrics": {
+      "totalRevenue": "Total Revenue",
+      "pendingInvoices": "Pending Invoices",
+      "paidInvoices": "Paid Invoices",
+      "totalCustomers": "Total Customers"
+    }
+  },
+  "invoices": {
+    "title": "Invoices",
+    "create": "Create Invoice",
+    "draft": "Draft",
+    "sent": "Sent",
+    "paid": "Paid",
+    "overdue": "Overdue",
+    "amount": "Amount",
+    "dueDate": "Due Date",
+    "customer": "Customer",
+    "status": "Status",
+    "actions": "Actions"
+  },
+  "customers": {
+    "title": "Customers",
+    "add": "Add Customer",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "company": "Company",
+    "address": "Address",
+    "totalInvoices": "Total Invoices",
+    "totalRevenue": "Total Revenue"
+  },
+  "settings": {
+    "title": "Settings",
+    "profile": "Profile",
+    "business": "Business",
+    "invoicePreferences": "Invoice Preferences",
+    "notifications": "Notifications",
+    "security": "Security",
+    "integrations": "Integrations",
+    "billing": "Billing & Subscription"
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome back",
+      "subtitle": "Sign in to your account to continue",
+      "email": "Email",
+      "password": "Password",
+      "forgotPassword": "Forgot password?",
+      "noAccount": "Don't have an account?",
+      "signUp": "Sign up"
+    },
+    "signup": {
+      "title": "Create your account",
+      "subtitle": "Get started with your free trial today",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "hasAccount": "Already have an account?",
+      "signIn": "Sign in"
+    }
+  },
+  "languageSwitcher": {
+    "title": "Language and Country",
+    "language": "Language",
+    "country": "Country",
+    "currentShop": "Current Shop"
+  }
+}

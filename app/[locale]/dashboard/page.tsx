@@ -2,6 +2,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/app/hooks/useAuth';
+import { useTranslations } from 'next-intl';
+import { useLocaleContext } from '@/app/contexts/LocaleContext';
+import { formatCurrency, formatDate } from '@/lib/business-logic';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
@@ -43,6 +46,7 @@ import {
 import { getInvoicesForUser } from '@/app/invoices/actions';
 import { getCustomersForUser } from '@/app/customers/actions';
 import { ThemeToggle } from '@/app/components/ui/ThemeToggle';
+import { Header } from '@/app/components/layout/Header';
 
 interface Invoice {
   id: string;
@@ -63,6 +67,13 @@ interface Customer {
 
 const DashboardPage = () => {
   const { user, loading, error } = useAuth();
+  const { country } = useLocaleContext();
+  const t = useTranslations('dashboard');
+  const tNav = useTranslations('navigation');
+  const tCommon = useTranslations('common');
+  const tInvoices = useTranslations('invoices');
+  const tCustomers = useTranslations('customers');
+
   const [invoices, setInvoices] = useState<Invoice[]>([]);
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [loadingData, setLoadingData] = useState(true);
@@ -100,7 +111,7 @@ const DashboardPage = () => {
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mx-auto mb-4"></div>
-          <p className="text-xl text-gray-600">Loading dashboard...</p>
+          <p className="text-xl text-gray-600">{tCommon('loading')}</p>
         </div>
       </div>
     );
@@ -111,12 +122,12 @@ const DashboardPage = () => {
       <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50">
         <Card className="max-w-md w-full">
           <CardHeader>
-            <CardTitle className="text-red-600">Error Loading Dashboard</CardTitle>
+            <CardTitle className="text-red-600">{tCommon('error')}</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-gray-600 mb-4">{error.message}</p>
             <Link href="/">
-              <Button variant="outline" className="w-full">Go to Homepage</Button>
+              <Button variant="outline" className="w-full">{tNav('backToHomepage')}</Button>
             </Link>
           </CardContent>
         </Card>
@@ -134,7 +145,7 @@ const DashboardPage = () => {
           <CardContent>
             <p className="text-gray-600 mb-4">Please log in to access your dashboard.</p>
             <Link href="/auth/login">
-              <Button className="w-full">Login</Button>
+              <Button className="w-full">{tNav('login')}</Button>
             </Link>
           </CardContent>
         </Card>
@@ -188,114 +199,19 @@ const DashboardPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header Navigation */}
-      <header className="bg-header border-b border-border sticky top-0 z-40 theme-transition">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            {/* Logo and Brand */}
-            <div className="flex items-center space-x-4">
-              <Link href="/" className="flex items-center space-x-3">
-                <Image
-                  src="/android-chrome-512x512.png"
-                  width={32}
-                  height={32}
-                  className="rounded-lg"
-                  alt="InvoicePro Logo"
-                />
-                <span className="text-xl font-bold text-header">InvoicePro</span>
-              </Link>
-              <div className="hidden md:flex items-center space-x-2 text-sm text-muted-foreground">
-                <span>/</span>
-                <span>Dashboard</span>
-              </div>
-            </div>
-
-            {/* Quick Actions and User Menu */}
-            <div className="flex items-center space-x-4">
-              {/* Quick Action Buttons */}
-              <div className="hidden sm:flex items-center space-x-2">
-                <Link href="/new">
-                  <Button size="sm" className="bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600">
-                    <Plus className="h-4 w-4 mr-2" />
-                    New Invoice
-                  </Button>
-                </Link>
-                <Link href="/customers">
-                  <Button variant="outline" size="sm">
-                    <Users className="h-4 w-4 mr-2" />
-                    Add Customer
-                  </Button>
-                </Link>
-              </div>
-
-              {/* Theme Toggle */}
-              <ThemeToggle />
-
-              {/* Notifications */}
-              <Button variant="ghost" size="sm" className="relative">
-                <Bell className="h-5 w-5" />
-                {pendingInvoices > 0 && (
-                  <Badge variant="destructive" className="absolute -top-1 -right-1 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs">
-                    {pendingInvoices}
-                  </Badge>
-                )}
-              </Button>
-
-              {/* User Menu */}
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-                    <Avatar className="h-8 w-8">
-                      <AvatarImage src="" alt={user.email || ''} />
-                      <AvatarFallback className="bg-gradient-to-br from-orange-500 to-pink-500 text-white">
-                        {user.email?.charAt(0).toUpperCase() || 'U'}
-                      </AvatarFallback>
-                    </Avatar>
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56" align="end" forceMount>
-                  <DropdownMenuLabel className="font-normal">
-                    <div className="flex flex-col space-y-1">
-                      <p className="text-sm font-medium leading-none">Account</p>
-                      <p className="text-xs leading-none text-muted-foreground">
-                        {user.email}
-                      </p>
-                    </div>
-                  </DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem>
-                    <Link href="/settings" className="w-full">
-                      Profile Settings
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    Billing
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    Support
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem>
-                    <Link href="/" className="w-full">
-                      Back to Homepage
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem className="text-red-600">
-                    Log out
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
-          </div>
-        </div>
-      </header>
+      <Header
+        user={user}
+        showQuickActions={true}
+        breadcrumbs={[{ label: tNav('dashboard'), href: '/dashboard' }]}
+        pendingCount={pendingInvoices}
+      />
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Welcome Section */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-foreground mb-2">
-            Welcome back, {user.email?.split('@')[0]}!
+            {t('welcome')}, {user.email?.split('@')[0]}!
           </h1>
           <p className="text-muted-foreground">
             Here's what's happening with your invoices today.
@@ -306,24 +222,24 @@ const DashboardPage = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('metrics.totalRevenue')}</CardTitle>
               <DollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">${totalRevenue.toFixed(2)}</div>
+              <div className="text-2xl font-bold">{formatCurrency(totalRevenue, country)}</div>
               <p className="text-xs text-muted-foreground">
-                From {paidInvoices} paid invoices
+                From {paidInvoices} {t('metrics.paidInvoices').toLowerCase()}
               </p>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Pending Payments</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('metrics.pendingInvoices')}</CardTitle>
               <CreditCard className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">${pendingAmount.toFixed(2)}</div>
+              <div className="text-2xl font-bold">{formatCurrency(pendingAmount, country)}</div>
               <p className="text-xs text-muted-foreground">
                 {pendingInvoices} pending invoices
               </p>
@@ -332,7 +248,7 @@ const DashboardPage = () => {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Invoices</CardTitle>
+              <CardTitle className="text-sm font-medium">{tInvoices('title')}</CardTitle>
               <FileText className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -345,7 +261,7 @@ const DashboardPage = () => {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Customers</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('metrics.totalCustomers')}</CardTitle>
               <Users className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -360,9 +276,9 @@ const DashboardPage = () => {
         {/* Tabs Navigation */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
           <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="invoices">Invoices</TabsTrigger>
-            <TabsTrigger value="customers">Customers</TabsTrigger>
+            <TabsTrigger value="overview">{t('overview')}</TabsTrigger>
+            <TabsTrigger value="invoices">{tInvoices('title')}</TabsTrigger>
+            <TabsTrigger value="customers">{tCustomers('title')}</TabsTrigger>
           </TabsList>
 
           {/* Overview Tab */}
@@ -371,7 +287,7 @@ const DashboardPage = () => {
               {/* Recent Activity */}
               <Card>
                 <CardHeader>
-                  <CardTitle>Recent Activity</CardTitle>
+                  <CardTitle>{t('recentActivity')}</CardTitle>
                   <CardDescription>Your latest invoice activity</CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -389,7 +305,7 @@ const DashboardPage = () => {
                       <FileText className="h-12 w-12 text-gray-400 mx-auto mb-4" />
                       <p className="text-gray-500 mb-4">No invoices yet</p>
                       <Link href="/new">
-                        <Button size="sm">Create Your First Invoice</Button>
+                        <Button size="sm">{tInvoices('create')}</Button>
                       </Link>
                     </div>
                   ) : (
@@ -403,12 +319,12 @@ const DashboardPage = () => {
                                 Invoice #{invoice.invoice_number}
                               </p>
                               <p className="text-xs text-gray-500">
-                                {invoice.customers?.name || 'No customer'} • {new Date(invoice.invoice_date).toLocaleDateString()}
+                                {invoice.customers?.name || 'No customer'} • {formatDate(new Date(invoice.invoice_date), country)}
                               </p>
                             </div>
                           </div>
                           <div className="text-right">
-                            <p className="text-sm font-medium">${invoice.total_amount.toFixed(2)}</p>
+                            <p className="text-sm font-medium">{formatCurrency(invoice.total_amount, country)}</p>
                             <Badge variant={getStatusBadgeVariant(invoice.status) as any} className="text-xs">
                               {invoice.status}
                             </Badge>
@@ -430,7 +346,7 @@ const DashboardPage = () => {
               {/* Quick Actions */}
               <Card>
                 <CardHeader>
-                  <CardTitle>Quick Actions</CardTitle>
+                  <CardTitle>{t('quickActions')}</CardTitle>
                   <CardDescription>Common tasks to get you started</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
@@ -440,7 +356,7 @@ const DashboardPage = () => {
                         <Plus className="h-5 w-5 text-white" />
                       </div>
                       <div>
-                        <p className="font-medium">Create New Invoice</p>
+                        <p className="font-medium">{tInvoices('create')}</p>
                         <p className="text-sm text-gray-500">Generate a professional invoice</p>
                       </div>
                     </div>
@@ -452,7 +368,7 @@ const DashboardPage = () => {
                         <Users className="h-5 w-5 text-white" />
                       </div>
                       <div>
-                        <p className="font-medium">Manage Customers</p>
+                        <p className="font-medium">{tCustomers('title')} Management</p>
                         <p className="text-sm text-gray-500">Add or edit customer information</p>
                       </div>
                     </div>

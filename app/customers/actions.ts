@@ -2,11 +2,9 @@
 
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { cookies } from "next/headers";
-import { readUserSession } from "@/app/auth/actions";
+import { readUserSession } from "@/app/[locale]/auth/actions";
 
 // Helper function to create a Supabase client for server actions
-// This is similar to the one in auth/actions.ts and invoices/actions.ts
-// Consider refactoring to a shared utility if this pattern continues.
 const createSupabaseServerActionClient = async () => {
   const cookieStore = await cookies();
   return createServerClient(
@@ -66,7 +64,6 @@ export async function addCustomer(customerData: CustomerData) {
     address: customerData.address || null,
     company: customerData.company || null,
     notes: customerData.notes || null,
-    // created_at is defaulted by Supabase
   };
 
   console.log("addCustomer: Data to insert:", dataToInsert);
@@ -74,7 +71,7 @@ export async function addCustomer(customerData: CustomerData) {
   const { data, error } = await supabase
     .from("customers")
     .insert([dataToInsert])
-    .select(); // Return the inserted row
+    .select();
 
   if (error) {
     console.error("addCustomer Supabase Error:", error.message);
@@ -123,6 +120,37 @@ export async function getCustomersForUser() {
   return { data, error: null };
 }
 
+export async function getCustomerById(customerId: string) {
+  const supabase = await createSupabaseServerActionClient();
+  const { session, error: sessionError } = await readUserSession();
+
+  if (sessionError || !session || !session.user) {
+    return {
+      data: null,
+      error: { message: "User not authenticated. Please log in." },
+    };
+  }
+
+  const userId = session.user.id;
+
+  const { data, error } = await supabase
+    .from("customers")
+    .select("*")
+    .eq("id", customerId)
+    .eq("user_id", userId)
+    .single();
+
+  if (error) {
+    console.error("getCustomerById Supabase Error:", error.message);
+    return {
+      data: null,
+      error: { message: `Failed to fetch customer: ${error.message}` },
+    };
+  }
+
+  return { data, error: null };
+}
+
 export async function updateCustomer(
   customerId: string,
   customerData: CustomerData
@@ -162,7 +190,7 @@ export async function updateCustomer(
     .from("customers")
     .update(dataToUpdate)
     .eq("id", customerId)
-    .eq("user_id", userId) // Ensure user can only update their own customers
+    .eq("user_id", userId)
     .select();
 
   if (error) {
@@ -200,7 +228,7 @@ export async function deleteCustomer(customerId: string) {
     .from("customers")
     .delete()
     .eq("id", customerId)
-    .eq("user_id", userId) // Ensure user can only delete their own customers
+    .eq("user_id", userId)
     .select();
 
   if (error) {
@@ -212,5 +240,37 @@ export async function deleteCustomer(customerId: string) {
   }
 
   console.log("deleteCustomer: Customer deleted successfully:", data);
+  return { data, error: null };
+}
+
+export async function searchCustomers(query: string) {
+  const supabase = await createSupabaseServerActionClient();
+  const { session, error: sessionError } = await readUserSession();
+
+  if (sessionError || !session || !session.user) {
+    return {
+      data: null,
+      error: { message: "User not authenticated. Please log in." },
+    };
+  }
+
+  const userId = session.user.id;
+
+  const { data, error } = await supabase
+    .from("customers")
+    .select("id, name, email, phone, address, company")
+    .eq("user_id", userId)
+    .or(`name.ilike.%${query}%,email.ilike.%${query}%,company.ilike.%${query}%`)
+    .order("name", { ascending: true })
+    .limit(10);
+
+  if (error) {
+    console.error("searchCustomers Supabase Error:", error.message);
+    return {
+      data: null,
+      error: { message: `Failed to search customers: ${error.message}` },
+    };
+  }
+
   return { data, error: null };
 }

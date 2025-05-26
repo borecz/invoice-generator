@@ -3,6 +3,8 @@ import "./globals.css";
 import { GeistSans } from "geist/font/sans";
 import Script from "next/script";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages } from 'next-intl/server';
 
 export const viewport: Viewport = {
   themeColor: "#f97316",
@@ -52,13 +54,21 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
+  params
 }: Readonly<{
   children: React.ReactNode;
+  params: Promise<{ locale: string }>;
 }>) {
+  const { locale } = await params;
+
+  // Providing all messages to the client
+  // side is the easiest way to get started
+  const messages = await getMessages({ locale });
+
   return (
-    <html lang="en">
+    <html lang={locale}>
       <head>
         <link
           rel="apple-touch-icon"
@@ -83,9 +93,11 @@ export default function RootLayout({
         <meta name="theme-color" content="#f97316" />
       </head>
       <body className={`${GeistSans.className} theme-transition`}>
-        <ThemeProvider>
-          {children}
-        </ThemeProvider>
+        <NextIntlClientProvider messages={messages}>
+          <ThemeProvider>
+            {children}
+          </ThemeProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

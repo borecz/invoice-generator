@@ -1,0 +1,202 @@
+{
+  "common": {
+    "loading": "Caricamento...",
+    "error": "Errore",
+    "success": "Successo",
+    "cancel": "Annulla",
+    "save": "Salva",
+    "delete": "Elimina",
+    "edit": "Modifica",
+    "create": "Crea",
+    "update": "Aggiorna",
+    "search": "Cerca",
+    "filter": "Filtra",
+    "clear": "Cancella",
+    "close": "Chiudi",
+    "back": "Indietro",
+    "next": "Avanti",
+    "previous": "Precedente",
+    "submit": "Invia",
+    "confirm": "Conferma",
+    "yes": "Sì",
+    "no": "No"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "invoices": "Fatture",
+    "customers": "Clienti",
+    "settings": "Impostazioni",
+    "newInvoice": "Nuova Fattura",
+    "addCustomer": "Aggiungi Cliente",
+    "profile": "Profilo",
+    "logout": "Disconnetti",
+    "login": "Accedi",
+    "signup": "Inizia",
+    "backToHomepage": "Torna alla Homepage"
+  },
+  "header": {
+    "notifications": "Notifiche",
+    "account": "Account",
+    "profileSettings": "Impostazioni Profilo"
+  },
+  "landing": {
+    "title": "InvoicePro - Software di Fatturazione Professionale per Aziende Moderne",
+    "description": "Semplifica la fatturazione con InvoicePro. Crea fatture professionali, traccia i pagamenti, gestisci i clienti e ricevi pagamenti più velocemente. Prova gratuita disponibile.",
+    "hero": {
+      "title": "Fatturazione Professionale Resa Semplice",
+      "subtitle": "Crea, invia e traccia fatture con facilità. Ricevi pagamenti più velocemente con la nostra potente piattaforma di fatturazione progettata per aziende moderne.",
+      "cta": "Inizia Prova Gratuita",
+      "watchDemo": "Guarda Demo"
+    },
+    "features": {
+      "title": "Tutto ciò di cui hai bisogno per essere pagato più velocemente",
+      "subtitle": "Funzionalità potenti progettate per semplificare il tuo processo di fatturazione",
+      "invoice": {
+        "title": "Fatture Professionali",
+        "description": "Crea fatture belle e professionali in pochi minuti con il nostro editor intuitivo."
+      },
+      "tracking": {
+        "title": "Tracciamento Pagamenti",
+        "description": "Traccia lo stato dei pagamenti e invia promemoria automatici ai clienti."
+      },
+      "customers": {
+        "title": "Gestione Clienti",
+        "description": "Organizza i tuoi clienti e le loro informazioni in un'unica posizione centrale."
+      },
+      "reports": {
+        "title": "Report Finanziari",
+        "description": "Ottieni informazioni sulla tua attività con report finanziari dettagliati."
+      },
+      "automation": {
+        "title": "Flussi di Lavoro Automatizzati",
+        "description": "Risparmia tempo con la generazione automatica di fatture e promemoria di pagamento."
+      },
+      "integration": {
+        "title": "Integrazione Facile",
+        "description": "Connettiti con i tuoi strumenti preferiti e processori di pagamento."
+      }
+    },
+    "pricing": {
+      "title": "Prezzi semplici e trasparenti",
+      "subtitle": "Scegli il piano giusto per la tua attività",
+      "monthly": "Mensile",
+      "annually": "Annuale",
+      "save": "Risparmia 20%",
+      "free": {
+        "title": "Gratuito",
+        "price": "€0",
+        "description": "Perfetto per iniziare",
+        "features": {
+          "0": "Fino a 5 fatture al mese",
+          "1": "Modelli di fattura base",
+          "2": "Supporto email",
+          "3": "Tracciamento pagamenti"
+        }
+      },
+      "pro": {
+        "title": "Pro",
+        "price": "€19",
+        "description": "Per aziende in crescita",
+        "features": {
+          "0": "Fatture illimitate",
+          "1": "Branding personalizzato",
+          "2": "Report avanzati",
+          "3": "Supporto prioritario",
+          "4": "Promemoria pagamenti",
+          "5": "Supporto multi-valuta"
+        }
+      },
+      "enterprise": {
+        "title": "Enterprise",
+        "price": "€49",
+        "description": "Per grandi organizzazioni",
+        "features": {
+          "0": "Tutto in Pro",
+          "1": "Collaborazione team",
+          "2": "Accesso API",
+          "3": "Integrazioni personalizzate",
+          "4": "Supporto dedicato",
+          "5": "Sicurezza avanzata"
+        }
+      }
+    },
+    "cta": {
+      "title": "Pronto per essere pagato più velocemente?",
+      "subtitle": "Unisciti a migliaia di aziende che si fidano di InvoicePro per le loro esigenze di fatturazione. Inizia la tua prova gratuita oggi.",
+      "button": "Inizia Prova Gratuita",
+      "dashboard": "Vai alla Dashboard"
+    }
+  },
+  "dashboard": {
+    "welcome": "Bentornato",
+    "overview": "Panoramica",
+    "recentActivity": "Attività Recente",
+    "quickActions": "Azioni Rapide",
+    "metrics": {
+      "totalRevenue": "Ricavi Totali",
+      "pendingInvoices": "Fatture in Sospeso",
+      "paidInvoices": "Fatture Pagate",
+      "totalCustomers": "Clienti Totali"
+    }
+  },
+  "invoices": {
+    "title": "Fatture",
+    "create": "Crea Fattura",
+    "draft": "Bozza",
+    "sent": "Inviata",
+    "paid": "Pagata",
+    "overdue": "Scaduta",
+    "amount": "Importo",
+    "dueDate": "Data di Scadenza",
+    "customer": "Cliente",
+    "status": "Stato",
+    "actions": "Azioni"
+  },
+  "customers": {
+    "title": "Clienti",
+    "add": "Aggiungi Cliente",
+    "name": "Nome",
+    "email": "Email",
+    "phone": "Telefono",
+    "company": "Azienda",
+    "address": "Indirizzo",
+    "totalInvoices": "Fatture Totali",
+    "totalRevenue": "Ricavi Totali"
+  },
+  "settings": {
+    "title": "Impostazioni",
+    "profile": "Profilo",
+    "business": "Attività",
+    "invoicePreferences": "Preferenze Fattura",
+    "notifications": "Notifiche",
+    "security": "Sicurezza",
+    "integrations": "Integrazioni",
+    "billing": "Fatturazione e Abbonamento"
+  },
+  "auth": {
+    "login": {
+      "title": "Bentornato",
+      "subtitle": "Accedi al tuo account per continuare",
+      "email": "Email",
+      "password": "Password",
+      "forgotPassword": "Password dimenticata?",
+      "noAccount": "Non hai un account?",
+      "signUp": "Registrati"
+    },
+    "signup": {
+      "title": "Crea il tuo account",
+      "subtitle": "Inizia con la tua prova gratuita oggi",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Conferma Password",
+      "hasAccount": "Hai già un account?",
+      "signIn": "Accedi"
+    }
+  },
+  "languageSwitcher": {
+    "title": "Lingua e Paese",
+    "language": "Lingua",
+    "country": "Paese",
+    "currentShop": "Negozio Attuale"
+  }
+}
