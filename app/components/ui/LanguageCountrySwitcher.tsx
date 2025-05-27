@@ -117,7 +117,7 @@ export function LanguageCountrySwitcher() {
             <span className="font-semibold text-sm">{t('title')}</span>
           </div>
           <div className="text-xs text-muted-foreground">
-            Country and language are independent - select each separately
+            {t('independentSelection')}
           </div>
         </div>
 
@@ -127,7 +127,7 @@ export function LanguageCountrySwitcher() {
             <div className="flex items-center space-x-3">
               <div className="flex items-center space-x-2">
                 <MapPin className="h-4 w-4 text-orange-600" />
-                <span className="text-xs font-medium text-muted-foreground">Country:</span>
+                <span className="text-xs font-medium text-muted-foreground">{t('country')}:</span>
                 <span className="text-base">{countryFlags[displayCountry]}</span>
                 <span className="text-sm font-medium">{currentCountryConfig.name}</span>
               </div>
@@ -135,7 +135,7 @@ export function LanguageCountrySwitcher() {
             <div className="flex items-center space-x-3">
               <div className="flex items-center space-x-2">
                 <Languages className="h-4 w-4 text-orange-600" />
-                <span className="text-xs font-medium text-muted-foreground">Language:</span>
+                <span className="text-xs font-medium text-muted-foreground">{t('language')}:</span>
                 <div className="bg-orange-100 dark:bg-orange-900/30 border border-orange-200 dark:border-orange-800 rounded px-2 py-1">
                   <span className="text-xs font-medium text-orange-800 dark:text-orange-200">
                     {languageInitials[displayLanguage]}
@@ -151,48 +151,53 @@ export function LanguageCountrySwitcher() {
         <div className="p-4 border-b">
           <DropdownMenuLabel className="text-xs font-medium text-muted-foreground mb-3 flex items-center space-x-2">
             <MapPin className="h-3 w-3" />
-            <span>Select Country (affects tax rates & legal requirements)</span>
+            <span>{t('selectCountryLabel')}</span>
           </DropdownMenuLabel>
           <div className="space-y-2 max-h-48 overflow-y-auto">
-            {Object.entries(countryLanguageMappings).map(([countryCode, config]) => {
-              const countryOption = countryCode as Country;
-              const isSelected = displayCountry === countryOption;
+            {/* Sort countries with selected country first */}
+            {Object.entries(countryLanguageMappings)
+              .sort(([countryCodeA], [countryCodeB]) => {
+                // Put selected country first
+                if (countryCodeA === displayCountry) return -1;
+                if (countryCodeB === displayCountry) return 1;
+                return 0;
+              })
+              .map(([countryCode, config]) => {
+                const countryOption = countryCode as Country;
+                const isSelected = displayCountry === countryOption;
 
-              return (
-                <button
-                  key={countryOption}
-                  onClick={() => handleCountrySelection(countryOption)}
-                  className={`w-full flex items-center space-x-3 p-3 rounded-lg text-left transition-all duration-200 ${
-                    isSelected
-                      ? 'bg-gradient-to-r from-orange-100 to-pink-100 dark:from-orange-950/30 dark:to-pink-950/30 border-2 border-orange-200 dark:border-orange-800'
-                      : 'border-2 border-transparent hover:bg-accent hover:border-border'
-                  }`}
-                >
-                  <div className="flex items-center space-x-2">
-                    <span className="text-lg flex-shrink-0">
-                      {countryFlags[countryOption]}
-                    </span>
-                    <span className="text-sm font-medium">
-                      {countryInitials[countryOption]}
-                    </span>
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="font-medium text-sm truncate">{config.name}</div>
-                    <div className="text-xs text-muted-foreground truncate">
-                      Tax & Legal: {config.name}
+                return (
+                  <button
+                    key={countryOption}
+                    onClick={() => handleCountrySelection(countryOption)}
+                    className={`w-full flex items-center space-x-3 p-3 rounded-lg text-left transition-all duration-200 ${
+                      isSelected
+                        ? 'bg-gradient-to-r from-orange-100 to-pink-100 dark:from-orange-950/30 dark:to-pink-950/30 border-2 border-orange-200 dark:border-orange-800'
+                        : 'border-2 border-transparent hover:bg-accent hover:border-border'
+                    }`}
+                  >
+                    <div className="flex items-center space-x-2">
+                      <span className="text-lg flex-shrink-0">
+                        {countryFlags[countryOption]}
+                      </span>
+                      <span className="text-sm font-medium">
+                        {countryInitials[countryOption]}
+                      </span>
                     </div>
-                  </div>
-                  {isSelected && (
-                    <div className="flex items-center space-x-1">
-                      <Check className="h-4 w-4 text-orange-600" />
-                      <Badge variant="secondary" className="text-xs bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200">
-                        Current
-                      </Badge>
+                    <div className="flex-1 min-w-0">
+                      <div className="font-medium text-sm truncate">{config.name}</div>
                     </div>
-                  )}
-                </button>
-              );
-            })}
+                    {isSelected && (
+                      <div className="flex items-center space-x-1">
+                        <Check className="h-4 w-4 text-orange-600" />
+                        <Badge variant="secondary" className="text-xs bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200">
+                          {t('current')}
+                        </Badge>
+                      </div>
+                    )}
+                  </button>
+                );
+              })}
           </div>
         </div>
 
@@ -200,12 +205,11 @@ export function LanguageCountrySwitcher() {
         <div className="p-4">
           <DropdownMenuLabel className="text-xs font-medium text-muted-foreground mb-3 flex items-center space-x-2">
             <Languages className="h-3 w-3" />
-            <span>Select Language (affects interface language only)</span>
+            <span>{t('selectLanguageLabel')}</span>
           </DropdownMenuLabel>
           <div className="grid grid-cols-2 gap-2">
             {locales.map((locale) => {
               const isCurrentLanguage = locale === displayLanguage;
-              const isRecommendedForCountry = locale === countryLanguageMappings[displayCountry].defaultLanguage;
 
               return (
                 <button
@@ -225,13 +229,8 @@ export function LanguageCountrySwitcher() {
                         </span>
                       </div>
                       <div className="min-w-0 flex-1">
-                        <div className="font-medium text-sm flex items-center space-x-1">
+                        <div className="font-medium text-sm">
                           <span className="truncate">{languageNames[locale].native}</span>
-                          {isRecommendedForCountry && (
-                            <Badge variant="outline" className="text-xs border-orange-300 text-orange-700 dark:border-orange-700 dark:text-orange-300">
-                              Rec
-                            </Badge>
-                          )}
                         </div>
                         <div className="text-xs text-muted-foreground truncate">
                           {languageNames[locale].translated[currentLocale]}

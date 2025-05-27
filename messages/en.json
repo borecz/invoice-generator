@@ -570,7 +570,11 @@
     "title": "Language and Country",
     "language": "Language",
     "country": "Country",
-    "selectCountryLanguage": "Country & Language"
+    "selectCountryLanguage": "Country & Language",
+    "independentSelection": "Country and language are independent - select each separately",
+    "selectCountryLabel": "Select Country (affects tax rates & legal requirements)",
+    "selectLanguageLabel": "Select Language (affects interface language only)",
+    "current": "Current"
   },
   "languageSuggestion": {
     "suggestion": "Would you like to view this page in {language}?",

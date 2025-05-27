@@ -367,7 +367,11 @@
     "title": "Язык и Страна",
     "language": "Язык",
     "country": "Страна",
-    "selectCountryLanguage": "Страна и Язык"
+    "selectCountryLanguage": "Страна и Язык",
+    "independentSelection": "Страна и язык независимы - выберите каждый отдельно",
+    "selectCountryLabel": "Выберите Страну (влияет на налоговые ставки и правовые требования)",
+    "selectLanguageLabel": "Выберите Язык (влияет только на язык интерфейса)",
+    "current": "Текущий"
   },
   "languageSuggestion": {
     "suggestion": "Хотите просматривать эту страницу на {language}?",

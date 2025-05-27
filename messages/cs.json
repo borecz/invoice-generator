@@ -367,7 +367,11 @@
     "title": "Jazyk a Země",
     "language": "Jazyk",
     "country": "Země",
-    "selectCountryLanguage": "Země a Jazyk"
+    "selectCountryLanguage": "Země a Jazyk",
+    "independentSelection": "Země a jazyk jsou nezávislé - vyberte každý zvlášť",
+    "selectCountryLabel": "Vyberte Zemi (ovlivňuje daňové sazby a právní požadavky)",
+    "selectLanguageLabel": "Vyberte Jazyk (ovlivňuje pouze jazyk rozhraní)",
+    "current": "Aktuální"
   },
   "languageSuggestion": {
     "suggestion": "Chcete zobrazit tuto stránku v {language}?",

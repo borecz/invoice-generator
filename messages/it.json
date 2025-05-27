@@ -449,7 +449,11 @@
     "title": "Lingua e Paese",
     "language": "Lingua",
     "country": "Paese",
-    "selectCountryLanguage": "Paese e Lingua"
+    "selectCountryLanguage": "Paese e Lingua",
+    "independentSelection": "Paese e lingua sono indipendenti - seleziona ciascuno separatamente",
+    "selectCountryLabel": "Seleziona Paese (influisce su aliquote fiscali e requisiti legali)",
+    "selectLanguageLabel": "Seleziona Lingua (influisce solo sulla lingua dell'interfaccia)",
+    "current": "Attuale"
   },
   "languageSuggestion": {
     "suggestion": "Vuoi visualizzare questa pagina in {language}?",
