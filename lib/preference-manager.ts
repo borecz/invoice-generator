@@ -15,14 +15,23 @@ export interface UserPreferences {
 const STORAGE_KEY = "invoicepro_user_preferences";
 const STORAGE_VERSION = "1.0";
 
-// Browser language detection
+// Enhanced browser language detection (Facebook-inspired)
 function detectBrowserLanguage(): Locale {
   if (typeof window === "undefined") return defaultLocale;
 
-  const browserLang = navigator.language.split("-")[0] as Locale;
+  // Get browser languages in order of preference
+  const browserLanguages = navigator.languages || [navigator.language];
   const supportedLocales: Locale[] = ["en", "it", "cs", "ru"];
 
-  return supportedLocales.includes(browserLang) ? browserLang : defaultLocale;
+  // Find first supported language from browser preferences
+  for (const lang of browserLanguages) {
+    const langCode = lang.split("-")[0] as Locale;
+    if (supportedLocales.includes(langCode)) {
+      return langCode;
+    }
+  }
+
+  return defaultLocale;
 }
 
 // Country detection based on language
@@ -163,12 +172,11 @@ export class PreferenceManager {
       country,
     };
 
+    // Only update language if explicitly provided
     if (language) {
       updates.language = language;
-    } else {
-      // Use default language for the country
-      updates.language = countryLanguageMappings[country].defaultLanguage;
     }
+    // Do NOT auto-set language based on country to maintain independence
 
     return this.updatePreferences(updates, "user");
   }
@@ -221,6 +229,39 @@ export class PreferenceManager {
     }
 
     return this.loadPreferences();
+  }
+
+  // Facebook-inspired: Get suggested language based on browser preferences
+  getSuggestedLanguage(): Locale {
+    const browserLang = detectBrowserLanguage();
+    const currentPrefs = this.loadPreferences();
+
+    // If browser language differs from current preference, suggest it
+    if (
+      browserLang !== currentPrefs.language &&
+      browserLang !== defaultLocale
+    ) {
+      return browserLang;
+    }
+
+    return currentPrefs.language;
+  }
+
+  // Check if user should be shown language suggestion
+  shouldShowLanguageSuggestion(): boolean {
+    const browserLang = detectBrowserLanguage();
+    const currentPrefs = this.loadPreferences();
+
+    // Show suggestion if:
+    // 1. Browser language is different from current preference
+    // 2. User hasn't explicitly set a preference (source is browser/default)
+    // 3. Browser language is supported
+    return (
+      browserLang !== currentPrefs.language &&
+      (currentPrefs.source === "browser" ||
+        currentPrefs.source === "default") &&
+      browserLang !== defaultLocale
+    );
   }
 }
 

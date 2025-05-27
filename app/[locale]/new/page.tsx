@@ -27,6 +27,7 @@ import {
   X,
 } from 'lucide-react';
 import { NewInvoiceForm } from "@/app/[locale]/new/component/NewInvoiceForm";
+import { Header } from "@/app/components/layout/Header";
 
 const NewInvoicePage = () => {
   const t = useTranslations('invoices.newInvoicePage');
@@ -81,86 +82,24 @@ const NewInvoicePage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header Navigation */}
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            {/* Logo and Breadcrumb */}
-            <div className="flex items-center space-x-4">
-              <Link href="/dashboard" className="flex items-center space-x-3">
-                <Image
-                  src="/android-chrome-512x512.png"
-                  width={32}
-                  height={32}
-                  className="rounded-lg"
-                  alt="InvoicePro Logo"
-                />
-                <span className="text-xl font-bold text-gray-900">InvoicePro</span>
-              </Link>
-              <div className="hidden md:flex items-center space-x-2 text-sm text-gray-500">
-                <Link href="/dashboard" className="hover:text-gray-700">{t('dashboard')}</Link>
-                <span>/</span>
-                <span>{t('newInvoice')}</span>
-              </div>
-            </div>
-
-            {/* Actions and User Menu */}
-            <div className="flex items-center space-x-4">
-              {/* Quick Actions */}
-              <div className="hidden sm:flex items-center space-x-2">
-                <Link href="/customers">
-                  <Button variant="outline" size="sm">
-                    <Users className="h-4 w-4 mr-2" />
-                    {t('addCustomer')}
-                  </Button>
-                </Link>
-              </div>
-
-              {/* Notifications */}
-              <Button variant="ghost" size="sm" className="relative">
-                <Bell className="h-5 w-5" />
-              </Button>
-
-              {/* User Menu */}
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-                    <Avatar className="h-8 w-8">
-                      <AvatarImage src="" alt={user.email || ''} />
-                      <AvatarFallback className="bg-gradient-to-br from-orange-500 to-pink-500 text-white">
-                        {user.email?.charAt(0).toUpperCase() || 'U'}
-                      </AvatarFallback>
-                    </Avatar>
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56" align="end" forceMount>
-                  <DropdownMenuLabel className="font-normal">
-                    <div className="flex flex-col space-y-1">
-                      <p className="text-sm font-medium leading-none">{t('account')}</p>
-                      <p className="text-xs leading-none text-muted-foreground">
-                        {user.email}
-                      </p>
-                    </div>
-                  </DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem>
-                    <Link href="/dashboard" className="w-full">
-                      {t('backToDashboard')}
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    {t('profileSettings')}
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem className="text-red-600">
-                    {t('logOut')}
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
-          </div>
-        </div>
-      </header>
+      {/* Enhanced Header Component */}
+      <Header
+        mode="minimal"
+        user={user}
+        showQuickActions={true}
+        breadcrumbs={[
+          { label: t('dashboard'), href: '/dashboard' },
+          { label: t('newInvoice') }
+        ]}
+        customActions={
+          <Link href="/customers">
+            <Button variant="outline" size="sm">
+              <Users className="h-4 w-4 mr-2" />
+              {t('addCustomer')}
+            </Button>
+          </Link>
+        }
+      />
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

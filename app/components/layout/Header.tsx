@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslations, useLocale } from 'next-intl';
@@ -15,34 +15,107 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Bell, Plus, Users, Menu, X } from 'lucide-react';
-import { ThemeToggle } from '@/app/components/ui/ThemeToggle';
-import { LanguageCountrySwitcher } from '@/app/components/ui/LanguageCountrySwitcher';
-import LogoutButton from '@/app/component/auth/LogoutButton';
+import { Bell, Plus, Users, Menu, X, Globe } from 'lucide-react';
+
+// Lazy load components for performance optimization
+const ThemeToggle = lazy(() =>
+  import('@/app/components/ui/ThemeToggle').then(module => ({
+    default: module.ThemeToggle
+  }))
+);
+const LanguageCountrySwitcher = lazy(() =>
+  import('@/app/components/ui/LanguageCountrySwitcher').then(module => ({
+    default: module.LanguageCountrySwitcher
+  }))
+);
+const LogoutButton = lazy(() => import('@/app/component/auth/LogoutButton'));
+
+type HeaderMode = 'landing' | 'dashboard' | 'minimal';
+
+interface NavigationItem {
+  label: string;
+  href: string;
+  external?: boolean;
+}
+
+interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
 
 interface HeaderProps {
+  mode?: HeaderMode;
   user?: {
     email?: string;
   };
   showQuickActions?: boolean;
-  breadcrumbs?: Array<{
-    label: string;
-    href?: string;
-  }>;
+  showNavigation?: boolean;
+  navigationItems?: NavigationItem[];
+  breadcrumbs?: BreadcrumbItem[];
   pendingCount?: number;
+  customActions?: React.ReactNode;
+  title?: string;
+  description?: string;
 }
 
-export function Header({ user, showQuickActions = false, breadcrumbs = [], pendingCount = 0 }: HeaderProps) {
+export function Header({
+  mode = 'dashboard',
+  user,
+  showQuickActions = false,
+  showNavigation = false,
+  navigationItems = [],
+  breadcrumbs = [],
+  pendingCount = 0,
+  customActions,
+  title,
+  description
+}: HeaderProps) {
   const currentLocale = useLocale(); // Force re-render when locale changes
   const t = useTranslations('navigation');
   const tHeader = useTranslations('header');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Default navigation items for landing mode
+  const defaultNavigationItems: NavigationItem[] = [
+    { label: t('features'), href: '#features' },
+    { label: t('pricing'), href: '#pricing' },
+    { label: t('testimonials'), href: '#testimonials' }
+  ];
+
+  // Use provided navigation items or defaults based on mode
+  const currentNavigationItems = navigationItems.length > 0
+    ? navigationItems
+    : (mode === 'landing' ? defaultNavigationItems : []);
 
   // Ensure re-render when locale changes
   useEffect(() => {
     // Component will re-render when currentLocale changes
     // This ensures translations update properly
   }, [currentLocale]);
+
+  // Close mobile menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (isMobileMenuOpen && !(event.target as Element).closest('header')) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isMobileMenuOpen]);
+
+  // Close mobile menu on escape key
+  useEffect(() => {
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && isMobileMenuOpen) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [isMobileMenuOpen]);
 
   return (
     <>
@@ -61,10 +134,10 @@ export function Header({ user, showQuickActions = false, breadcrumbs = [], pendi
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 lg:h-18">
-            {/* Logo and Breadcrumb */}
-            <div className="flex items-center space-x-3 lg:space-x-4 min-w-0 flex-1">
+            {/* Logo, Navigation, and Breadcrumb */}
+            <div className="flex items-center space-x-3 lg:space-x-6 min-w-0 flex-1">
               <Link
-                href={user ? "/dashboard" : "/"}
+                href={mode === 'landing' ? "/" : (user ? "/dashboard" : "/")}
                 className="flex items-center space-x-2 lg:space-x-3 hover:opacity-80 transition-opacity focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 rounded-md"
                 aria-label="InvoicePro home"
               >
@@ -77,6 +150,22 @@ export function Header({ user, showQuickActions = false, breadcrumbs = [], pendi
                 />
                 <span className="text-lg lg:text-xl font-bold text-header truncate">InvoicePro</span>
               </Link>
+
+              {/* Desktop Navigation */}
+              {(showNavigation || mode === 'landing') && currentNavigationItems.length > 0 && (
+                <nav className="hidden md:flex items-center space-x-6" aria-label="Main navigation">
+                  {currentNavigationItems.map((item, index) => (
+                    <Link
+                      key={index}
+                      href={item.href}
+                      className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 rounded px-2 py-1"
+                      {...(item.external && { target: "_blank", rel: "noopener noreferrer" })}
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </nav>
+              )}
               {breadcrumbs.length > 0 && (
                 <nav
                   className="hidden md:flex items-center space-x-2 text-sm text-muted-foreground min-w-0"
@@ -103,7 +192,7 @@ export function Header({ user, showQuickActions = false, breadcrumbs = [], pendi
             </div>
 
             {/* Desktop Actions */}
-            <div className="hidden lg:flex items-center space-x-3">
+            <div className="hidden lg:flex items-center space-x-6">
               {/* Quick Action Buttons */}
               {showQuickActions && user && (
                 <div className="flex items-center space-x-2">
@@ -133,32 +222,49 @@ export function Header({ user, showQuickActions = false, breadcrumbs = [], pendi
                 </div>
               )}
 
-              {/* Language/Country Switcher */}
-              <LanguageCountrySwitcher />
+              {/* Navigation Controls - WCAG 2.1 AA Compliant Spacing */}
+              <div className="flex items-center space-x-3 sm:space-x-4" role="group" aria-label="Navigation controls">
+                {/* Language/Country Switcher */}
+                <div className="flex-shrink-0">
+                  <Suspense fallback={<div className="w-11 h-11 animate-pulse bg-muted rounded-md" />}>
+                    <div className="min-w-[44px] min-h-[44px] flex items-center justify-center">
+                      <LanguageCountrySwitcher />
+                    </div>
+                  </Suspense>
+                </div>
 
-              {/* Theme Toggle */}
-              <ThemeToggle />
+                {/* Theme Toggle */}
+                <div className="flex-shrink-0">
+                  <Suspense fallback={<div className="w-16 h-8 animate-pulse bg-muted rounded-full" />}>
+                    <div className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2">
+                      <ThemeToggle />
+                    </div>
+                  </Suspense>
+                </div>
 
-              {/* Notifications */}
-              {user && (
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="relative focus:ring-2 focus:ring-ring focus:ring-offset-2"
-                  aria-label={`Notifications${pendingCount > 0 ? ` (${pendingCount} pending)` : ''}`}
-                >
-                  <Bell className="h-5 w-5" aria-hidden="true" />
-                  {pendingCount > 0 && (
-                    <Badge
-                      variant="destructive"
-                      className="absolute -top-1 -right-1 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs"
-                      aria-label={`${pendingCount} pending notifications`}
+                {/* Notifications */}
+                {user && (
+                  <div className="flex-shrink-0">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="relative min-w-[44px] min-h-[44px] p-2 focus:ring-2 focus:ring-ring focus:ring-offset-2 hover:bg-accent/50 transition-colors"
+                      aria-label={`Notifications${pendingCount > 0 ? ` (${pendingCount} pending)` : ''}`}
                     >
-                      {pendingCount}
-                    </Badge>
-                  )}
-                </Button>
-              )}
+                      <Bell className="h-5 w-5" aria-hidden="true" />
+                      {pendingCount > 0 && (
+                        <Badge
+                          variant="destructive"
+                          className="absolute -top-1 -right-1 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs"
+                          aria-label={`${pendingCount} pending notifications`}
+                        >
+                          {pendingCount}
+                        </Badge>
+                      )}
+                    </Button>
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Mobile Menu Button */}
@@ -167,7 +273,7 @@ export function Header({ user, showQuickActions = false, breadcrumbs = [], pendi
                 variant="ghost"
                 size="sm"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                className="min-w-[44px] min-h-[44px] p-2 focus:ring-2 focus:ring-ring focus:ring-offset-2 hover:bg-accent/50 transition-colors"
                 aria-label="Toggle mobile menu"
                 aria-expanded={isMobileMenuOpen}
                 aria-controls="mobile-menu"
@@ -187,7 +293,7 @@ export function Header({ user, showQuickActions = false, breadcrumbs = [], pendi
                   <DropdownMenuTrigger asChild>
                     <Button
                       variant="ghost"
-                      className="relative h-9 w-9 rounded-full focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                      className="relative min-w-[44px] min-h-[44px] w-11 h-11 rounded-full focus:ring-2 focus:ring-ring focus:ring-offset-2 hover:bg-accent/50 transition-colors"
                       aria-label={`User menu for ${user.email}`}
                     >
                       <Avatar className="h-8 w-8">
@@ -225,17 +331,20 @@ export function Header({ user, showQuickActions = false, breadcrumbs = [], pendi
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
-                      <LogoutButton variant="ghost" className="w-full text-left text-red-600 hover:text-red-700 justify-start" />
+                      <Suspense fallback={<div className="w-full h-6 animate-pulse bg-muted rounded" />}>
+                        <LogoutButton variant="ghost" className="w-full text-left text-red-600 hover:text-red-700 justify-start" />
+                      </Suspense>
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               ) : (
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-3 sm:space-x-4" role="group" aria-label="Authentication">
                   <Link href="/auth/login">
                     <Button
                       variant="outline"
                       size="sm"
-                      className="focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                      className="min-w-[44px] min-h-[44px] px-4 py-2 focus:ring-2 focus:ring-ring focus:ring-offset-2 hover:bg-accent/50 transition-colors"
+                      aria-label="Sign in to your account"
                     >
                       {t('login')}
                     </Button>
@@ -243,7 +352,8 @@ export function Header({ user, showQuickActions = false, breadcrumbs = [], pendi
                   <Link href="/auth/signup">
                     <Button
                       size="sm"
-                      className="focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                      className="min-w-[44px] min-h-[44px] px-4 py-2 bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 transition-all"
+                      aria-label="Create a new account"
                     >
                       {t('signup')}
                     </Button>
@@ -263,16 +373,40 @@ export function Header({ user, showQuickActions = false, breadcrumbs = [], pendi
             aria-label="Mobile navigation menu"
           >
             <div className="px-4 py-4 space-y-4">
+              {/* Mobile Navigation */}
+              {(showNavigation || mode === 'landing') && currentNavigationItems.length > 0 && (
+                <div className="space-y-2">
+                  <p className="text-sm font-medium text-muted-foreground">Navigation</p>
+                  <div className="space-y-1">
+                    {currentNavigationItems.map((item, index) => (
+                      <Link
+                        key={index}
+                        href={item.href}
+                        className="block w-full text-left px-3 py-2 text-sm rounded-md hover:bg-accent transition-colors"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        {...(item.external && { target: "_blank", rel: "noopener noreferrer" })}
+                      >
+                        {item.label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {/* Mobile Language/Country Switcher */}
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium text-muted-foreground">Language & Region</span>
-                <LanguageCountrySwitcher />
+                <Suspense fallback={<div className="w-8 h-8 animate-pulse bg-muted rounded" />}>
+                  <LanguageCountrySwitcher />
+                </Suspense>
               </div>
 
               {/* Mobile Theme Toggle */}
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium text-muted-foreground">Theme</span>
-                <ThemeToggle />
+                <Suspense fallback={<div className="w-8 h-8 animate-pulse bg-muted rounded" />}>
+                  <ThemeToggle />
+                </Suspense>
               </div>
 
               {/* Mobile Quick Actions */}
@@ -357,10 +491,12 @@ export function Header({ user, showQuickActions = false, breadcrumbs = [], pendi
                     >
                       {t('backToHomepage')}
                     </Link>
-                    <LogoutButton
-                      variant="ghost"
-                      className="w-full text-left px-3 py-2 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-950 rounded-md transition-colors justify-start"
-                    />
+                    <Suspense fallback={<div className="w-full h-8 animate-pulse bg-muted rounded" />}>
+                      <LogoutButton
+                        variant="ghost"
+                        className="w-full text-left px-3 py-2 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-950 rounded-md transition-colors justify-start"
+                      />
+                    </Suspense>
                   </div>
                 </div>
               ) : (

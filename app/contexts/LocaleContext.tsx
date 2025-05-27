@@ -43,7 +43,7 @@ export function LocaleProvider({ children }: LocaleProviderProps) {
     }
   }, [currentLocale, preferences.language]);
 
-  // Get the default country for the current language
+  // Get the default country for the current language (only used as fallback)
   const getDefaultCountryForLanguage = (language: Locale): Country => {
     const countryEntry = Object.entries(countryLanguageMappings).find(
       ([, config]) => config.defaultLanguage === language
@@ -51,9 +51,11 @@ export function LocaleProvider({ children }: LocaleProviderProps) {
     return (countryEntry?.[0] as Country) || 'US';
   };
 
-  // Always use the current URL locale for immediate synchronization
+  // Always use the current URL locale for language
   const effectiveLanguage = currentLocale as Locale;
-  const effectiveCountry = getDefaultCountryForLanguage(effectiveLanguage);
+
+  // Use stored country preference, NOT derived from language
+  const effectiveCountry = preferences.country || getDefaultCountryForLanguage(effectiveLanguage);
 
   const setCountry = (newCountry: Country) => {
     preferenceManager.setCountry(newCountry);

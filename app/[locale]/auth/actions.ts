@@ -106,7 +106,7 @@ export async function signInWithEmailPassword(formData: FormData) {
   return { error: null, data, success: true };
 }
 
-export async function signOut() {
+export async function signOut(locale?: string) {
   const supabase = await createSupabaseServerActionClient();
   const { error } = await supabase.auth.signOut();
 
@@ -115,8 +115,11 @@ export async function signOut() {
     return { error: { message: error.message } };
   }
 
-  // Redirect to home page after successful logout
-  redirect("/");
+  console.log("Server Action signOut: Success. User logged out.");
+
+  // Redirect to home page with locale after successful logout
+  const redirectPath = locale ? `/${locale}` : "/";
+  redirect(redirectPath);
 }
 
 export async function readUserSession() {

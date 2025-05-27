@@ -77,7 +77,10 @@
     "logout": "Log out",
     "login": "Login",
     "signup": "Get Started",
-    "backToHomepage": "Back to Homepage"
+    "backToHomepage": "Back to Homepage",
+    "features": "Features",
+    "pricing": "Pricing",
+    "testimonials": "Testimonials"
   },
   "header": {
     "notifications": "Notifications",
@@ -169,7 +172,63 @@
       "title": "Ready to get paid faster?",
       "subtitle": "Join thousands of businesses that trust InvoicePro for their invoicing needs. Start your free trial today.",
       "button": "Start Free Trial",
-      "dashboard": "Go to Dashboard"
+      "dashboard": "Go to Dashboard",
+      "contactSales": "Contact Sales"
+    },
+    "badge": {
+      "trustedBy": "🚀 Trusted by 10,000+ businesses worldwide"
+    },
+    "testimonials": {
+      "title": "What our customers say",
+      "subtitle": "Don't just take our word for it - hear from some of our satisfied customers",
+      "customer1": {
+        "quote": "InvoicePro has transformed how we handle billing. The automated reminders alone have improved our cash flow significantly.",
+        "name": "Sarah Johnson",
+        "company": "Design Studio"
+      },
+      "customer2": {
+        "quote": "The professional templates and easy customization make our invoices look great. Our clients love the payment portal.",
+        "name": "Michael Chen",
+        "company": "Consulting Firm"
+      },
+      "customer3": {
+        "quote": "Professional templates and fast payment processing. Our cash flow has improved significantly.",
+        "name": "Anna Rodriguez",
+        "company": "Marketing Agency"
+      }
+    },
+    "footer": {
+      "description": "Professional invoicing made simple. Get paid faster with our powerful platform.",
+      "product": "Product",
+      "features": "Features",
+      "pricing": "Pricing",
+      "templates": "Templates",
+      "integrations": "Integrations",
+      "company": "Company",
+      "about": "About",
+      "blog": "Blog",
+      "careers": "Careers",
+      "contact": "Contact",
+      "support": "Support",
+      "helpCenter": "Help Center",
+      "documentation": "Documentation",
+      "privacyPolicy": "Privacy Policy",
+      "termsOfService": "Terms of Service",
+      "copyright": "© 2024 InvoicePro. All rights reserved."
+    },
+    "demo": {
+      "title": "See InvoicePro in Action",
+      "subtitle": "Watch how easy it is to create professional invoices in just a few clicks",
+      "loading": "Loading demo..."
+    },
+    "socialProof": {
+      "rating": "from 2,000+ reviews",
+      "invoicesCreated": "invoices created"
+    },
+    "common": {
+      "mostPopular": "Most Popular",
+      "year": "year",
+      "month": "month"
     }
   },
   "dashboard": {
@@ -511,6 +570,12 @@
     "title": "Language and Country",
     "language": "Language",
     "country": "Country",
-    "currentShop": "Current Shop"
+    "selectCountryLanguage": "Country & Language"
+  },
+  "languageSuggestion": {
+    "suggestion": "Would you like to view this page in {language}?",
+    "description": "We detected this might be your preferred language.",
+    "accept": "Yes, switch to {language}",
+    "dismiss": "No, keep current language"
   }
 }

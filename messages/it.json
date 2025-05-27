@@ -77,7 +77,10 @@
     "logout": "Disconnetti",
     "login": "Accedi",
     "signup": "Inizia",
-    "backToHomepage": "Torna alla Homepage"
+    "backToHomepage": "Torna alla Homepage",
+    "features": "Caratteristiche",
+    "pricing": "Prezzi",
+    "testimonials": "Testimonianze"
   },
   "header": {
     "notifications": "Notifiche",
@@ -169,7 +172,63 @@
       "title": "Pronto per essere pagato più velocemente?",
       "subtitle": "Unisciti a migliaia di aziende che si fidano di InvoicePro per le loro esigenze di fatturazione. Inizia la tua prova gratuita oggi.",
       "button": "Inizia Prova Gratuita",
-      "dashboard": "Vai alla Dashboard"
+      "dashboard": "Vai alla Dashboard",
+      "contactSales": "Contatta Vendite"
+    },
+    "badge": {
+      "trustedBy": "🚀 Scelto da oltre 10.000 aziende in tutto il mondo"
+    },
+    "testimonials": {
+      "title": "Cosa dicono i nostri clienti",
+      "subtitle": "Non crederci sulla parola - ascolta alcuni dei nostri clienti soddisfatti",
+      "customer1": {
+        "quote": "InvoicePro ha trasformato il modo in cui gestiamo la fatturazione. I promemoria automatici da soli hanno migliorato significativamente il nostro flusso di cassa.",
+        "name": "Sarah Johnson",
+        "company": "Studio di Design"
+      },
+      "customer2": {
+        "quote": "I modelli professionali e la facile personalizzazione fanno sembrare fantastiche le nostre fatture. I nostri clienti adorano il portale di pagamento.",
+        "name": "Michael Chen",
+        "company": "Società di Consulenza"
+      },
+      "customer3": {
+        "quote": "Modelli professionali e elaborazione rapida dei pagamenti. Il nostro flusso di cassa è migliorato significativamente.",
+        "name": "Anna Rodriguez",
+        "company": "Agenzia di Marketing"
+      }
+    },
+    "footer": {
+      "description": "Fatturazione professionale resa semplice. Ricevi pagamenti più velocemente con la nostra potente piattaforma.",
+      "product": "Prodotto",
+      "features": "Funzionalità",
+      "pricing": "Prezzi",
+      "templates": "Modelli",
+      "integrations": "Integrazioni",
+      "company": "Azienda",
+      "about": "Chi Siamo",
+      "blog": "Blog",
+      "careers": "Carriere",
+      "contact": "Contatti",
+      "support": "Supporto",
+      "helpCenter": "Centro Assistenza",
+      "documentation": "Documentazione",
+      "privacyPolicy": "Informativa Privacy",
+      "termsOfService": "Termini di Servizio",
+      "copyright": "© 2024 InvoicePro. Tutti i diritti riservati."
+    },
+    "demo": {
+      "title": "Vedi InvoicePro in Azione",
+      "subtitle": "Guarda quanto è facile creare fatture professionali in pochi clic",
+      "loading": "Caricamento demo..."
+    },
+    "socialProof": {
+      "rating": "da oltre 2.000 recensioni",
+      "invoicesCreated": "fatture create"
+    },
+    "common": {
+      "mostPopular": "Più Popolare",
+      "year": "anno",
+      "month": "mese"
     }
   },
   "dashboard": {
@@ -390,6 +449,12 @@
     "title": "Lingua e Paese",
     "language": "Lingua",
     "country": "Paese",
-    "currentShop": "Negozio Attuale"
+    "selectCountryLanguage": "Paese e Lingua"
+  },
+  "languageSuggestion": {
+    "suggestion": "Vuoi visualizzare questa pagina in {language}?",
+    "description": "Abbiamo rilevato che questa potrebbe essere la tua lingua preferita.",
+    "accept": "Sì, passa a {language}",
+    "dismiss": "No, mantieni la lingua attuale"
   }
 }

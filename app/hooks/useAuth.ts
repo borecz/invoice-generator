@@ -27,12 +27,26 @@ export function useAuth(): AuthState {
           data: { user },
           error,
         } = await supabase.auth.getUser();
+
+        // Handle auth session missing as normal state (user not logged in)
+        if (error && error.message === "Auth session missing!") {
+          setAuthState((prev) => ({
+            ...prev,
+            user: null,
+            session: null,
+            loading: false,
+            error: null,
+          }));
+          return;
+        }
+
+        // Handle other errors as actual errors
         if (error) {
           console.error("useAuth: Error getting initial user:", error.message);
           setAuthState((prev) => ({ ...prev, loading: false, error }));
           return;
         }
-        console.log("useAuth: Initial user fetch successful. User:", user);
+
         setAuthState((prev) => ({
           ...prev,
           user: user,
@@ -40,6 +54,18 @@ export function useAuth(): AuthState {
           loading: false,
         }));
       } catch (catchError: any) {
+        // Handle auth session missing as normal state
+        if (catchError.message === "Auth session missing!") {
+          setAuthState((prev) => ({
+            ...prev,
+            user: null,
+            session: null,
+            loading: false,
+            error: null,
+          }));
+          return;
+        }
+
         console.error(
           "useAuth: Catch error getting initial user:",
           catchError.message
@@ -66,6 +92,18 @@ export function useAuth(): AuthState {
               data: { user },
               error,
             } = await supabase.auth.getUser();
+
+            // Handle auth session missing as normal state
+            if (error && error.message === "Auth session missing!") {
+              setAuthState({
+                user: null,
+                session: null,
+                loading: false,
+                error: null,
+              });
+              return;
+            }
+
             if (error) {
               console.error(
                 "useAuth: Error re-fetching user after auth change:",
@@ -78,7 +116,6 @@ export function useAuth(): AuthState {
                 error,
               });
             } else {
-              console.log("useAuth: Re-fetched user after auth change:", user);
               setAuthState({
                 user: user,
                 session: user ? { user, access_token: null } : null,
@@ -87,6 +124,17 @@ export function useAuth(): AuthState {
               });
             }
           } catch (catchError: any) {
+            // Handle auth session missing as normal state
+            if (catchError.message === "Auth session missing!") {
+              setAuthState({
+                user: null,
+                session: null,
+                loading: false,
+                error: null,
+              });
+              return;
+            }
+
             console.error(
               "useAuth: Catch error re-fetching user:",
               catchError.message

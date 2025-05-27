@@ -63,7 +63,10 @@
     "logout": "Odhlásit se",
     "login": "Přihlásit se",
     "signup": "Začít",
-    "backToHomepage": "Zpět na Domovskou Stránku"
+    "backToHomepage": "Zpět na Domovskou Stránku",
+    "features": "Funkce",
+    "pricing": "Ceny",
+    "testimonials": "Recenze"
   },
   "header": {
     "notifications": "Oznámení",
@@ -155,7 +158,63 @@
       "title": "Připraveni dostávat platby rychleji?",
       "subtitle": "Připojte se k tisícům firem, které důvěřují InvoicePro pro své fakturační potřeby. Začněte svou bezplatnou zkušební verzi dnes.",
       "button": "Začít Bezplatnou Zkušební Verzi",
-      "dashboard": "Přejít na Přehled"
+      "dashboard": "Přejít na Přehled",
+      "contactSales": "Kontaktovat Prodej"
+    },
+    "badge": {
+      "trustedBy": "🚀 Důvěřuje nám více než 10 000 firem po celém světě"
+    },
+    "testimonials": {
+      "title": "Co říkají naši zákazníci",
+      "subtitle": "Nevěřte jen nám - poslechněte si některé z našich spokojených zákazníků",
+      "customer1": {
+        "quote": "InvoicePro transformoval způsob, jakým řešíme fakturaci. Samotné automatické připomínky výrazně zlepšily náš cash flow.",
+        "name": "Sarah Johnson",
+        "company": "Design Studio"
+      },
+      "customer2": {
+        "quote": "Profesionální šablony a snadné přizpůsobení dělají naše faktury skvěle vypadajícími. Naši klienti milují platební portál.",
+        "name": "Michael Chen",
+        "company": "Poradenská Firma"
+      },
+      "customer3": {
+        "quote": "Profesionální šablony a rychlé zpracování plateb. Náš cash flow se výrazně zlepšil.",
+        "name": "Anna Rodriguez",
+        "company": "Marketingová Agentura"
+      }
+    },
+    "footer": {
+      "description": "Profesionální fakturace jednoduše. Dostávejte platby rychleji s naší výkonnou platformou.",
+      "product": "Produkt",
+      "features": "Funkce",
+      "pricing": "Ceny",
+      "templates": "Šablony",
+      "integrations": "Integrace",
+      "company": "Společnost",
+      "about": "O nás",
+      "blog": "Blog",
+      "careers": "Kariéra",
+      "contact": "Kontakt",
+      "support": "Podpora",
+      "helpCenter": "Centrum nápovědy",
+      "documentation": "Dokumentace",
+      "privacyPolicy": "Zásady ochrany osobních údajů",
+      "termsOfService": "Podmínky služby",
+      "copyright": "© 2024 InvoicePro. Všechna práva vyhrazena."
+    },
+    "demo": {
+      "title": "Podívejte se na InvoicePro v akci",
+      "subtitle": "Podívejte se, jak snadné je vytvořit profesionální faktury jen několika kliknutími",
+      "loading": "Načítání demo..."
+    },
+    "socialProof": {
+      "rating": "z více než 2 000 recenzí",
+      "invoicesCreated": "vytvořených faktur"
+    },
+    "common": {
+      "mostPopular": "Nejpopulárnější",
+      "year": "rok",
+      "month": "měsíc"
     }
   },
   "dashboard": {
@@ -308,6 +367,12 @@
     "title": "Jazyk a Země",
     "language": "Jazyk",
     "country": "Země",
-    "currentShop": "Aktuální Obchod"
+    "selectCountryLanguage": "Země a Jazyk"
+  },
+  "languageSuggestion": {
+    "suggestion": "Chcete zobrazit tuto stránku v {language}?",
+    "description": "Zjistili jsme, že to může být váš preferovaný jazyk.",
+    "accept": "Ano, přepnout na {language}",
+    "dismiss": "Ne, ponechat současný jazyk"
   }
 }

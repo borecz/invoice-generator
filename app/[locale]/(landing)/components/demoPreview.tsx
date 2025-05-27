@@ -1,14 +1,30 @@
-import { PreviewDetails } from "@/app/component/form/previewDetails";
+import { lazy, Suspense } from 'react';
+
+// Lazy load the heavy PreviewDetails component
+const PreviewDetails = lazy(() =>
+  import("@/app/component/form/previewDetails").then(module => ({
+    default: module.PreviewDetails
+  }))
+);
 
 const DemoPreview = () => (
   <div className="mx-auto w-full flex justify-center items-center">
-    <PreviewDetails
-      companyDetails={defaultValue.companyDetails}
-      invoiceDetails={defaultValue.invoiceDetails}
-      invoiceTerms={defaultValue.invoiceTerms}
-      paymentDetails={defaultValue.paymentDetails}
-      yourDetails={defaultValue.yourDetails}
-    />
+    <Suspense fallback={
+      <div className="w-[595px] h-[842px] bg-white rounded-2xl border border-dashed flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading invoice preview...</p>
+        </div>
+      </div>
+    }>
+      <PreviewDetails
+        companyDetails={defaultValue.companyDetails}
+        invoiceDetails={defaultValue.invoiceDetails}
+        invoiceTerms={defaultValue.invoiceTerms}
+        paymentDetails={defaultValue.paymentDetails}
+        yourDetails={defaultValue.yourDetails}
+      />
+    </Suspense>
   </div>
 );
 

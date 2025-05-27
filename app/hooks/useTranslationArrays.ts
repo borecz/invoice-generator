@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
  * this hook provides a safe way to retrieve arrays from translation files
  */
 export function useTranslationArrays() {
-  const t = useTranslations();
+  const t = useTranslations("landing");
 
   const getTranslationArray = (
     key: string,
@@ -67,7 +67,7 @@ export function useTranslationArrays() {
 
     try {
       const features = getTranslationArray(
-        `landing.pricing.${planType}.features`,
+        `pricing.${planType}.features`,
         knownIndices[planType]
       );
 

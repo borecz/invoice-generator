@@ -3,11 +3,13 @@ import { NextResponse, type NextRequest } from "next/server";
 import createIntlMiddleware from "next-intl/middleware";
 import { locales, defaultLocale } from "./i18n";
 
-// Create the internationalization middleware
+// Create the internationalization middleware with industry standard configuration
 const intlMiddleware = createIntlMiddleware({
   locales,
   defaultLocale,
-  localePrefix: "always",
+  localePrefix: "always", // Industry standard: always show locale in URL
+  alternateLinks: true, // SEO: Generate hreflang tags
+  localeDetection: true, // Smart detection for first-time visitors
 });
 
 export async function middleware(req: NextRequest) {
@@ -130,7 +132,10 @@ export async function middleware(req: NextRequest) {
     error,
   } = await supabase.auth.getUser();
 
-  if (error) {
+  // Handle auth session missing as normal state (user not logged in)
+  if (error && error.message === "Auth session missing!") {
+    // This is normal for unauthenticated users, continue without logging error
+  } else if (error) {
     console.error("Middleware: Error getting user:", error.message);
     // Allow request to proceed if there's an error, or handle differently
     return res;
