@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+import { useTranslations } from 'next-intl';
 import { useAuth } from '@/app/hooks/useAuth';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -25,9 +26,10 @@ import {
   Users,
   X,
 } from 'lucide-react';
-import { NewInvoiceForm } from "@/app/new/component/NewInvoiceForm";
+import { NewInvoiceForm } from "@/app/[locale]/new/component/NewInvoiceForm";
 
 const NewInvoicePage = () => {
+  const t = useTranslations('invoices.newInvoicePage');
   const { user, loading, error } = useAuth();
 
   if (loading) {
@@ -35,7 +37,7 @@ const NewInvoicePage = () => {
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mx-auto mb-4"></div>
-          <p className="text-xl text-gray-600">Loading...</p>
+          <p className="text-xl text-gray-600">{t('loading')}</p>
         </div>
       </div>
     );
@@ -46,12 +48,12 @@ const NewInvoicePage = () => {
       <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50">
         <Card className="max-w-md w-full">
           <CardHeader>
-            <CardTitle className="text-red-600">Error</CardTitle>
+            <CardTitle className="text-red-600">{t('error')}</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-gray-600 mb-4">{error.message}</p>
             <Link href="/">
-              <Button variant="outline" className="w-full">Go to Homepage</Button>
+              <Button variant="outline" className="w-full">{t('goToHomepage')}</Button>
             </Link>
           </CardContent>
         </Card>
@@ -64,12 +66,12 @@ const NewInvoicePage = () => {
       <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50">
         <Card className="max-w-md w-full">
           <CardHeader>
-            <CardTitle>Access Denied</CardTitle>
+            <CardTitle>{t('accessDenied')}</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-gray-600 mb-4">Please log in to create invoices.</p>
+            <p className="text-gray-600 mb-4">{t('pleaseLoginToCreateInvoices')}</p>
             <Link href="/auth/login">
-              <Button className="w-full">Login</Button>
+              <Button className="w-full">{t('login')}</Button>
             </Link>
           </CardContent>
         </Card>
@@ -96,9 +98,9 @@ const NewInvoicePage = () => {
                 <span className="text-xl font-bold text-gray-900">InvoicePro</span>
               </Link>
               <div className="hidden md:flex items-center space-x-2 text-sm text-gray-500">
-                <Link href="/dashboard" className="hover:text-gray-700">Dashboard</Link>
+                <Link href="/dashboard" className="hover:text-gray-700">{t('dashboard')}</Link>
                 <span>/</span>
-                <span>New Invoice</span>
+                <span>{t('newInvoice')}</span>
               </div>
             </div>
 
@@ -109,7 +111,7 @@ const NewInvoicePage = () => {
                 <Link href="/customers">
                   <Button variant="outline" size="sm">
                     <Users className="h-4 w-4 mr-2" />
-                    Add Customer
+                    {t('addCustomer')}
                   </Button>
                 </Link>
               </div>
@@ -134,7 +136,7 @@ const NewInvoicePage = () => {
                 <DropdownMenuContent className="w-56" align="end" forceMount>
                   <DropdownMenuLabel className="font-normal">
                     <div className="flex flex-col space-y-1">
-                      <p className="text-sm font-medium leading-none">Account</p>
+                      <p className="text-sm font-medium leading-none">{t('account')}</p>
                       <p className="text-xs leading-none text-muted-foreground">
                         {user.email}
                       </p>
@@ -143,15 +145,15 @@ const NewInvoicePage = () => {
                   <DropdownMenuSeparator />
                   <DropdownMenuItem>
                     <Link href="/dashboard" className="w-full">
-                      Back to Dashboard
+                      {t('backToDashboard')}
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem>
-                    Profile Settings
+                    {t('profileSettings')}
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem className="text-red-600">
-                    Log out
+                    {t('logOut')}
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -169,12 +171,12 @@ const NewInvoicePage = () => {
               <Link href="/dashboard">
                 <Button variant="ghost" size="sm">
                   <ArrowLeft className="h-4 w-4 mr-2" />
-                  Back to Dashboard
+                  {t('backToDashboard')}
                 </Button>
               </Link>
               <div>
-                <h1 className="text-3xl font-bold text-gray-900">Create New Invoice</h1>
-                <p className="text-gray-600">Fill in the details below to generate your invoice</p>
+                <h1 className="text-3xl font-bold text-gray-900">{t('title')}</h1>
+                <p className="text-gray-600">{t('fillDetails')}</p>
               </div>
             </div>
           </div>

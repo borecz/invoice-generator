@@ -38,9 +38,22 @@ export function LocaleProvider({ children }: LocaleProviderProps) {
   // Update language when locale changes (from URL navigation)
   useEffect(() => {
     if (preferences.language !== currentLocale) {
+      // Update preferences to match the current URL locale
       preferenceManager.setLanguage(currentLocale);
     }
   }, [currentLocale, preferences.language]);
+
+  // Get the default country for the current language
+  const getDefaultCountryForLanguage = (language: Locale): Country => {
+    const countryEntry = Object.entries(countryLanguageMappings).find(
+      ([, config]) => config.defaultLanguage === language
+    );
+    return (countryEntry?.[0] as Country) || 'US';
+  };
+
+  // Always use the current URL locale for immediate synchronization
+  const effectiveLanguage = currentLocale as Locale;
+  const effectiveCountry = getDefaultCountryForLanguage(effectiveLanguage);
 
   const setCountry = (newCountry: Country) => {
     preferenceManager.setCountry(newCountry);
@@ -55,8 +68,8 @@ export function LocaleProvider({ children }: LocaleProviderProps) {
   };
 
   const value: LocaleContextType = {
-    country: preferences.country,
-    language: preferences.language,
+    country: effectiveCountry,
+    language: effectiveLanguage,
     setCountry,
     setLanguage,
     setCountryAndLanguage,

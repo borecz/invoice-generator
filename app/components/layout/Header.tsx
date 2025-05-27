@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -33,9 +33,16 @@ interface HeaderProps {
 }
 
 export function Header({ user, showQuickActions = false, breadcrumbs = [], pendingCount = 0 }: HeaderProps) {
+  const currentLocale = useLocale(); // Force re-render when locale changes
   const t = useTranslations('navigation');
   const tHeader = useTranslations('header');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Ensure re-render when locale changes
+  useEffect(() => {
+    // Component will re-render when currentLocale changes
+    // This ensures translations update properly
+  }, [currentLocale]);
 
   return (
     <>

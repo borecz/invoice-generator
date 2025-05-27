@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { useTranslations } from 'next-intl';
 import { useForm, FormProvider, useFieldArray } from "react-hook-form";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -67,6 +68,7 @@ interface InvoiceFormData {
 }
 
 export const NewInvoiceForm = () => {
+  const t = useTranslations('invoices.form');
   const router = useRouter();
   const searchParams = useSearchParams();
   const { user, loading: authLoading } = useAuth();
@@ -115,7 +117,7 @@ export const NewInvoiceForm = () => {
           setCustomers(result.data as Customer[]);
         }
       } catch (error) {
-        setCustomersError('Failed to fetch customers');
+        setCustomersError(t('loadingCustomers'));
         setCustomers([]);
       } finally {
         setCustomersLoading(false);
@@ -165,14 +167,14 @@ export const NewInvoiceForm = () => {
 
       if (data.customerType === 'existing') {
         if (!data.customerId) {
-          setSubmitStatus({ message: "Please select a customer", type: 'error' });
+          setSubmitStatus({ message: t('pleaseSelectCustomer'), type: 'error' });
           setIsSubmitting(false);
           return;
         }
         customerData = { customer_id: data.customerId };
       } else {
         if (!data.inlineCustomer?.name) {
-          setSubmitStatus({ message: "Customer name is required", type: 'error' });
+          setSubmitStatus({ message: t('customerNameIsRequired'), type: 'error' });
           setIsSubmitting(false);
           return;
         }
@@ -187,7 +189,7 @@ export const NewInvoiceForm = () => {
 
           if (customerResult.error) {
             setSubmitStatus({
-              message: `Failed to save customer: ${customerResult.error.message}`,
+              message: `${t('failedToSaveCustomer')}: ${customerResult.error.message}`,
               type: 'error'
             });
             setIsSubmitting(false);
@@ -195,7 +197,7 @@ export const NewInvoiceForm = () => {
           } else if (customerResult.data && customerResult.data.length > 0) {
             savedCustomerId = customerResult.data[0].id;
             customerData = { customer_id: savedCustomerId };
-            customerSaveMessage = ' Customer has been added to your database.';
+            customerSaveMessage = t('customerAddedToDatabase');
           }
         } else {
           // Use inline customer data without saving
@@ -228,7 +230,7 @@ export const NewInvoiceForm = () => {
       if (result.error) {
         setSubmitStatus({ message: result.error.message, type: 'error' });
       } else {
-        const successMessage = `Invoice created successfully!${customerSaveMessage}`;
+        const successMessage = `${t('invoiceCreatedSuccessfully')}${customerSaveMessage}`;
         setSubmitStatus({ message: successMessage, type: 'success' });
         // Redirect to dashboard after a short delay
         setTimeout(() => {
@@ -236,7 +238,7 @@ export const NewInvoiceForm = () => {
         }, 2000);
       }
     } catch (error: any) {
-      setSubmitStatus({ message: error.message || 'An unexpected error occurred', type: 'error' });
+      setSubmitStatus({ message: error.message || t('unexpectedErrorOccurred'), type: 'error' });
     } finally {
       setIsSubmitting(false);
     }
@@ -261,20 +263,20 @@ export const NewInvoiceForm = () => {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <User className="h-5 w-5 text-orange-500" />
-                Invoice Details
+                {t('invoiceDetails')}
               </CardTitle>
               <CardDescription>
-                Basic information about your invoice
+                {t('basicInformation')}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               {/* Invoice Number */}
               <div className="space-y-2">
-                <Label htmlFor="invoiceNumber">Invoice Number *</Label>
+                <Label htmlFor="invoiceNumber">{t('invoiceNumber')} *</Label>
                 <Input
                   id="invoiceNumber"
-                  {...methods.register("invoiceNumber", { required: "Invoice number is required" })}
-                  placeholder="INV-001"
+                  {...methods.register("invoiceNumber", { required: t('invoiceNumberRequired') })}
+                  placeholder={t('invoiceNumberPlaceholder')}
                 />
                 {methods.formState.errors.invoiceNumber && (
                   <p className="text-sm text-red-600 flex items-center gap-1">
@@ -286,7 +288,7 @@ export const NewInvoiceForm = () => {
 
               {/* Customer Type Selection */}
               <div className="space-y-4">
-                <Label>Customer Information *</Label>
+                <Label>{t('customerInformation')} *</Label>
                 <RadioGroup
                   value={customerType}
                   onValueChange={(value: 'existing' | 'new') => {
@@ -304,14 +306,14 @@ export const NewInvoiceForm = () => {
                     <RadioGroupItem value="existing" id="existing" />
                     <Label htmlFor="existing" className="cursor-pointer flex items-center gap-2">
                       <User className="h-4 w-4 text-blue-500" />
-                      Select Existing Customer
+                      {t('selectExistingCustomer')}
                     </Label>
                   </div>
                   <div className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
                     <RadioGroupItem value="new" id="new" />
                     <Label htmlFor="new" className="cursor-pointer flex items-center gap-2">
                       <UserPlus className="h-4 w-4 text-green-500" />
-                      Enter New Customer Details
+                      {t('enterNewCustomerDetails')}
                     </Label>
                   </div>
                 </RadioGroup>
@@ -320,11 +322,11 @@ export const NewInvoiceForm = () => {
               {/* Existing Customer Selection */}
               {customerType === 'existing' && (
                 <div className="space-y-2">
-                  <Label htmlFor="customerId">Select Customer *</Label>
+                  <Label htmlFor="customerId">{t('selectCustomer')} *</Label>
                   {customersLoading ? (
                     <div className="flex items-center gap-2 p-3 border rounded-md">
                       <Loader2 className="h-4 w-4 animate-spin" />
-                      <span className="text-sm text-gray-500">Loading customers...</span>
+                      <span className="text-sm text-gray-500">{t('loadingCustomers')}</span>
                     </div>
                   ) : customersError ? (
                     <div className="p-3 border border-red-200 rounded-md bg-red-50">
@@ -339,7 +341,7 @@ export const NewInvoiceForm = () => {
                       onValueChange={(value) => methods.setValue("customerId", value)}
                     >
                       <SelectTrigger>
-                        <SelectValue placeholder="Select a customer" />
+                        <SelectValue placeholder={t('selectCustomerPlaceholder')} />
                       </SelectTrigger>
                       <SelectContent>
                         {customers.map((customer) => (
@@ -357,11 +359,11 @@ export const NewInvoiceForm = () => {
                   )}
                   {customers.length === 0 && !customersLoading && !customersError && (
                     <div className="p-3 border border-orange-200 rounded-md bg-orange-50">
-                      <p className="text-sm text-orange-600 mb-2">No customers found.</p>
+                      <p className="text-sm text-orange-600 mb-2">{t('noCustomersFound')}</p>
                       <Link href="/customers">
                         <Button variant="outline" size="sm">
                           <Plus className="h-4 w-4 mr-2" />
-                          Add Customer
+                          {t('addCustomer')}
                         </Button>
                       </Link>
                     </div>
@@ -380,19 +382,19 @@ export const NewInvoiceForm = () => {
                 <div className="space-y-4 p-4 border border-gray-200 rounded-lg bg-gray-50">
                   <div className="flex items-center gap-2 mb-2">
                     <UserPlus className="h-4 w-4 text-green-500" />
-                    <Label className="text-sm font-medium text-gray-700">Customer Details</Label>
+                    <Label className="text-sm font-medium text-gray-700">{t('customerDetails')}</Label>
                   </div>
 
                   <div className="space-y-4">
                     {/* Customer Name */}
                     <div className="space-y-2">
-                      <Label htmlFor="inlineCustomer.name">Customer Name *</Label>
+                      <Label htmlFor="inlineCustomer.name">{t('customerName')} *</Label>
                       <Input
                         id="inlineCustomer.name"
                         {...methods.register("inlineCustomer.name", {
-                          required: customerType === 'new' ? "Customer name is required" : false
+                          required: customerType === 'new' ? t('customerNameRequired') : false
                         })}
-                        placeholder="Enter customer name"
+                        placeholder={t('customerNamePlaceholder')}
                       />
                       {methods.formState.errors.inlineCustomer?.name && (
                         <p className="text-sm text-red-600 flex items-center gap-1">
@@ -404,12 +406,12 @@ export const NewInvoiceForm = () => {
 
                     {/* Customer Email */}
                     <div className="space-y-2">
-                      <Label htmlFor="inlineCustomer.email">Customer Email</Label>
+                      <Label htmlFor="inlineCustomer.email">{t('customerEmail')}</Label>
                       <Input
                         id="inlineCustomer.email"
                         type="email"
                         {...methods.register("inlineCustomer.email")}
-                        placeholder="customer@example.com (optional)"
+                        placeholder={t('customerEmailPlaceholder')}
                       />
                       {methods.formState.errors.inlineCustomer?.email && (
                         <p className="text-sm text-red-600 flex items-center gap-1">
@@ -421,11 +423,11 @@ export const NewInvoiceForm = () => {
 
                     {/* Customer Address */}
                     <div className="space-y-2">
-                      <Label htmlFor="inlineCustomer.address">Customer Address</Label>
+                      <Label htmlFor="inlineCustomer.address">{t('customerAddress')}</Label>
                       <Input
                         id="inlineCustomer.address"
                         {...methods.register("inlineCustomer.address")}
-                        placeholder="Customer address (optional)"
+                        placeholder={t('customerAddressPlaceholder')}
                       />
                       {methods.formState.errors.inlineCustomer?.address && (
                         <p className="text-sm text-red-600 flex items-center gap-1">
@@ -444,13 +446,13 @@ export const NewInvoiceForm = () => {
                       onCheckedChange={(checked) => methods.setValue("saveCustomer", !!checked)}
                     />
                     <Label htmlFor="saveCustomer" className="text-sm font-medium text-gray-700 cursor-pointer">
-                      Save this customer to my database for future use
+                      {t('saveCustomerToDatabase')}
                     </Label>
                   </div>
                   <p className="text-xs text-gray-500 mt-1">
                     {methods.watch("saveCustomer")
-                      ? "✓ This customer will be saved to your database and can be selected for future invoices."
-                      : "Customer information will only be used for this invoice and won't be saved permanently."
+                      ? t('customerWillBeSaved')
+                      : t('customerNotSaved')
                     }
                   </p>
                 </div>
@@ -459,11 +461,11 @@ export const NewInvoiceForm = () => {
               {/* Dates */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="invoiceDate">Invoice Date *</Label>
+                  <Label htmlFor="invoiceDate">{t('invoiceDate')} *</Label>
                   <Input
                     id="invoiceDate"
                     type="date"
-                    {...methods.register("invoiceDate", { required: "Invoice date is required" })}
+                    {...methods.register("invoiceDate", { required: t('invoiceDateRequired') })}
                   />
                   {methods.formState.errors.invoiceDate && (
                     <p className="text-sm text-red-600 flex items-center gap-1">
@@ -473,7 +475,7 @@ export const NewInvoiceForm = () => {
                   )}
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="dueDate">Due Date</Label>
+                  <Label htmlFor="dueDate">{t('dueDate')}</Label>
                   <Input
                     id="dueDate"
                     type="date"
@@ -490,7 +492,7 @@ export const NewInvoiceForm = () => {
               <CardTitle className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <Plus className="h-5 w-5 text-orange-500" />
-                  Invoice Items
+                  {t('invoiceItems')}
                 </div>
                 <Button
                   type="button"
@@ -499,18 +501,18 @@ export const NewInvoiceForm = () => {
                   onClick={addItem}
                 >
                   <Plus className="h-4 w-4 mr-2" />
-                  Add Item
+                  {t('addItem')}
                 </Button>
               </CardTitle>
               <CardDescription>
-                Add products or services to your invoice
+                {t('addProductsServices')}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               {fields.map((field, index) => (
                 <div key={field.id} className="p-4 border border-gray-200 rounded-lg space-y-4">
                   <div className="flex items-center justify-between">
-                    <h4 className="font-medium text-gray-900">Item #{index + 1}</h4>
+                    <h4 className="font-medium text-gray-900">{t('itemNumber')}{index + 1}</h4>
                     {fields.length > 1 && (
                       <Button
                         type="button"
@@ -526,12 +528,12 @@ export const NewInvoiceForm = () => {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     <div className="sm:col-span-2 space-y-2">
-                      <Label htmlFor={`items.${index}.itemName`}>Item Name *</Label>
+                      <Label htmlFor={`items.${index}.itemName`}>{t('itemName')} *</Label>
                       <Input
                         {...methods.register(`items.${index}.itemName`, {
-                          required: "Item name is required"
+                          required: t('itemNameRequired')
                         })}
-                        placeholder="Product or service name"
+                        placeholder={t('itemNamePlaceholder')}
                       />
                       {methods.formState.errors.items?.[index]?.itemName && (
                         <p className="text-sm text-red-600 flex items-center gap-1">
@@ -542,16 +544,16 @@ export const NewInvoiceForm = () => {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor={`items.${index}.itemQty`}>Quantity *</Label>
+                      <Label htmlFor={`items.${index}.itemQty`}>{t('quantity')} *</Label>
                       <Input
                         type="number"
                         min="1"
                         step="1"
                         {...methods.register(`items.${index}.itemQty`, {
-                          required: "Quantity is required",
-                          min: { value: 1, message: "Quantity must be at least 1" }
+                          required: t('quantityRequired'),
+                          min: { value: 1, message: t('quantityMinimum') }
                         })}
-                        placeholder="1"
+                        placeholder={t('quantityPlaceholder')}
                       />
                       {methods.formState.errors.items?.[index]?.itemQty && (
                         <p className="text-sm text-red-600 flex items-center gap-1">
@@ -562,16 +564,16 @@ export const NewInvoiceForm = () => {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor={`items.${index}.itemPrice`}>Price *</Label>
+                      <Label htmlFor={`items.${index}.itemPrice`}>{t('price')} *</Label>
                       <Input
                         type="number"
                         min="0"
                         step="0.01"
                         {...methods.register(`items.${index}.itemPrice`, {
-                          required: "Price is required",
-                          min: { value: 0, message: "Price must be positive" }
+                          required: t('priceRequired'),
+                          min: { value: 0, message: t('pricePositive') }
                         })}
-                        placeholder="0.00"
+                        placeholder={t('pricePlaceholder')}
                       />
                       {methods.formState.errors.items?.[index]?.itemPrice && (
                         <p className="text-sm text-red-600 flex items-center gap-1">
@@ -585,7 +587,7 @@ export const NewInvoiceForm = () => {
                   {/* Item Total Display */}
                   <div className="flex justify-end">
                     <div className="text-right">
-                      <p className="text-sm text-gray-500">Item Total</p>
+                      <p className="text-sm text-gray-500">{t('itemTotal')}</p>
                       <p className="text-lg font-semibold text-gray-900">
                         ${((watchedItems?.[index]?.itemQty || 0) * (watchedItems?.[index]?.itemPrice || 0)).toFixed(2)}
                       </p>
@@ -604,17 +606,17 @@ export const NewInvoiceForm = () => {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <CheckCircle className="h-5 w-5 text-green-500" />
-                Invoice Summary
+                {t('invoiceSummary')}
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 <div className="flex justify-between items-center py-2 border-b">
-                  <span className="text-gray-600">Subtotal</span>
+                  <span className="text-gray-600">{t('subtotal')}</span>
                   <span className="font-medium">${methods.watch("totalAmount")?.toFixed(2) || "0.00"}</span>
                 </div>
                 <div className="flex justify-between items-center py-2 text-lg font-semibold">
-                  <span>Total Amount</span>
+                  <span>{t('totalAmount')}</span>
                   <span className="text-orange-600">${methods.watch("totalAmount")?.toFixed(2) || "0.00"}</span>
                 </div>
               </div>
@@ -624,9 +626,9 @@ export const NewInvoiceForm = () => {
           {/* Actions Card */}
           <Card>
             <CardHeader>
-              <CardTitle>Actions</CardTitle>
+              <CardTitle>{t('actions')}</CardTitle>
               <CardDescription>
-                Save your invoice or go back to dashboard
+                {t('saveInvoiceOrGoBack')}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -653,7 +655,7 @@ export const NewInvoiceForm = () => {
                 <Link href="/dashboard" className="flex-1">
                   <Button variant="outline" className="w-full">
                     <X className="h-4 w-4 mr-2" />
-                    Cancel
+                    {t('cancel')}
                   </Button>
                 </Link>
                 <Button
@@ -664,12 +666,12 @@ export const NewInvoiceForm = () => {
                   {isSubmitting ? (
                     <>
                       <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                      Creating...
+                      {t('creating')}
                     </>
                   ) : (
                     <>
                       <Save className="h-4 w-4 mr-2" />
-                      Create Invoice
+                      {t('createInvoice')}
                     </>
                   )}
                 </Button>

@@ -1,4 +1,6 @@
 import { notFound } from 'next/navigation';
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages } from 'next-intl/server';
 import { locales } from '@/i18n';
 import { LocaleProvider } from '@/app/contexts/LocaleContext';
 
@@ -16,10 +18,15 @@ export default async function LocaleLayout({
     notFound();
   }
 
+  // Get messages for the locale
+  const messages = await getMessages();
+
   return (
-    <LocaleProvider>
-      {children}
-    </LocaleProvider>
+    <NextIntlClientProvider locale={locale} messages={messages}>
+      <LocaleProvider>
+        {children}
+      </LocaleProvider>
+    </NextIntlClientProvider>
   );
 }
 

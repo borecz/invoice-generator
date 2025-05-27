@@ -45,9 +45,51 @@ export const languageNames = {
   },
 } as const;
 
-export default getRequestConfig(async ({ locale }) => {
-  // Use default locale if the incoming locale is invalid
-  const validLocale = locales.includes(locale as any) ? locale : defaultLocale;
+export default getRequestConfig(async ({ requestLocale }) => {
+  // CUSTOM SOLUTION: Extract locale from URL manually
+  let resolvedLocale: string | undefined;
+
+  try {
+    // Try to get locale from requestLocale first
+    resolvedLocale = await requestLocale;
+  } catch (error) {
+    // Silently handle requestLocale errors
+  }
+
+  // If requestLocale didn't work, try to extract from URL
+  if (!resolvedLocale) {
+    try {
+      // Get the current URL from headers
+      const { headers } = await import("next/headers");
+      const headersList = await headers();
+
+      // Try multiple header sources for the URL
+      const url =
+        headersList.get("x-url") ||
+        headersList.get("x-pathname") ||
+        headersList.get("referer") ||
+        "";
+
+      // Extract locale from URL path
+      const urlObj = new URL(
+        url.startsWith("http") ? url : `http://localhost${url}`
+      );
+      const pathSegments = urlObj.pathname.split("/").filter(Boolean);
+      const potentialLocale = pathSegments[0];
+
+      if (potentialLocale && locales.includes(potentialLocale as any)) {
+        resolvedLocale = potentialLocale;
+      }
+    } catch (error) {
+      // Silently handle URL extraction errors
+    }
+  }
+
+  // Use default locale if we still don't have a valid locale
+  const validLocale =
+    resolvedLocale && locales.includes(resolvedLocale as any)
+      ? resolvedLocale
+      : defaultLocale;
 
   return {
     locale: validLocale,

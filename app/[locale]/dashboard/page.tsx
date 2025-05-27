@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/app/hooks/useAuth';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { useLocaleContext } from '@/app/contexts/LocaleContext';
 import { formatCurrency, formatDate } from '@/lib/business-logic';
 import Link from 'next/link';
@@ -68,6 +68,7 @@ interface Customer {
 const DashboardPage = () => {
   const { user, loading, error } = useAuth();
   const { country } = useLocaleContext();
+  const currentLocale = useLocale(); // Force re-render when locale changes
   const t = useTranslations('dashboard');
   const tNav = useTranslations('navigation');
   const tCommon = useTranslations('common');
@@ -78,6 +79,15 @@ const DashboardPage = () => {
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [loadingData, setLoadingData] = useState(true);
   const [activeTab, setActiveTab] = useState('overview');
+
+  // Ensure re-render when locale changes
+  useEffect(() => {
+    // Component will re-render when currentLocale changes
+    // This ensures translations update properly
+    console.log('Dashboard: Current locale:', currentLocale);
+    console.log('Dashboard: Welcome translation:', t('welcome'));
+    console.log('Dashboard: Overview translation:', t('overview'));
+  }, [currentLocale, t]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -214,7 +224,7 @@ const DashboardPage = () => {
             {t('welcome')}, {user.email?.split('@')[0]}!
           </h1>
           <p className="text-muted-foreground">
-            Here's what's happening with your invoices today.
+            {tCommon('happeningToday')}
           </p>
         </div>
 
@@ -347,7 +357,7 @@ const DashboardPage = () => {
               <Card>
                 <CardHeader>
                   <CardTitle>{t('quickActions')}</CardTitle>
-                  <CardDescription>Common tasks to get you started</CardDescription>
+                  <CardDescription>{tCommon('commonTasks')}</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <Link href="/new" className="block">
@@ -357,7 +367,7 @@ const DashboardPage = () => {
                       </div>
                       <div>
                         <p className="font-medium">{tInvoices('create')}</p>
-                        <p className="text-sm text-gray-500">Generate a professional invoice</p>
+                        <p className="text-sm text-gray-500">{tCommon('generateProfessionalInvoice')}</p>
                       </div>
                     </div>
                   </Link>
@@ -368,8 +378,8 @@ const DashboardPage = () => {
                         <Users className="h-5 w-5 text-white" />
                       </div>
                       <div>
-                        <p className="font-medium">{tCustomers('title')} Management</p>
-                        <p className="text-sm text-gray-500">Add or edit customer information</p>
+                        <p className="font-medium">{tCustomers('customerManagement')}</p>
+                        <p className="text-sm text-gray-500">{tCommon('addEditCustomerInfo')}</p>
                       </div>
                     </div>
                   </Link>
@@ -379,8 +389,8 @@ const DashboardPage = () => {
                       <Download className="h-5 w-5 text-white" />
                     </div>
                     <div>
-                      <p className="font-medium">Export Data</p>
-                      <p className="text-sm text-gray-500">Download your invoices as PDF or CSV</p>
+                      <p className="font-medium">{tCommon('exportData')}</p>
+                      <p className="text-sm text-gray-500">{tCommon('downloadInvoicesPdfCsv')}</p>
                     </div>
                   </div>
                 </CardContent>
@@ -394,22 +404,22 @@ const DashboardPage = () => {
               <CardHeader>
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
                   <div>
-                    <CardTitle>Invoice Management</CardTitle>
-                    <CardDescription>View and manage all your invoices</CardDescription>
+                    <CardTitle>{tCommon('invoiceManagement')}</CardTitle>
+                    <CardDescription>{tCommon('viewManageInvoices')}</CardDescription>
                   </div>
                   <div className="flex flex-col sm:flex-row gap-2">
                     <Button variant="outline" size="sm">
                       <Filter className="h-4 w-4 mr-2" />
-                      Filter
+                      {tCommon('filter')}
                     </Button>
                     <Button variant="outline" size="sm">
                       <Download className="h-4 w-4 mr-2" />
-                      Export
+                      {tCommon('export')}
                     </Button>
                     <Link href="/new">
                       <Button size="sm" className="bg-gradient-to-r from-orange-500 to-pink-500">
                         <Plus className="h-4 w-4 mr-2" />
-                        New Invoice
+                        {tCommon('newInvoice')}
                       </Button>
                     </Link>
                   </div>
@@ -427,12 +437,12 @@ const DashboardPage = () => {
                 ) : invoices.length === 0 ? (
                   <div className="text-center py-12">
                     <FileText className="h-16 w-16 text-gray-400 mx-auto mb-4" />
-                    <h3 className="text-lg font-medium text-gray-900 mb-2">No invoices yet</h3>
-                    <p className="text-gray-500 mb-6">Get started by creating your first invoice</p>
+                    <h3 className="text-lg font-medium text-gray-900 mb-2">{tCommon('noInvoicesYet')}</h3>
+                    <p className="text-gray-500 mb-6">{tCommon('getStartedFirstInvoice')}</p>
                     <Link href="/new">
                       <Button className="bg-gradient-to-r from-orange-500 to-pink-500">
                         <Plus className="h-4 w-4 mr-2" />
-                        Create Your First Invoice
+                        {tCommon('createYourFirstInvoice')}
                       </Button>
                     </Link>
                   </div>
@@ -440,12 +450,12 @@ const DashboardPage = () => {
                   <div className="space-y-4">
                     {/* Invoice Table Header */}
                     <div className="hidden md:grid md:grid-cols-6 gap-4 px-4 py-2 bg-gray-50 rounded-lg text-sm font-medium text-gray-500">
-                      <div>Invoice #</div>
-                      <div>Customer</div>
-                      <div>Date</div>
-                      <div>Amount</div>
-                      <div>Status</div>
-                      <div>Actions</div>
+                      <div>{tCommon('invoiceHash')}</div>
+                      <div>{tInvoices('customer')}</div>
+                      <div>{tInvoices('date')}</div>
+                      <div>{tInvoices('amount')}</div>
+                      <div>{tInvoices('status')}</div>
+                      <div>{tCommon('actions')}</div>
                     </div>
 
                     {/* Invoice Rows */}
@@ -455,11 +465,11 @@ const DashboardPage = () => {
                           <div className="md:col-span-1">
                             <p className="font-medium text-gray-900">#{invoice.invoice_number}</p>
                             <p className="text-sm text-gray-500 md:hidden">
-                              {invoice.customers?.name || 'No customer'}
+                              {invoice.customers?.name || tCommon('noCustomer')}
                             </p>
                           </div>
                           <div className="hidden md:block">
-                            <p className="text-gray-900">{invoice.customers?.name || 'No customer'}</p>
+                            <p className="text-gray-900">{invoice.customers?.name || tCommon('noCustomer')}</p>
                           </div>
                           <div className="hidden md:block">
                             <p className="text-gray-900">{new Date(invoice.invoice_date).toLocaleDateString()}</p>
@@ -483,20 +493,20 @@ const DashboardPage = () => {
                               <DropdownMenuContent align="end">
                                 <DropdownMenuItem>
                                   <Eye className="h-4 w-4 mr-2" />
-                                  View
+                                  {tCommon('view')}
                                 </DropdownMenuItem>
                                 <DropdownMenuItem>
                                   <Edit className="h-4 w-4 mr-2" />
-                                  Edit
+                                  {tCommon('edit')}
                                 </DropdownMenuItem>
                                 <DropdownMenuItem>
                                   <Download className="h-4 w-4 mr-2" />
-                                  Download PDF
+                                  {tCommon('downloadPdf')}
                                 </DropdownMenuItem>
                                 <DropdownMenuSeparator />
                                 <DropdownMenuItem className="text-red-600">
                                   <Trash2 className="h-4 w-4 mr-2" />
-                                  Delete
+                                  {tCommon('delete')}
                                 </DropdownMenuItem>
                               </DropdownMenuContent>
                             </DropdownMenu>
@@ -524,22 +534,22 @@ const DashboardPage = () => {
               <CardHeader>
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
                   <div>
-                    <CardTitle>Customer Management</CardTitle>
-                    <CardDescription>View and manage your customer database</CardDescription>
+                    <CardTitle>{tCommon('customerManagement')}</CardTitle>
+                    <CardDescription>{tCommon('viewManageCustomerDatabase')}</CardDescription>
                   </div>
                   <div className="flex flex-col sm:flex-row gap-2">
                     <Button variant="outline" size="sm">
                       <Search className="h-4 w-4 mr-2" />
-                      Search
+                      {tCommon('search')}
                     </Button>
                     <Button variant="outline" size="sm">
                       <Download className="h-4 w-4 mr-2" />
-                      Export
+                      {tCommon('export')}
                     </Button>
                     <Link href="/customers">
                       <Button size="sm" className="bg-gradient-to-r from-orange-500 to-pink-500">
                         <Plus className="h-4 w-4 mr-2" />
-                        Add Customer
+                        {tCommon('addCustomer')}
                       </Button>
                     </Link>
                   </div>
@@ -557,12 +567,12 @@ const DashboardPage = () => {
                 ) : customers.length === 0 ? (
                   <div className="text-center py-12">
                     <Users className="h-16 w-16 text-gray-400 mx-auto mb-4" />
-                    <h3 className="text-lg font-medium text-gray-900 mb-2">No customers yet</h3>
-                    <p className="text-gray-500 mb-6">Add your first customer to get started</p>
+                    <h3 className="text-lg font-medium text-gray-900 mb-2">{tCustomers('noCustomersYet')}</h3>
+                    <p className="text-gray-500 mb-6">{tCustomers('noCustomersDescription')}</p>
                     <Link href="/customers">
                       <Button className="bg-gradient-to-r from-orange-500 to-pink-500">
                         <Plus className="h-4 w-4 mr-2" />
-                        Add Your First Customer
+                        {tCommon('addYourFirstCustomer')}
                       </Button>
                     </Link>
                   </div>
@@ -570,11 +580,11 @@ const DashboardPage = () => {
                   <div className="space-y-4">
                     {/* Customer Table Header */}
                     <div className="hidden md:grid md:grid-cols-5 gap-4 px-4 py-2 bg-gray-50 rounded-lg text-sm font-medium text-gray-500">
-                      <div>Name</div>
-                      <div>Email</div>
-                      <div>Address</div>
-                      <div>Added</div>
-                      <div>Actions</div>
+                      <div>{tCommon('name')}</div>
+                      <div>{tCommon('email')}</div>
+                      <div>{tCommon('address')}</div>
+                      <div>{tCommon('added')}</div>
+                      <div>{tCommon('actions')}</div>
                     </div>
 
                     {/* Customer Rows */}
@@ -591,16 +601,16 @@ const DashboardPage = () => {
                               <div>
                                 <p className="font-medium text-gray-900">{customer.name}</p>
                                 <p className="text-sm text-gray-500 md:hidden">
-                                  {customer.email || 'No email'}
+                                  {customer.email || tCommon('noEmail')}
                                 </p>
                               </div>
                             </div>
                           </div>
                           <div className="hidden md:block">
-                            <p className="text-gray-900">{customer.email || 'No email'}</p>
+                            <p className="text-gray-900">{customer.email || tCommon('noEmail')}</p>
                           </div>
                           <div className="hidden md:block">
-                            <p className="text-gray-900">{customer.address || 'No address'}</p>
+                            <p className="text-gray-900">{customer.address || tCommon('noAddress')}</p>
                           </div>
                           <div className="hidden md:block">
                             <p className="text-gray-900">{new Date(customer.created_at).toLocaleDateString()}</p>
@@ -615,20 +625,20 @@ const DashboardPage = () => {
                               <DropdownMenuContent align="end">
                                 <DropdownMenuItem>
                                   <Eye className="h-4 w-4 mr-2" />
-                                  View Details
+                                  {tCommon('viewDetails')}
                                 </DropdownMenuItem>
                                 <DropdownMenuItem>
                                   <Edit className="h-4 w-4 mr-2" />
-                                  Edit
+                                  {tCommon('edit')}
                                 </DropdownMenuItem>
                                 <DropdownMenuItem>
                                   <FileText className="h-4 w-4 mr-2" />
-                                  Create Invoice
+                                  {tCommon('createInvoice')}
                                 </DropdownMenuItem>
                                 <DropdownMenuSeparator />
                                 <DropdownMenuItem className="text-red-600">
                                   <Trash2 className="h-4 w-4 mr-2" />
-                                  Delete
+                                  {tCommon('delete')}
                                 </DropdownMenuItem>
                               </DropdownMenuContent>
                             </DropdownMenu>
@@ -637,8 +647,8 @@ const DashboardPage = () => {
 
                         {/* Mobile-only additional info */}
                         <div className="md:hidden mt-3 pt-3 border-t border-gray-100 text-sm text-gray-500">
-                          <p>{customer.address || 'No address'}</p>
-                          <p>Added {new Date(customer.created_at).toLocaleDateString()}</p>
+                          <p>{customer.address || tCommon('noAddress')}</p>
+                          <p>{tCommon('added')} {new Date(customer.created_at).toLocaleDateString()}</p>
                         </div>
                       </div>
                     ))}

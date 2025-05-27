@@ -2,7 +2,7 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import {
   ArrowRight,
   Check,
@@ -46,6 +46,9 @@ const Home = () => {
   const tCommon = useTranslations('common');
   const { getPricingFeatures } = useTranslationArrays();
 
+  // Force re-render when locale changes by using locale as dependency
+  const currentLocale = useLocale();
+
   useEffect(() => {
     if (!loading) {
       console.log("LandingPage: useAuth hook data:");
@@ -56,6 +59,15 @@ const Home = () => {
       }
     }
   }, [user, session, loading, error]);
+
+  // Ensure re-render when locale changes
+  useEffect(() => {
+    // Component will re-render when currentLocale changes
+    // This ensures translations update properly
+    console.log('LandingPage: Current locale:', currentLocale);
+    console.log('LandingPage: Hero title translation:', t('hero.title'));
+    console.log('LandingPage: Features title translation:', t('features.title'));
+  }, [currentLocale, t]);
 
   if (loading) {
     return (

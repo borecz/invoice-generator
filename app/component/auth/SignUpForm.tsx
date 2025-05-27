@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { signUpWithEmailPassword } from '@/app/auth/actions'; // Import server action
@@ -12,6 +13,7 @@ import { signUpWithEmailPassword } from '@/app/auth/actions'; // Import server a
 
 // const SignUpForm: React.FC<SignUpFormProps> = ({ onSubmit }) => {
 const SignUpForm: React.FC = () => {
+  const t = useTranslations('auth.signup');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
@@ -26,13 +28,13 @@ const SignUpForm: React.FC = () => {
 
     // Basic validation
     if (!email || !password) {
-      setError('Please fill in all fields.');
+      setError(t('fillAllFields'));
       setIsLoading(false);
       return;
     }
 
     if (password.length < 6) {
-      setError('Password must be at least 6 characters long.');
+      setError(t('passwordTooShort'));
       setIsLoading(false);
       return;
     }
@@ -44,7 +46,7 @@ const SignUpForm: React.FC = () => {
 
     try {
       // Show loading message
-      setMessage('Creating account...');
+      setMessage(t('creatingAccount'));
 
       const result = await signUpWithEmailPassword(formData);
 
@@ -62,7 +64,7 @@ const SignUpForm: React.FC = () => {
         if (result.data.user?.identities?.length === 0) {
              setMessage('User already registered. Please try logging in or check your email for confirmation if you recently signed up.');
         } else if (result.data.user?.email_confirmed_at || result.data.session ) {
-            setMessage('Sign up successful! You are now logged in.');
+            setMessage(t('accountCreated'));
             // Note: If auto-login is enabled, the server action will redirect to dashboard
         } else {
             setMessage('Sign up successful! Please check your email to confirm your account.');
@@ -82,7 +84,7 @@ const SignUpForm: React.FC = () => {
       }
 
       console.error('Client-side error calling server action:', catchError.message);
-      setError('An unexpected error occurred on the client. Please try again.');
+      setError(t('unexpectedError'));
     } finally {
       setIsLoading(false);
     }
@@ -94,7 +96,7 @@ const SignUpForm: React.FC = () => {
       {message && <p className="text-green-500 text-sm">{message}</p>}
       <div>
         <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-          Email Address
+          {t('email')}
         </label>
         <Input
           id="email"
@@ -102,14 +104,14 @@ const SignUpForm: React.FC = () => {
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="you@example.com"
+          placeholder={t('emailPlaceholder')}
           required
           className="mt-1 block w-full"
         />
       </div>
       <div>
         <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-          Password
+          {t('password')}
         </label>
         <Input
           id="password"
@@ -123,7 +125,7 @@ const SignUpForm: React.FC = () => {
         />
       </div>
       <Button type="submit" className="w-full" disabled={isLoading}>
-        {isLoading ? 'Creating account...' : 'Sign Up'}
+        {isLoading ? t('creatingAccount') : t('signUp')}
       </Button>
     </form>
   );

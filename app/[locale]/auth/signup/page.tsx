@@ -1,24 +1,27 @@
 "use client";
 
 import React from 'react';
+import { useTranslations } from 'next-intl';
 import SignUpForm from '@/app/component/auth/SignUpForm';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 
 const SignUpPage = () => {
+  const t = useTranslations('auth.signup');
+
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="text-center">
           <h1 className="text-4xl font-bold text-gray-900 mb-2">Invoice Generator</h1>
           <h2 className="text-2xl font-semibold text-gray-700 mb-4">
-            Create your account
+            {t('title')}
           </h2>
           <p className="text-sm text-gray-600">
-            Or{' '}
+            {t('hasAccount')}{' '}
             <Link href="/auth/login">
               <Button variant="link" className="p-0 h-auto font-medium text-orange-600 hover:text-orange-500">
-                sign in to your existing account
+                {t('signInExisting')}
               </Button>
             </Link>
           </p>
@@ -32,7 +35,7 @@ const SignUpPage = () => {
           <div className="mt-6 text-center">
             <Link href="/">
               <Button variant="link" className="text-sm text-gray-500 hover:text-gray-700">
-                ← Back to homepage
+                {t('backToHomepage')}
               </Button>
             </Link>
           </div>
