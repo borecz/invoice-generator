@@ -115,14 +115,15 @@ const DashboardPage = () => {
       }
     }, FORCE_TIMEOUT);
 
-    // Emergency fallback: if auth is still loading after 10 seconds, force it to complete
+    // Emergency fallback: if auth is still loading after 15 seconds, force it to complete
     const emergencyAuthTimeout = setTimeout(() => {
       if (mountedRef.current && loading) {
         addDebugInfo('EMERGENCY: Auth loading timeout - forcing completion');
         // This is a last resort to prevent infinite loading
-        console.error('Emergency auth timeout triggered - this should not happen in normal operation');
+        console.warn('Emergency auth timeout triggered after 15 seconds - this may indicate a network issue');
+        // Don't throw an error, just log it as a warning since this is expected in some network conditions
       }
-    }, 10000);
+    }, 15000);
 
     return () => {
       addDebugInfo('Component unmounting - cleaning up');

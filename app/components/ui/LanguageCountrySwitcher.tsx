@@ -69,7 +69,9 @@ export function LanguageCountrySwitcher() {
     } else {
       segments.splice(1, 0, newLanguage);
     }
-    router.push(segments.join('/'));
+
+    // Use router.replace for instant navigation without adding to history
+    router.replace(segments.join('/'));
   };
 
   // Get current display values
