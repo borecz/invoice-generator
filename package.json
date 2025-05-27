@@ -15,7 +15,9 @@
     "test:header": "playwright test tests/header-*.spec.ts",
     "test:header:accessibility": "playwright test tests/header-accessibility.spec.ts",
     "test:header:visual": "playwright test tests/header-visual-regression.spec.ts",
-    "test:header:functionality": "playwright test tests/header-functionality.spec.ts"
+    "test:header:functionality": "playwright test tests/header-functionality.spec.ts",
+    "notifications:test": "tsx scripts/test-notifications.ts",
+    "notifications:generate": "tsx scripts/generate-notifications.ts"
   },
   "dependencies": {
     "@radix-ui/react-alert-dialog": "^1.1.14",
@@ -61,10 +63,12 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.0.1",
+    "dotenv": "^16.4.5",
     "eslint": "^8",
     "eslint-config-next": "latest",
     "postcss": "^8",
     "tailwindcss": "^3.3.0",
+    "tsx": "^4.7.0",
     "typescript": "^5"
   }
 }

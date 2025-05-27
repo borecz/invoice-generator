@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { signUpWithEmailPassword } from '@/app/auth/actions'; // Import server action
+import { signUpWithEmailPassword } from '@/app/[locale]/auth/actions'; // Import real Supabase server action
 
 // Removed onSubmit prop as the form now directly calls the server action
 // interface SignUpFormProps {

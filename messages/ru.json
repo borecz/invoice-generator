@@ -379,5 +379,31 @@
     "description": "Мы обнаружили, что это может быть ваш предпочитаемый язык.",
     "accept": "Да, переключиться на {language}",
     "dismiss": "Нет, оставить текущий язык"
+  },
+  "notifications": {
+    "title": "Уведомления",
+    "markAllAsRead": "Отметить все как прочитанные",
+    "noNotifications": "Нет уведомлений",
+    "noNotificationsDescription": "Вы в курсе! Новых уведомлений пока нет.",
+    "quickActions": {
+      "view_invoice": "Просмотреть Счёт",
+      "send_invoice": "Отправить Счёт",
+      "view_customer": "Просмотреть Клиента",
+      "dismiss": "Отклонить"
+    },
+    "timeAgo": {
+      "justNow": "Только что",
+      "minuteAgo": "1 минуту назад",
+      "minutesAgo": "{minutes} минут назад",
+      "hourAgo": "1 час назад",
+      "hoursAgo": "{hours} часов назад",
+      "dayAgo": "1 день назад",
+      "daysAgo": "{days} дней назад"
+    },
+    "dropdown": {
+      "viewAllNotifications": "Просмотреть Все Уведомления",
+      "loading": "Загрузка уведомлений...",
+      "error": "Ошибка загрузки уведомлений"
+    }
   }
 }

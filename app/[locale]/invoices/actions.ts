@@ -2,7 +2,7 @@
 
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { cookies } from "next/headers";
-import { readUserSession } from "@/app/auth/actions"; // Assuming this is where your readUserSession is
+import { readUserSession } from "@/app/[locale]/auth/actions";
 
 // Helper function to create a Supabase client for server actions
 // This is similar to the one in auth/actions.ts, consider refactoring to a shared utility if used often

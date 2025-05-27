@@ -2,7 +2,7 @@
 
 import { cookies } from "next/headers";
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
-import { readUserSession } from "@/app/auth/actions";
+import { readUserSession } from "@/app/[locale]/auth/actions";
 
 // Helper function to create a Supabase client for server actions
 const createSupabaseServerActionClient = async () => {
@@ -80,7 +80,10 @@ export async function getUserProfile() {
   const { session, error: sessionError } = await readUserSession();
 
   if (sessionError || !session || !session.user) {
-    console.error("getUserProfile Error: User not authenticated.", sessionError?.message);
+    console.error(
+      "getUserProfile Error: User not authenticated.",
+      sessionError?.message
+    );
     return {
       data: null,
       error: { message: "User not authenticated. Please log in." },
@@ -95,7 +98,8 @@ export async function getUserProfile() {
     .eq("user_id", userId)
     .single();
 
-  if (error && error.code !== 'PGRST116') { // PGRST116 = no rows returned
+  if (error && error.code !== "PGRST116") {
+    // PGRST116 = no rows returned
     console.error("getUserProfile Supabase Error:", error.message);
     return {
       data: null,
@@ -113,7 +117,10 @@ export async function updateUserProfile(profileData: UserProfileData) {
   const { session, error: sessionError } = await readUserSession();
 
   if (sessionError || !session || !session.user) {
-    console.error("updateUserProfile Error: User not authenticated.", sessionError?.message);
+    console.error(
+      "updateUserProfile Error: User not authenticated.",
+      sessionError?.message
+    );
     return {
       data: null,
       error: { message: "User not authenticated. Please log in." },
@@ -153,7 +160,10 @@ export async function getBusinessSettings() {
   const { session, error: sessionError } = await readUserSession();
 
   if (sessionError || !session || !session.user) {
-    console.error("getBusinessSettings Error: User not authenticated.", sessionError?.message);
+    console.error(
+      "getBusinessSettings Error: User not authenticated.",
+      sessionError?.message
+    );
     return {
       data: null,
       error: { message: "User not authenticated. Please log in." },
@@ -168,7 +178,7 @@ export async function getBusinessSettings() {
     .eq("user_id", userId)
     .single();
 
-  if (error && error.code !== 'PGRST116') {
+  if (error && error.code !== "PGRST116") {
     console.error("getBusinessSettings Supabase Error:", error.message);
     return {
       data: null,
@@ -181,12 +191,17 @@ export async function getBusinessSettings() {
 }
 
 // Update business settings
-export async function updateBusinessSettings(businessData: BusinessSettingsData) {
+export async function updateBusinessSettings(
+  businessData: BusinessSettingsData
+) {
   const supabase = await createSupabaseServerActionClient();
   const { session, error: sessionError } = await readUserSession();
 
   if (sessionError || !session || !session.user) {
-    console.error("updateBusinessSettings Error: User not authenticated.", sessionError?.message);
+    console.error(
+      "updateBusinessSettings Error: User not authenticated.",
+      sessionError?.message
+    );
     return {
       data: null,
       error: { message: "User not authenticated. Please log in." },
@@ -212,7 +227,9 @@ export async function updateBusinessSettings(businessData: BusinessSettingsData)
     console.error("updateBusinessSettings Supabase Error:", error.message);
     return {
       data: null,
-      error: { message: `Failed to update business settings: ${error.message}` },
+      error: {
+        message: `Failed to update business settings: ${error.message}`,
+      },
     };
   }
 
@@ -226,7 +243,10 @@ export async function getInvoicePreferences() {
   const { session, error: sessionError } = await readUserSession();
 
   if (sessionError || !session || !session.user) {
-    console.error("getInvoicePreferences Error: User not authenticated.", sessionError?.message);
+    console.error(
+      "getInvoicePreferences Error: User not authenticated.",
+      sessionError?.message
+    );
     return {
       data: null,
       error: { message: "User not authenticated. Please log in." },
@@ -241,11 +261,13 @@ export async function getInvoicePreferences() {
     .eq("user_id", userId)
     .single();
 
-  if (error && error.code !== 'PGRST116') {
+  if (error && error.code !== "PGRST116") {
     console.error("getInvoicePreferences Supabase Error:", error.message);
     return {
       data: null,
-      error: { message: `Failed to fetch invoice preferences: ${error.message}` },
+      error: {
+        message: `Failed to fetch invoice preferences: ${error.message}`,
+      },
     };
   }
 
@@ -254,12 +276,17 @@ export async function getInvoicePreferences() {
 }
 
 // Update invoice preferences
-export async function updateInvoicePreferences(preferencesData: InvoicePreferencesData) {
+export async function updateInvoicePreferences(
+  preferencesData: InvoicePreferencesData
+) {
   const supabase = await createSupabaseServerActionClient();
   const { session, error: sessionError } = await readUserSession();
 
   if (sessionError || !session || !session.user) {
-    console.error("updateInvoicePreferences Error: User not authenticated.", sessionError?.message);
+    console.error(
+      "updateInvoicePreferences Error: User not authenticated.",
+      sessionError?.message
+    );
     return {
       data: null,
       error: { message: "User not authenticated. Please log in." },
@@ -285,11 +312,16 @@ export async function updateInvoicePreferences(preferencesData: InvoicePreferenc
     console.error("updateInvoicePreferences Supabase Error:", error.message);
     return {
       data: null,
-      error: { message: `Failed to update invoice preferences: ${error.message}` },
+      error: {
+        message: `Failed to update invoice preferences: ${error.message}`,
+      },
     };
   }
 
-  console.log("updateInvoicePreferences: Preferences updated successfully:", data);
+  console.log(
+    "updateInvoicePreferences: Preferences updated successfully:",
+    data
+  );
   return { data, error: null };
 }
 
@@ -299,7 +331,10 @@ export async function getNotificationSettings() {
   const { session, error: sessionError } = await readUserSession();
 
   if (sessionError || !session || !session.user) {
-    console.error("getNotificationSettings Error: User not authenticated.", sessionError?.message);
+    console.error(
+      "getNotificationSettings Error: User not authenticated.",
+      sessionError?.message
+    );
     return {
       data: null,
       error: { message: "User not authenticated. Please log in." },
@@ -314,11 +349,13 @@ export async function getNotificationSettings() {
     .eq("user_id", userId)
     .single();
 
-  if (error && error.code !== 'PGRST116') {
+  if (error && error.code !== "PGRST116") {
     console.error("getNotificationSettings Supabase Error:", error.message);
     return {
       data: null,
-      error: { message: `Failed to fetch notification settings: ${error.message}` },
+      error: {
+        message: `Failed to fetch notification settings: ${error.message}`,
+      },
     };
   }
 
@@ -327,12 +364,17 @@ export async function getNotificationSettings() {
 }
 
 // Update notification settings
-export async function updateNotificationSettings(notificationData: NotificationSettingsData) {
+export async function updateNotificationSettings(
+  notificationData: NotificationSettingsData
+) {
   const supabase = await createSupabaseServerActionClient();
   const { session, error: sessionError } = await readUserSession();
 
   if (sessionError || !session || !session.user) {
-    console.error("updateNotificationSettings Error: User not authenticated.", sessionError?.message);
+    console.error(
+      "updateNotificationSettings Error: User not authenticated.",
+      sessionError?.message
+    );
     return {
       data: null,
       error: { message: "User not authenticated. Please log in." },
@@ -358,10 +400,15 @@ export async function updateNotificationSettings(notificationData: NotificationS
     console.error("updateNotificationSettings Supabase Error:", error.message);
     return {
       data: null,
-      error: { message: `Failed to update notification settings: ${error.message}` },
+      error: {
+        message: `Failed to update notification settings: ${error.message}`,
+      },
     };
   }
 
-  console.log("updateNotificationSettings: Settings updated successfully:", data);
+  console.log(
+    "updateNotificationSettings: Settings updated successfully:",
+    data
+  );
   return { data, error: null };
 }

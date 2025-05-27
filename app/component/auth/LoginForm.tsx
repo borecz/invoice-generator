@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { signInWithEmailPassword } from '@/app/[locale]/auth/actions'; // Import server action
+import { signInWithEmailPassword } from '@/app/[locale]/auth/actions'; // Import real Supabase server action
 import { useRouter } from 'next/navigation';
 
 // Removed onSubmit prop
@@ -28,8 +28,11 @@ const LoginForm: React.FC = () => {
     setMessage(null);
     setIsLoading(true);
 
+    console.log('LoginForm: Starting login process...');
+
     // Basic validation
     if (!email || !password) {
+      console.log('LoginForm: Validation failed - missing email or password');
       setError(t('fillAllFields'));
       setIsLoading(false);
       return;
@@ -42,28 +45,37 @@ const LoginForm: React.FC = () => {
     try {
       // Show loading message
       setMessage(t('signingIn'));
+      console.log('LoginForm: Calling signInWithEmailPassword server action...');
 
       // Call the server action
       const result = await signInWithEmailPassword(formData);
+      console.log('LoginForm: Server action result:', result);
 
       if (result.error) {
+        console.log('LoginForm: Login failed with error:', result.error.message);
         setMessage(null);
         setError(result.error.message);
+        setIsLoading(false);
       } else if (result.success) {
+        console.log('LoginForm: Login successful, triggering page reload...');
         setMessage(t('signInSuccess'));
-        // Wait a moment for the session to be established, then redirect
+        // Don't manually redirect - let the middleware handle it
+        // The page will automatically redirect once the auth state updates
+        // Just refresh the page to trigger the middleware
         setTimeout(() => {
-          router.push('/dashboard');
-        }, 500);
+          console.log('LoginForm: Reloading page to trigger auth state update...');
+          window.location.reload();
+        }, 1000);
       } else {
+        console.log('LoginForm: Unexpected result format:', result);
         setMessage(null);
         setError(t('signInFailed'));
+        setIsLoading(false);
       }
     } catch (catchError: any) {
+      console.error('LoginForm: Exception during login:', catchError);
       setMessage(null);
-      console.error('Client-side error calling server action:', catchError.message);
-      setError(t('unexpectedError'));
-    } finally {
+      setError(`${t('unexpectedError')}: ${catchError.message}`);
       setIsLoading(false);
     }
   };

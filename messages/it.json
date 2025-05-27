@@ -461,5 +461,31 @@
     "description": "Abbiamo rilevato che questa potrebbe essere la tua lingua preferita.",
     "accept": "Sì, passa a {language}",
     "dismiss": "No, mantieni la lingua attuale"
+  },
+  "notifications": {
+    "title": "Notifiche",
+    "markAllAsRead": "Segna tutte come lette",
+    "noNotifications": "Nessuna notifica",
+    "noNotificationsDescription": "Sei aggiornato! Nessuna nuova notifica al momento.",
+    "quickActions": {
+      "view_invoice": "Visualizza Fattura",
+      "send_invoice": "Invia Fattura",
+      "view_customer": "Visualizza Cliente",
+      "dismiss": "Ignora"
+    },
+    "timeAgo": {
+      "justNow": "Proprio ora",
+      "minuteAgo": "1 minuto fa",
+      "minutesAgo": "{minutes} minuti fa",
+      "hourAgo": "1 ora fa",
+      "hoursAgo": "{hours} ore fa",
+      "dayAgo": "1 giorno fa",
+      "daysAgo": "{days} giorni fa"
+    },
+    "dropdown": {
+      "viewAllNotifications": "Visualizza Tutte le Notifiche",
+      "loading": "Caricamento notifiche...",
+      "error": "Errore nel caricamento delle notifiche"
+    }
   }
 }

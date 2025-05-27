@@ -16,6 +16,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Bell, Plus, Users, Menu, X, Globe } from 'lucide-react';
+import { useAuth } from '@/app/hooks/useAuth';
 
 // Lazy load components for performance optimization
 const ThemeToggle = lazy(() =>
@@ -29,6 +30,11 @@ const LanguageCountrySwitcher = lazy(() =>
   }))
 );
 const LogoutButton = lazy(() => import('@/app/component/auth/LogoutButton'));
+const NotificationsDropdown = lazy(() =>
+  import('@/app/components/notifications/NotificationsDropdown').then(module => ({
+    default: module.NotificationsDropdown
+  }))
+);
 
 type HeaderMode = 'landing' | 'dashboard' | 'minimal';
 
@@ -60,7 +66,7 @@ interface HeaderProps {
 
 export function Header({
   mode = 'dashboard',
-  user,
+  user: userProp,
   showQuickActions = false,
   showNavigation = false,
   navigationItems = [],
@@ -74,6 +80,18 @@ export function Header({
   const t = useTranslations('navigation');
   const tHeader = useTranslations('header');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Use internal auth hook to ensure consistent authentication state detection
+  // But don't let it block the UI if it's taking too long
+  const { user: authUser, loading: authLoading } = useAuth();
+
+  // Prioritize the user prop if provided, otherwise use auth hook result
+  // This ensures pages can override auth state when needed
+  const user = userProp || authUser;
+
+  // Always show auth elements unless we're specifically loading and have no fallback
+  // This prevents the infinite loading issue while maintaining auth detection
+  const showAuthElements = true;
 
   // Default navigation items for landing mode
   const defaultNavigationItems: NavigationItem[] = [
@@ -194,7 +212,7 @@ export function Header({
             {/* Desktop Actions */}
             <div className="hidden lg:flex items-center space-x-6">
               {/* Quick Action Buttons */}
-              {showQuickActions && user && (
+              {showQuickActions && user && showAuthElements && (
                 <div className="flex items-center space-x-2">
                   <Link href="/new">
                     <Button
@@ -242,26 +260,21 @@ export function Header({
                   </Suspense>
                 </div>
 
-                {/* Notifications */}
-                {user && (
+                {/* Notifications - Only show for authenticated users */}
+                {user && showAuthElements && (
                   <div className="flex-shrink-0">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="relative min-w-[44px] min-h-[44px] p-2 focus:ring-2 focus:ring-ring focus:ring-offset-2 hover:bg-accent/50 transition-colors"
-                      aria-label={`Notifications${pendingCount > 0 ? ` (${pendingCount} pending)` : ''}`}
-                    >
-                      <Bell className="h-5 w-5" aria-hidden="true" />
-                      {pendingCount > 0 && (
-                        <Badge
-                          variant="destructive"
-                          className="absolute -top-1 -right-1 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs"
-                          aria-label={`${pendingCount} pending notifications`}
-                        >
-                          {pendingCount}
-                        </Badge>
-                      )}
-                    </Button>
+                    <Suspense fallback={
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="relative min-w-[44px] min-h-[44px] p-2"
+                        disabled
+                      >
+                        <Bell className="h-5 w-5 animate-pulse" />
+                      </Button>
+                    }>
+                      <NotificationsDropdown pendingCount={pendingCount} />
+                    </Suspense>
                   </div>
                 )}
               </div>
@@ -288,7 +301,7 @@ export function Header({
 
             {/* User Menu */}
             <div className="hidden lg:block">
-              {user ? (
+              {user && showAuthElements ? (
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button
@@ -314,6 +327,11 @@ export function Header({
                       </div>
                     </DropdownMenuLabel>
                     <DropdownMenuSeparator />
+                    <DropdownMenuItem asChild>
+                      <Link href="/notifications" className="w-full cursor-pointer">
+                        {tHeader('notifications')}
+                      </Link>
+                    </DropdownMenuItem>
                     <DropdownMenuItem asChild>
                       <Link href="/settings" className="w-full cursor-pointer">
                         {tHeader('profileSettings')}
@@ -410,7 +428,7 @@ export function Header({
               </div>
 
               {/* Mobile Quick Actions */}
-              {showQuickActions && user && (
+              {showQuickActions && user && showAuthElements && (
                 <div className="space-y-2">
                   <p className="text-sm font-medium text-muted-foreground">Quick Actions</p>
                   <div className="grid grid-cols-2 gap-2">
@@ -440,7 +458,7 @@ export function Header({
               )}
 
               {/* Mobile User Menu */}
-              {user ? (
+              {user && showAuthElements ? (
                 <div className="space-y-2 pt-4 border-t border-border">
                   <div className="flex items-center space-x-3 mb-3">
                     <Avatar className="h-8 w-8">
@@ -453,20 +471,19 @@ export function Header({
                       <p className="text-sm font-medium truncate">{user.email}</p>
                       <p className="text-xs text-muted-foreground">{tHeader('account')}</p>
                     </div>
-                    {/* Mobile Notifications */}
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="relative"
-                      aria-label={`Notifications${pendingCount > 0 ? ` (${pendingCount} pending)` : ''}`}
-                    >
-                      <Bell className="h-5 w-5" />
-                      {pendingCount > 0 && (
-                        <Badge variant="destructive" className="absolute -top-1 -right-1 h-4 w-4 rounded-full p-0 flex items-center justify-center text-xs">
-                          {pendingCount}
-                        </Badge>
-                      )}
-                    </Button>
+                    {/* Mobile Notifications - Only show for authenticated users */}
+                    <Suspense fallback={
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="relative"
+                        disabled
+                      >
+                        <Bell className="h-5 w-5 animate-pulse" />
+                      </Button>
+                    }>
+                      <NotificationsDropdown pendingCount={pendingCount} />
+                    </Suspense>
                   </div>
 
                   <div className="space-y-1">
@@ -476,6 +493,13 @@ export function Header({
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       {t('dashboard')}
+                    </Link>
+                    <Link
+                      href="/notifications"
+                      className="block w-full text-left px-3 py-2 text-sm rounded-md hover:bg-accent transition-colors"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      {tHeader('notifications')}
                     </Link>
                     <Link
                       href="/settings"
@@ -512,7 +536,7 @@ export function Header({
                   </Link>
                   <Link href="/auth/signup">
                     <Button
-                      className="w-full"
+                      className="w-full bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600"
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       {t('signup')}

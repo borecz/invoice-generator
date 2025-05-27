@@ -43,7 +43,7 @@ const Home = () => {
   React.useEffect(() => {
     const timer = setTimeout(() => {
       setAuthInitialized(true);
-    }, 3000); // Show page after 3 seconds regardless of auth state
+    }, 1000); // Reduced timeout to 1 second for better UX
 
     if (!loading) {
       clearTimeout(timer);
@@ -53,7 +53,8 @@ const Home = () => {
     return () => clearTimeout(timer);
   }, [loading]);
 
-  // Show loading only for a short time, then show the page
+  // Always show the page after 1 second, don't wait for auth indefinitely
+  // This prevents infinite loading when auth hook gets stuck
   if (loading && !authInitialized) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -101,7 +102,7 @@ const Home = () => {
       {/* Enhanced Header Component */}
       <Header
         mode="landing"
-        user={user}
+        user={user ? { email: user.email } : undefined}
         showNavigation={true}
       />
 
@@ -277,7 +278,7 @@ const Home = () => {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {pricingPlans.map((plan, index) => (
+            {pricingPlans.map((plan) => (
               <Card key={plan.name} className={`relative ${plan.popular ? 'border-orange-500 shadow-lg scale-105' : 'border-gray-200'}`}>
                 {plan.popular && (
                   <Badge variant="orange" className="absolute -top-3 left-1/2 transform -translate-x-1/2">

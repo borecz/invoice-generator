@@ -379,5 +379,31 @@
     "description": "Zjistili jsme, že to může být váš preferovaný jazyk.",
     "accept": "Ano, přepnout na {language}",
     "dismiss": "Ne, ponechat současný jazyk"
+  },
+  "notifications": {
+    "title": "Oznámení",
+    "markAllAsRead": "Označit vše jako přečtené",
+    "noNotifications": "Žádná oznámení",
+    "noNotificationsDescription": "Jste v obraze! Momentálně žádná nová oznámení.",
+    "quickActions": {
+      "view_invoice": "Zobrazit Fakturu",
+      "send_invoice": "Odeslat Fakturu",
+      "view_customer": "Zobrazit Zákazníka",
+      "dismiss": "Zamítnout"
+    },
+    "timeAgo": {
+      "justNow": "Právě teď",
+      "minuteAgo": "před 1 minutou",
+      "minutesAgo": "před {minutes} minutami",
+      "hourAgo": "před 1 hodinou",
+      "hoursAgo": "před {hours} hodinami",
+      "dayAgo": "před 1 dnem",
+      "daysAgo": "před {days} dny"
+    },
+    "dropdown": {
+      "viewAllNotifications": "Zobrazit Všechna Oznámení",
+      "loading": "Načítání oznámení...",
+      "error": "Chyba při načítání oznámení"
+    }
   }
 }
