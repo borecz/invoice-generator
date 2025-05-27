@@ -21,9 +21,9 @@ export const metadata: Metadata = {
     },
   },
   title:
-    "InvoicePro - Professional Invoicing Software for Modern Businesses",
+    "InvoiceAgent - Professional Invoicing Software for Modern Businesses",
   description:
-    "Streamline your billing with InvoicePro. Create professional invoices, track payments, manage customers, and get paid faster. Free trial available.",
+    "Streamline your billing with InvoiceAgent. Create professional invoices, track payments, manage customers, and get paid faster. Free trial available.",
   keywords: [
     "invoice software",
     "invoicing platform",
@@ -39,13 +39,13 @@ export const metadata: Metadata = {
   robots: "index, follow",
   openGraph: {
     title:
-      "InvoicePro - Professional Invoicing Software for Modern Businesses",
+      "InvoiceAgent - Professional Invoicing Software for Modern Businesses",
     description:
-      "Streamline your billing with InvoicePro. Create professional invoices, track payments, manage customers, and get paid faster. Free trial available.",
+      "Streamline your billing with InvoiceAgent. Create professional invoices, track payments, manage customers, and get paid faster. Free trial available.",
     url: process.env.NEXT_PUBLIC_URL,
     type: "website",
     images: "/og-image.jpeg",
-    siteName: "InvoicePro",
+    siteName: "InvoiceAgent",
   },
   twitter: {
     card: "summary_large_image",

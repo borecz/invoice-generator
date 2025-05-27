@@ -74,8 +74,8 @@
     "profileSettings": "Nastavení Profilu"
   },
   "landing": {
-    "title": "InvoicePro - Profesionální Fakturační Software pro Moderní Firmy",
-    "description": "Zjednodušte fakturaci s InvoicePro. Vytvářejte profesionální faktury, sledujte platby, spravujte zákazníky a dostávejte platby rychleji. Dostupná bezplatná zkušební verze.",
+    "title": "InvoiceAgent - Profesionální Fakturační Software pro Moderní Firmy",
+    "description": "Zjednodušte fakturaci s InvoiceAgent. Vytvářejte profesionální faktury, sledujte platby, spravujte zákazníky a dostávejte platby rychleji. Dostupná bezplatná zkušební verze.",
     "hero": {
       "title": "Profesionální Fakturace Jednoduše",
       "subtitle": "Vytvářejte, odesílejte a sledujte faktury snadno. Dostávejte platby rychleji s naší výkonnou fakturační platformou navrženou pro moderní firmy.",
@@ -156,7 +156,7 @@
     },
     "cta": {
       "title": "Připraveni dostávat platby rychleji?",
-      "subtitle": "Připojte se k tisícům firem, které důvěřují InvoicePro pro své fakturační potřeby. Začněte svou bezplatnou zkušební verzi dnes.",
+      "subtitle": "Připojte se k tisícům firem, které důvěřují InvoiceAgent pro své fakturační potřeby. Začněte svou bezplatnou zkušební verzi dnes.",
       "button": "Začít Bezplatnou Zkušební Verzi",
       "dashboard": "Přejít na Přehled",
       "contactSales": "Kontaktovat Prodej"
@@ -168,7 +168,7 @@
       "title": "Co říkají naši zákazníci",
       "subtitle": "Nevěřte jen nám - poslechněte si některé z našich spokojených zákazníků",
       "customer1": {
-        "quote": "InvoicePro transformoval způsob, jakým řešíme fakturaci. Samotné automatické připomínky výrazně zlepšily náš cash flow.",
+        "quote": "InvoiceAgent transformoval způsob, jakým řešíme fakturaci. Samotné automatické připomínky výrazně zlepšily náš cash flow.",
         "name": "Sarah Johnson",
         "company": "Design Studio"
       },
@@ -200,10 +200,10 @@
       "documentation": "Dokumentace",
       "privacyPolicy": "Zásady ochrany osobních údajů",
       "termsOfService": "Podmínky služby",
-      "copyright": "© 2024 InvoicePro. Všechna práva vyhrazena."
+      "copyright": "© 2024 InvoiceAgent. Všechna práva vyhrazena."
     },
     "demo": {
-      "title": "Podívejte se na InvoicePro v akci",
+      "title": "Podívejte se na InvoiceAgent v akci",
       "subtitle": "Podívejte se, jak snadné je vytvořit profesionální faktury jen několika kliknutími",
       "loading": "Načítání demo..."
     },

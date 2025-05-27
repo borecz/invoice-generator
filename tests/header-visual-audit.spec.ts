@@ -119,7 +119,7 @@ test.describe("Header Visual Audit - Comprehensive UI/UX Analysis", () => {
                 const rect = header.getBoundingClientRect();
                 const elements = {
                   logo: !!header.querySelector(
-                    'img[alt*="Logo"], img[alt*="InvoicePro"]'
+                    'img[alt*="Logo"], img[alt*="InvoiceAgent"]'
                   ),
                   navigation: !!header.querySelector(
                     'nav, [role="navigation"]'

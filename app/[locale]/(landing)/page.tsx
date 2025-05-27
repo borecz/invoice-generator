@@ -449,9 +449,9 @@ const Home = () => {
                   width={32}
                   height={32}
                   className="rounded-lg"
-                  alt="InvoicePro Logo"
+                  alt="InvoiceAgent Logo"
                 />
-                <span className="text-xl font-bold">InvoicePro</span>
+                <span className="text-xl font-bold">InvoiceAgent</span>
               </div>
               <p className="text-gray-400 mb-4">
                 {t('footer.description')}

@@ -88,8 +88,8 @@
     "profileSettings": "Profile Settings"
   },
   "landing": {
-    "title": "InvoicePro - Professional Invoicing Software for Modern Businesses",
-    "description": "Streamline your billing with InvoicePro. Create professional invoices, track payments, manage customers, and get paid faster. Free trial available.",
+    "title": "InvoiceAgent - Professional Invoicing Software for Modern Businesses",
+    "description": "Streamline your billing with InvoiceAgent. Create professional invoices, track payments, manage customers, and get paid faster. Free trial available.",
     "hero": {
       "title": "Professional Invoicing Made Simple",
       "subtitle": "Create, send, and track invoices with ease. Get paid faster with our powerful invoicing platform designed for modern businesses.",
@@ -170,7 +170,7 @@
     },
     "cta": {
       "title": "Ready to get paid faster?",
-      "subtitle": "Join thousands of businesses that trust InvoicePro for their invoicing needs. Start your free trial today.",
+      "subtitle": "Join thousands of businesses that trust InvoiceAgent for their invoicing needs. Start your free trial today.",
       "button": "Start Free Trial",
       "dashboard": "Go to Dashboard",
       "contactSales": "Contact Sales"
@@ -182,7 +182,7 @@
       "title": "What our customers say",
       "subtitle": "Don't just take our word for it - hear from some of our satisfied customers",
       "customer1": {
-        "quote": "InvoicePro has transformed how we handle billing. The automated reminders alone have improved our cash flow significantly.",
+        "quote": "InvoiceAgent has transformed how we handle billing. The automated reminders alone have improved our cash flow significantly.",
         "name": "Sarah Johnson",
         "company": "Design Studio"
       },
@@ -214,10 +214,10 @@
       "documentation": "Documentation",
       "privacyPolicy": "Privacy Policy",
       "termsOfService": "Terms of Service",
-      "copyright": "© 2024 InvoicePro. All rights reserved."
+      "copyright": "© 2024 InvoiceAgent. All rights reserved."
     },
     "demo": {
-      "title": "See InvoicePro in Action",
+      "title": "See InvoiceAgent in Action",
       "subtitle": "Watch how easy it is to create professional invoices in just a few clicks",
       "loading": "Loading demo..."
     },

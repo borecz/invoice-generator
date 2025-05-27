@@ -12,7 +12,7 @@ export interface UserPreferences {
   source: "user" | "browser" | "url" | "default";
 }
 
-const STORAGE_KEY = "invoicepro_user_preferences";
+const STORAGE_KEY = "InvoiceAgent_user_preferences";
 const STORAGE_VERSION = "1.0";
 
 // Enhanced browser language detection (Facebook-inspired)

@@ -88,8 +88,8 @@
     "profileSettings": "Impostazioni Profilo"
   },
   "landing": {
-    "title": "InvoicePro - Software di Fatturazione Professionale per Aziende Moderne",
-    "description": "Semplifica la fatturazione con InvoicePro. Crea fatture professionali, traccia i pagamenti, gestisci i clienti e ricevi pagamenti più velocemente. Prova gratuita disponibile.",
+    "title": "InvoiceAgent - Software di Fatturazione Professionale per Aziende Moderne",
+    "description": "Semplifica la fatturazione con InvoiceAgent. Crea fatture professionali, traccia i pagamenti, gestisci i clienti e ricevi pagamenti più velocemente. Prova gratuita disponibile.",
     "hero": {
       "title": "Fatturazione Professionale Resa Semplice",
       "subtitle": "Crea, invia e traccia fatture con facilità. Ricevi pagamenti più velocemente con la nostra potente piattaforma di fatturazione progettata per aziende moderne.",
@@ -170,7 +170,7 @@
     },
     "cta": {
       "title": "Pronto per essere pagato più velocemente?",
-      "subtitle": "Unisciti a migliaia di aziende che si fidano di InvoicePro per le loro esigenze di fatturazione. Inizia la tua prova gratuita oggi.",
+      "subtitle": "Unisciti a migliaia di aziende che si fidano di InvoiceAgent per le loro esigenze di fatturazione. Inizia la tua prova gratuita oggi.",
       "button": "Inizia Prova Gratuita",
       "dashboard": "Vai alla Dashboard",
       "contactSales": "Contatta Vendite"
@@ -182,7 +182,7 @@
       "title": "Cosa dicono i nostri clienti",
       "subtitle": "Non crederci sulla parola - ascolta alcuni dei nostri clienti soddisfatti",
       "customer1": {
-        "quote": "InvoicePro ha trasformato il modo in cui gestiamo la fatturazione. I promemoria automatici da soli hanno migliorato significativamente il nostro flusso di cassa.",
+        "quote": "InvoiceAgent ha trasformato il modo in cui gestiamo la fatturazione. I promemoria automatici da soli hanno migliorato significativamente il nostro flusso di cassa.",
         "name": "Sarah Johnson",
         "company": "Studio di Design"
       },
@@ -214,10 +214,10 @@
       "documentation": "Documentazione",
       "privacyPolicy": "Informativa Privacy",
       "termsOfService": "Termini di Servizio",
-      "copyright": "© 2024 InvoicePro. Tutti i diritti riservati."
+      "copyright": "© 2024 InvoiceAgent. Tutti i diritti riservati."
     },
     "demo": {
-      "title": "Vedi InvoicePro in Azione",
+      "title": "Vedi InvoiceAgent in Azione",
       "subtitle": "Guarda quanto è facile creare fatture professionali in pochi clic",
       "loading": "Caricamento demo..."
     },

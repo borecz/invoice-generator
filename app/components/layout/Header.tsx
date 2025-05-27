@@ -139,16 +139,16 @@ export function Header({
               <Link
                 href={mode === 'landing' ? "/" : (user ? "/dashboard" : "/")}
                 className="flex items-center space-x-2 lg:space-x-3 hover:opacity-80 transition-opacity focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 rounded-md"
-                aria-label="InvoicePro home"
+                aria-label="InvoiceAgent home"
               >
                 <Image
                   src="/android-chrome-512x512.png"
                   width={32}
                   height={32}
                   className="rounded-lg flex-shrink-0"
-                  alt="InvoicePro Logo"
+                  alt="InvoiceAgent Logo"
                 />
-                <span className="text-lg lg:text-xl font-bold text-header truncate">InvoicePro</span>
+                <span className="text-lg lg:text-xl font-bold text-header truncate">InvoiceAgent</span>
               </Link>
 
               {/* Desktop Navigation */}

@@ -2,13 +2,13 @@
 
 ## Overview
 
-The InvoicePro application features a comprehensive internationalization system built with Next.js 15 and next-intl, supporting multiple languages and country-specific business logic.
+The InvoiceAgent application features a comprehensive internationalization system built with Next.js 15 and next-intl, supporting multiple languages and country-specific business logic.
 
 ## Supported Locales
 
 - **English (en)** - Default locale, United States
 - **Italian (it)** - Italy
-- **Czech (cs)** - Czech Republic  
+- **Czech (cs)** - Czech Republic
 - **Russian (ru)** - Russia
 
 ## Architecture
@@ -16,21 +16,25 @@ The InvoicePro application features a comprehensive internationalization system 
 ### Core Components
 
 1. **i18n Configuration** (`i18n.ts`)
+
    - Defines supported locales and default locale
    - Maps countries to default languages
    - Configures message loading with fallback handling
 
 2. **Middleware** (`middleware.ts`)
+
    - Handles locale routing and redirects
    - Integrates with Supabase authentication
    - Preserves locale context during navigation
 
 3. **Translation Files** (`messages/`)
+
    - Structured JSON files for each locale
    - Hierarchical organization by feature/component
    - Consistent key naming conventions
 
 4. **Business Logic** (`lib/business-logic.ts`)
+
    - Country-specific tax rates and currency formatting
    - Date and number formatting by locale
    - Legal requirements and business registry information
@@ -65,15 +69,15 @@ The InvoicePro application features a comprehensive internationalization system 
 2. **Use in components**:
 
 ```tsx
-import { useTranslations } from 'next-intl';
+import { useTranslations } from "next-intl";
 
 function MyComponent() {
-  const t = useTranslations('newFeature');
-  
+  const t = useTranslations("newFeature");
+
   return (
     <div>
-      <h1>{t('title')}</h1>
-      <p>{t('description')}</p>
+      <h1>{t("title")}</h1>
+      <p>{t("description")}</p>
     </div>
   );
 }
@@ -82,23 +86,28 @@ function MyComponent() {
 ### Country-Specific Business Logic
 
 ```tsx
-import { useLocaleContext } from '@/app/contexts/LocaleContext';
-import { formatCurrency, getTaxRate } from '@/lib/business-logic';
+import { useLocaleContext } from "@/app/contexts/LocaleContext";
+import { formatCurrency, getTaxRate } from "@/lib/business-logic";
 
 function InvoiceComponent() {
   const { country } = useLocaleContext();
-  
+
   const amount = 100;
   const tax = getTaxRate(country);
   const formattedAmount = formatCurrency(amount, country);
-  
-  return <div>{formattedAmount} (Tax: {tax * 100}%)</div>;
+
+  return (
+    <div>
+      {formattedAmount} (Tax: {tax * 100}%)
+    </div>
+  );
 }
 ```
 
 ### Language/Country Switching
 
 The `LanguageCountrySwitcher` component provides:
+
 - Separate language and country selection
 - aboutyou.de-inspired UX design
 - Automatic locale routing
@@ -131,10 +140,10 @@ The `LanguageCountrySwitcher` component provides:
 
 ```typescript
 export const taxRates = {
-  US: { standard: 0.0875, name: 'Sales Tax' },
-  IT: { standard: 0.22, name: 'IVA' },
-  CZ: { standard: 0.21, name: 'DPH' },
-  RU: { standard: 0.20, name: 'НДС' },
+  US: { standard: 0.0875, name: "Sales Tax" },
+  IT: { standard: 0.22, name: "IVA" },
+  CZ: { standard: 0.21, name: "DPH" },
+  RU: { standard: 0.2, name: "НДС" },
 } as const;
 ```
 
@@ -196,11 +205,11 @@ export const taxRates = {
 
 ```typescript
 // i18n.ts
-export const locales = ['en', 'it', 'cs', 'ru', 'de'] as const;
+export const locales = ["en", "it", "cs", "ru", "de"] as const;
 
 export const countryLanguageMappings = {
   // ... existing mappings
-  DE: { defaultLanguage: 'de', flag: '🇩🇪', name: 'Germany' },
+  DE: { defaultLanguage: "de", flag: "🇩🇪", name: "Germany" },
 } as const;
 ```
 
