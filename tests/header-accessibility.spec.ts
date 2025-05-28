@@ -1,5 +1,14 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
+import {
+  runAccessibilityCheck,
+  checkWCAG21AACompliance,
+  validateKeyboardNavigation,
+  validateTouchTargets,
+  runComprehensiveA11yCheck,
+  withAccessibilityCheck,
+  isAccessibilityTestingEnabled,
+} from "./utils/accessibility";
 
 test.describe("Header Component Accessibility Audit", () => {
   const locales = ["en", "it", "cs", "ru"];
@@ -18,61 +27,76 @@ test.describe("Header Component Accessibility Audit", () => {
   // Test accessibility compliance across all locales and pages
   for (const locale of locales) {
     for (const pageInfo of pages) {
-      test(`WCAG 2.1 AA compliance - ${pageInfo.name} (${locale})`, async ({
-        page,
-      }) => {
-        const url = `http://localhost:3000/${locale}${pageInfo.path}`;
+      test(
+        withAccessibilityCheck(
+          `WCAG 2.1 AA compliance - ${pageInfo.name} (${locale})`
+        ),
+        async ({ page }) => {
+          const url = `http://localhost:3000/${locale}${pageInfo.path}`;
 
-        await page.goto(url);
-        await page.waitForLoadState("networkidle");
+          await page.goto(url);
+          await page.waitForLoadState("networkidle");
 
-        // Run accessibility scan
-        const accessibilityScanResults = await new AxeBuilder({ page })
-          .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
-          .analyze();
-
-        // Check for violations
-        expect(accessibilityScanResults.violations).toEqual([]);
-      });
+          // Run comprehensive accessibility check using our utility
+          await runComprehensiveA11yCheck(page, {
+            testName: `${pageInfo.name} (${locale})`,
+            useSoftAssertions: true,
+          });
+        }
+      );
     }
   }
 
-  test("Header keyboard navigation", async ({ page }) => {
-    await page.goto("http://localhost:3000/en");
-    await page.waitForLoadState("networkidle");
+  test(
+    withAccessibilityCheck("Header keyboard navigation"),
+    async ({ page }) => {
+      await page.goto("http://localhost:3000/en");
+      await page.waitForLoadState("networkidle");
 
-    // Test skip navigation link
-    await page.keyboard.press("Tab");
-    const skipLink = page.locator('a[href="#main-content"]');
-    await expect(skipLink).toBeFocused();
-    await expect(skipLink).toBeVisible();
+      // Define keyboard navigation selectors using aria-labels and semantic roles
+      const keyboardSelectors = [
+        'a[href="#main-content"]', // Skip navigation link
+        'a[aria-label="InvoiceAgent home"]', // Logo
+        'button[aria-label*="Language and region settings"]', // Language switcher
+        'button[aria-label*="Toggle theme"]', // Theme toggle
+        'a[href="/auth/login"] button', // Login button
+        'a[href="/auth/signup"] button', // Signup button
+      ];
 
-    // Test logo focus
-    await page.keyboard.press("Tab");
-    const logo = page.locator('a[aria-label="InvoiceAgent home"]');
-    await expect(logo).toBeFocused();
+      // Use our accessibility utility for keyboard navigation validation
+      await validateKeyboardNavigation(page, keyboardSelectors, {
+        useSoftAssertions: true,
+      });
 
-    // Test language switcher focus
-    await page.keyboard.press("Tab");
-    const languageSwitcher = page.locator(
-      'button[aria-label*="Language and region settings"]'
-    );
-    await expect(languageSwitcher).toBeFocused();
+      // Manual keyboard navigation test for sequential focus
+      await page.keyboard.press("Tab");
+      const skipLink = page.locator('a[href="#main-content"]');
+      await expect(skipLink).toBeFocused();
+      await expect(skipLink).toBeVisible();
 
-    // Test theme toggle focus
-    await page.keyboard.press("Tab");
-    const themeToggle = page.locator('button[aria-label*="Toggle theme"]');
-    await expect(themeToggle).toBeFocused();
+      await page.keyboard.press("Tab");
+      const logo = page.locator('a[aria-label="InvoiceAgent home"]');
+      await expect(logo).toBeFocused();
 
-    // Test auth buttons focus
-    await page.keyboard.press("Tab");
-    const loginButton = page.locator('a[href="/auth/login"] button');
-    await expect(loginButton).toBeFocused();
+      await page.keyboard.press("Tab");
+      const languageSwitcher = page.locator(
+        'button[aria-label*="Language and region settings"]'
+      );
+      await expect(languageSwitcher).toBeFocused();
 
-    await page.keyboard.press("Tab");
-    const signupButton = page.locator('a[href="/auth/signup"] button');
-    await expect(signupButton).toBeFocused();
-  });
+      await page.keyboard.press("Tab");
+      const themeToggle = page.locator('button[aria-label*="Toggle theme"]');
+      await expect(themeToggle).toBeFocused();
+
+      await page.keyboard.press("Tab");
+      const loginButton = page.locator('a[href="/auth/login"] button');
+      await expect(loginButton).toBeFocused();
+
+      await page.keyboard.press("Tab");
+      const signupButton = page.locator('a[href="/auth/signup"] button');
+      await expect(signupButton).toBeFocused();
+    }
+  );
 
   test("Header responsive behavior", async ({ page }) => {
     await page.goto("http://localhost:3000/en");
@@ -174,27 +198,35 @@ test.describe("Header Component Accessibility Audit", () => {
     }
   });
 
-  test("Touch target sizes (mobile)", async ({ page }) => {
-    await page.setViewportSize({ width: 375, height: 667 });
-    await page.goto("http://localhost:3000/en");
-    await page.waitForLoadState("networkidle");
+  test(
+    withAccessibilityCheck("Touch target sizes (mobile)"),
+    async ({ page }) => {
+      await page.setViewportSize({ width: 375, height: 667 });
+      await page.goto("http://localhost:3000/en");
+      await page.waitForLoadState("networkidle");
 
-    // Test that all interactive elements meet minimum touch target size (44x44px)
-    const interactiveElements = page
-      .locator("button, a[href]")
-      .filter({ hasText: /.+/ });
-    const count = await interactiveElements.count();
+      // Use our accessibility utility for touch target validation
+      await validateTouchTargets(page, 44, {
+        useSoftAssertions: true,
+      });
 
-    for (let i = 0; i < count; i++) {
-      const element = interactiveElements.nth(i);
-      const boundingBox = await element.boundingBox();
+      // Additional manual verification for header-specific elements
+      const headerInteractiveElements = page
+        .locator("header button, header a[href]")
+        .filter({ hasText: /.+/ });
+      const count = await headerInteractiveElements.count();
 
-      if (boundingBox && (await element.isVisible())) {
-        expect(boundingBox.width).toBeGreaterThanOrEqual(44);
-        expect(boundingBox.height).toBeGreaterThanOrEqual(44);
+      for (let i = 0; i < count; i++) {
+        const element = headerInteractiveElements.nth(i);
+        const boundingBox = await element.boundingBox();
+
+        if (boundingBox && (await element.isVisible())) {
+          expect.soft(boundingBox.width).toBeGreaterThanOrEqual(44);
+          expect.soft(boundingBox.height).toBeGreaterThanOrEqual(44);
+        }
       }
     }
-  });
+  );
 
   test("Screen reader compatibility", async ({ page }) => {
     await page.goto("http://localhost:3000/en");

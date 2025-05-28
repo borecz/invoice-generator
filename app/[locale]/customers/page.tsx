@@ -568,7 +568,7 @@ const CustomersPage = () => {
               <div className="space-y-4">
                 {/* Desktop Table View */}
                 <div className="hidden md:block">
-                  <div className="overflow-x-auto">
+                  <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Customers table">
                     <table className="min-w-full divide-y divide-gray-200">
                       <thead className="bg-gray-50">
                         <tr>

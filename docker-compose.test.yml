@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  inbucket:
+    image: inbucket/inbucket:latest
+    container_name: inbucket-test
+    ports:
+      - "9000:9000"  # Web UI
+      - "2500:2500"  # SMTP
+      - "1100:1100"  # POP3
+    environment:
+      - INBUCKET_WEB_ADDR=0.0.0.0:9000
+      - INBUCKET_SMTP_ADDR=0.0.0.0:2500
+      - INBUCKET_POP3_ADDR=0.0.0.0:1100
+      - INBUCKET_SMTP_DOMAIN=localhost
+      - INBUCKET_SMTP_MAX_RECIPIENTS=200
+      - INBUCKET_SMTP_MAX_MESSAGE_BYTES=10240000
+      - INBUCKET_SMTP_TIMEOUT=300s
+      - INBUCKET_STORAGE_TYPE=memory
+      - INBUCKET_STORAGE_PARAMS=
+      - INBUCKET_WEB_MONITORING_VISIBLE=true
+      - INBUCKET_WEB_PPROF_VISIBLE=false
+    volumes:
+      - inbucket_data:/storage
+    networks:
+      - test-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:9000/"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
+
+volumes:
+  inbucket_data:
+    driver: local
+
+networks:
+  test-network:
+    driver: bridge

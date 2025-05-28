@@ -42,5 +42,31 @@ next-env.d.ts
 /test-results/
 /playwright-report/
 /playwright/.cache/
+/playwright/.auth/
+
+# Test artifacts and debugging files
+debug-*.png
+test-*.png
+screenshot-*.png
+tests/**/*.png
+tests/**/*-snapshots/
+tests/**/*visual-regression*
+
+# Visual regression testing artifacts (we use ARIA snapshots instead)
+*visual-regression*
+*-snapshots/
+
+# Temporary test files (debugging/demo files)
+tests/debug-*.spec.ts
+tests/aria-snapshot-demo.spec.ts
+tests/local-setup-validation.spec.ts
+
+# Supabase local development
+supabase/.temp/
+supabase/.branches/
+supabase/.gitignore
+
+# Coverage reports
+/coverage/
 
 .env.public
