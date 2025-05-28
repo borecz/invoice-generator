@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { NextIntlClientProvider } from "next-intl";
-import LanguageCountrySwitcher from "@/components/LanguageCountrySwitcher";
+import { LanguageCountrySwitcher } from "@/app/components/ui/LanguageCountrySwitcher";
 import { LocaleProvider } from "@/app/contexts/LocaleContext";
 
 // Mock router
@@ -136,7 +136,7 @@ describe("WCAG 2.1 AA Accessibility Compliance", () => {
       await user.keyboard("{Shift>}{Tab}{/Shift}");
 
       // Focus should still be within dropdown
-      const focusedElement = document.activeElement;
+      const focusedElement = document.activeElement as HTMLElement;
       const dropdown = screen.getByRole("dialog") || screen.getByRole("menu");
       expect(dropdown).toContainElement(focusedElement);
     });

@@ -1,8 +1,8 @@
 import { describe, it, expect, vi } from "vitest";
 import { render } from "@testing-library/react";
 import { NextIntlClientProvider } from "next-intl";
-import Header from "@/components/Header";
-import LanguageCountrySwitcher from "@/components/LanguageCountrySwitcher";
+import { Header } from "@/app/components/layout/Header";
+import { LanguageCountrySwitcher } from "@/app/components/ui/LanguageCountrySwitcher";
 import { LocaleProvider } from "@/app/contexts/LocaleContext";
 
 // Mock router

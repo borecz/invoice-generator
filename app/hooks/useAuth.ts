@@ -2,11 +2,11 @@
 
 import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase/client"; // Your client-side Supabase instance
-import type { AuthSession, User } from "@supabase/supabase-js";
+import type { Session, User } from "@supabase/supabase-js";
 
 interface AuthState {
   user: User | null;
-  session: AuthSession | null;
+  session: Session | null;
   loading: boolean;
   error: Error | null;
 }
@@ -50,7 +50,16 @@ export function useAuth(): AuthState {
         setAuthState((prev) => ({
           ...prev,
           user: user,
-          session: user ? { user, access_token: null } : null, // Create session-like object for compatibility
+          session: user
+            ? ({
+                user,
+                access_token: "",
+                refresh_token: "",
+                expires_in: 3600,
+                token_type: "bearer",
+                expires_at: Date.now() + 3600000,
+              } as Session)
+            : null,
           loading: false,
         }));
       } catch (catchError: any) {
@@ -118,7 +127,16 @@ export function useAuth(): AuthState {
             } else {
               setAuthState({
                 user: user,
-                session: user ? { user, access_token: null } : null,
+                session: user
+                  ? ({
+                      user,
+                      access_token: "",
+                      refresh_token: "",
+                      expires_in: 3600,
+                      token_type: "bearer",
+                      expires_at: Date.now() + 3600000,
+                    } as Session)
+                  : null,
                 loading: false,
                 error: null,
               });

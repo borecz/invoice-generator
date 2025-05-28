@@ -39,7 +39,7 @@ interface UserProfileData {
 }
 
 // Business Settings Interface
-interface BusinessSettingsData {
+export interface BusinessSettingsData {
   business_name?: string;
   business_email?: string;
   business_phone?: string;
@@ -53,7 +53,7 @@ interface BusinessSettingsData {
 }
 
 // Invoice Preferences Interface
-interface InvoicePreferencesData {
+export interface InvoicePreferencesData {
   default_currency?: string;
   default_payment_terms?: number; // days
   default_tax_rate?: number; // percentage
@@ -65,7 +65,7 @@ interface InvoicePreferencesData {
 }
 
 // Notification Settings Interface
-interface NotificationSettingsData {
+export interface NotificationSettingsData {
   email_invoice_created?: boolean;
   email_invoice_paid?: boolean;
   email_invoice_overdue?: boolean;

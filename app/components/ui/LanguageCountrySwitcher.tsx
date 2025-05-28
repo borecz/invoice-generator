@@ -407,10 +407,10 @@ export function LanguageCountrySwitcher() {
                         </div>
                         <div className="min-w-0 flex-1">
                           <div className="font-medium text-sm truncate">
-                            {languageNames[locale].native}
+                            {languageNames[locale]?.native || locale}
                           </div>
                           <div className="text-xs text-muted-foreground truncate">
-                            {languageNames[locale].translated[currentLocale]}
+                            {languageNames[locale]?.translated?.[currentLocale] || languageNames[locale]?.native || locale}
                           </div>
                         </div>
                       </div>

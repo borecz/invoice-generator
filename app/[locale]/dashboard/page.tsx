@@ -43,7 +43,11 @@ import { Header } from '@/app/components/layout/Header';
 interface Invoice {
   id: string;
   invoice_number: string;
-  customers: { name: string } | null;
+  customers: { name: string }[] | null;
+  customer_id: string | null;
+  customer_name: string | null;
+  customer_email: string | null;
+  customer_address: string | null;
   invoice_date: string;
   total_amount: number;
   status: string;
@@ -437,7 +441,7 @@ const DashboardPage = () => {
                                 Invoice #{invoice.invoice_number}
                               </p>
                               <p className="text-xs text-gray-500">
-                                {invoice.customers?.name || 'No customer'} • {formatDate(new Date(invoice.invoice_date), country)}
+                                {invoice.customers?.[0]?.name || invoice.customer_name || 'No customer'} • {formatDate(new Date(invoice.invoice_date), country)}
                               </p>
                             </div>
                           </div>
@@ -573,11 +577,11 @@ const DashboardPage = () => {
                           <div className="md:col-span-1">
                             <p className="font-medium text-gray-900">#{invoice.invoice_number}</p>
                             <p className="text-sm text-gray-500 md:hidden">
-                              {invoice.customers?.name || tCommon('noCustomer')}
+                              {invoice.customers?.[0]?.name || invoice.customer_name || tCommon('noCustomer')}
                             </p>
                           </div>
                           <div className="hidden md:block">
-                            <p className="text-gray-900">{invoice.customers?.name || tCommon('noCustomer')}</p>
+                            <p className="text-gray-900">{invoice.customers?.[0]?.name || invoice.customer_name || tCommon('noCustomer')}</p>
                           </div>
                           <div className="hidden md:block">
                             <p className="text-gray-900">{new Date(invoice.invoice_date).toLocaleDateString()}</p>

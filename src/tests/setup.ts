@@ -53,10 +53,13 @@ vi.mock("next-intl/server", () => ({
 // Mock the locale context
 vi.mock("@/app/contexts/LocaleContext", () => ({
   useLocaleContext: () => ({
+    country: "US",
+    language: "en",
     currentCountry: "US",
     currentLanguage: "en",
     setCountry: vi.fn(),
     setLanguage: vi.fn(),
+    setCountryAndLanguage: vi.fn(),
   }),
   LocaleProvider: ({ children }: { children: React.ReactNode }) => children,
 }));
@@ -83,6 +86,28 @@ vi.mock("framer-motion", () => ({
     button: "button",
   },
   AnimatePresence: ({ children }: { children: React.ReactNode }) => children,
+}));
+
+// Mock i18n configuration
+vi.mock("@/i18n", () => ({
+  locales: ["en", "de", "nl", "fr", "it", "es", "cs", "ru"],
+  countryLanguageMappings: {
+    US: { defaultLanguage: "en", supportedLanguages: ["en"] },
+    DE: { defaultLanguage: "de", supportedLanguages: ["de", "en"] },
+    NL: { defaultLanguage: "nl", supportedLanguages: ["nl", "en"] },
+    FR: { defaultLanguage: "fr", supportedLanguages: ["fr", "en"] },
+    IT: { defaultLanguage: "it", supportedLanguages: ["it", "en"] },
+  },
+  languageNames: {
+    en: { native: "English", english: "English" },
+    de: { native: "Deutsch", english: "German" },
+    nl: { native: "Nederlands", english: "Dutch" },
+    fr: { native: "Français", english: "French" },
+    it: { native: "Italiano", english: "Italian" },
+    es: { native: "Español", english: "Spanish" },
+    cs: { native: "Čeština", english: "Czech" },
+    ru: { native: "Русский", english: "Russian" },
+  },
 }));
 
 // Global test utilities

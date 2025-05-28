@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { NextIntlClientProvider } from "next-intl";
-import LanguageCountrySwitcher from "@/components/LanguageCountrySwitcher";
+import { LanguageCountrySwitcher } from "@/app/components/ui/LanguageCountrySwitcher";
 import { LocaleProvider } from "@/app/contexts/LocaleContext";
 
 // Mock the router

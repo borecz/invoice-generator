@@ -6,6 +6,7 @@ import { useLocaleContext } from '@/app/contexts/LocaleContext';
 import { LanguageCountrySwitcher } from '@/app/components/ui/LanguageCountrySwitcher';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { countryLanguageMappings, languageNames } from '@/i18n';
 
 export default function TestSyncPage() {
   const currentLocale = useLocale();
@@ -13,19 +14,15 @@ export default function TestSyncPage() {
   const t = useTranslations('common');
   const tLanding = useTranslations('landing');
   
-  const countryFlags = {
-    US: '🇺🇸',
-    IT: '🇮🇹',
-    CZ: '🇨🇿',
-    RU: '🇷🇺',
-  } as const;
+  // Get flag from country mappings, fallback to generic flag
+  const getCountryFlag = (countryCode: string) => {
+    return countryLanguageMappings[countryCode as keyof typeof countryLanguageMappings]?.flag || '🏳️';
+  };
 
-  const languageNames = {
-    en: 'English',
-    it: 'Italiano',
-    cs: 'Čeština',
-    ru: 'Русский',
-  } as const;
+  // Get language name, fallback to language code
+  const getLanguageName = (langCode: string) => {
+    return languageNames[langCode as keyof typeof languageNames]?.native || langCode;
+  };
 
   const isSynchronized = currentLocale === language;
 
@@ -80,8 +77,8 @@ export default function TestSyncPage() {
                 <div>
                   <h3 className="font-semibold text-gray-900 mb-2">Display Values</h3>
                   <div className="space-y-2">
-                    <p><strong>Flag:</strong> <span className="text-2xl">{countryFlags[country]}</span></p>
-                    <p><strong>Language Name:</strong> {languageNames[language]}</p>
+                    <p><strong>Flag:</strong> <span className="text-2xl">{getCountryFlag(country)}</span></p>
+                    <p><strong>Language Name:</strong> {getLanguageName(language)}</p>
                   </div>
                 </div>
 

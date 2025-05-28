@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { NextIntlClientProvider } from "next-intl";
-import Header from "@/components/Header";
+import { Header } from "@/app/components/layout/Header";
 import { LocaleProvider } from "@/app/contexts/LocaleContext";
 
 // Mock router
@@ -237,9 +237,8 @@ describe("Integration Flows", () => {
 
     it("should preserve authenticated state when switching languages", async () => {
       // Mock authenticated user
-      vi.mocked(
-        vi.importMock("@/lib/supabase/client")
-      ).supabase.auth.getUser.mockResolvedValue({
+      const mockSupabase = await vi.importMock("@/lib/supabase/client") as any;
+      mockSupabase.supabase.auth.getUser.mockResolvedValue({
         data: { user: { id: "123", email: "test@example.com" } },
         error: null,
       });

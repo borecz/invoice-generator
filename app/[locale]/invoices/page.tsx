@@ -6,8 +6,11 @@ import Link from 'next/link';
 interface Invoice {
   id: string;
   invoice_number: string;
-  // customer_name: string; // Old field
-  customers: { name: string } | null; // New structure for related customer
+  customers: { name: string }[] | null;
+  customer_id: string | null;
+  customer_name: string | null;
+  customer_email: string | null;
+  customer_address: string | null;
   invoice_date: string;
   total_amount: number;
   status: string;
@@ -90,7 +93,7 @@ const InvoicesPage = async () => {
                 <tr key={invoice.id}>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{invoice.invoice_number}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {invoice.customers?.name || 'N/A'} {/* Access nested customer name */}
+                    {invoice.customers?.[0]?.name || invoice.customer_name || 'N/A'}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     {new Date(invoice.invoice_date).toLocaleDateString()}

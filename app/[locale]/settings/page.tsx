@@ -45,7 +45,10 @@ import {
   updateInvoicePreferences,
   getNotificationSettings,
   updateNotificationSettings,
-} from '@/app/settings/actions';
+  type BusinessSettingsData,
+  type InvoicePreferencesData,
+  type NotificationSettingsData,
+} from './actions';
 import { currencyList } from '@/lib/currency';
 import { Header } from "@/app/components/layout/Header";
 
@@ -58,39 +61,6 @@ interface UserProfileData {
   country?: string;
   zip_code?: string;
   avatar_url?: string;
-}
-
-interface BusinessSettingsData {
-  business_name?: string;
-  business_email?: string;
-  business_phone?: string;
-  business_address?: string;
-  business_city?: string;
-  business_state?: string;
-  business_country?: string;
-  business_zip?: string;
-  tax_id?: string;
-  business_logo_url?: string;
-}
-
-interface InvoicePreferencesData {
-  default_currency?: string;
-  default_payment_terms?: number;
-  default_tax_rate?: number;
-  invoice_number_format?: string;
-  default_notes?: string;
-  auto_send_reminders?: boolean;
-  reminder_days_before_due?: number;
-  reminder_days_after_due?: number;
-}
-
-interface NotificationSettingsData {
-  email_invoice_created?: boolean;
-  email_invoice_paid?: boolean;
-  email_invoice_overdue?: boolean;
-  email_new_customer?: boolean;
-  email_marketing?: boolean;
-  email_product_updates?: boolean;
 }
 
 const SettingsPage = () => {
@@ -135,13 +105,13 @@ const SettingsPage = () => {
         profileForm.reset(profileResult.data);
       }
       if (businessResult.data) {
-        businessForm.reset(businessResult.data);
+        businessForm.reset(businessResult.data as BusinessSettingsData);
       }
       if (invoiceResult.data) {
-        invoiceForm.reset(invoiceResult.data);
+        invoiceForm.reset(invoiceResult.data as InvoicePreferencesData);
       }
       if (notificationResult.data) {
-        notificationForm.reset(notificationResult.data);
+        notificationForm.reset(notificationResult.data as NotificationSettingsData);
       }
     } catch (error) {
       console.error('Error loading settings:', error);
@@ -160,7 +130,7 @@ const SettingsPage = () => {
     try {
       const result = await updateUserProfile(data);
       if (result.error) {
-        showSaveMessage(`Error: ${result.error.message}`);
+        showSaveMessage(`Error: ${(result.error as any)?.message || 'Unknown error'}`);
       } else {
         showSaveMessage('Profile updated successfully!');
       }
@@ -176,7 +146,7 @@ const SettingsPage = () => {
     try {
       const result = await updateBusinessSettings(data);
       if (result.error) {
-        showSaveMessage(`Error: ${result.error.message}`);
+        showSaveMessage(`Error: ${(result.error as any)?.message || 'Unknown error'}`);
       } else {
         showSaveMessage('Business settings updated successfully!');
       }
@@ -192,7 +162,7 @@ const SettingsPage = () => {
     try {
       const result = await updateInvoicePreferences(data);
       if (result.error) {
-        showSaveMessage(`Error: ${result.error.message}`);
+        showSaveMessage(`Error: ${(result.error as any)?.message || 'Unknown error'}`);
       } else {
         showSaveMessage('Invoice preferences updated successfully!');
       }
@@ -208,7 +178,7 @@ const SettingsPage = () => {
     try {
       const result = await updateNotificationSettings(data);
       if (result.error) {
-        showSaveMessage(`Error: ${result.error.message}`);
+        showSaveMessage(`Error: ${(result.error as any)?.message || 'Unknown error'}`);
       } else {
         showSaveMessage('Notification settings updated successfully!');
       }
