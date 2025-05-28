@@ -52,7 +52,23 @@ function validatePreferences(prefs: any): prefs is UserPreferences {
     typeof prefs.lastUpdated === "string" &&
     typeof prefs.source === "string" &&
     prefs.country in countryLanguageMappings &&
-    ["en", "it", "cs", "ru"].includes(prefs.language) &&
+    [
+      "en",
+      "it",
+      "cs",
+      "ru",
+      "es",
+      "fr",
+      "pl",
+      "de",
+      "nl",
+      "pt",
+      "sv",
+      "da",
+      "fi",
+      "el",
+      "hu",
+    ].includes(prefs.language) &&
     ["user", "browser", "url", "default"].includes(prefs.source)
   );
 }
@@ -220,7 +236,26 @@ export class PreferenceManager {
       updates.country = country as Country;
     }
 
-    if (language && ["en", "it", "cs", "ru"].includes(language)) {
+    if (
+      language &&
+      [
+        "en",
+        "it",
+        "cs",
+        "ru",
+        "es",
+        "fr",
+        "pl",
+        "de",
+        "nl",
+        "pt",
+        "sv",
+        "da",
+        "fi",
+        "el",
+        "hu",
+      ].includes(language)
+    ) {
       updates.language = language as Locale;
     }
 

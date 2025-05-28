@@ -795,7 +795,9 @@
     "independentSelection": "Country and language are independent - select each separately",
     "selectCountryLabel": "Select Country (affects tax rates & legal requirements)",
     "selectLanguageLabel": "Select Language (affects interface language only)",
-    "current": "Current"
+    "current": "Current",
+    "searchCountries": "Search countries...",
+    "searchLanguages": "Search languages..."
   },
   "languageSuggestion": {
     "suggestion": "Would you like to view this page in {language}?",

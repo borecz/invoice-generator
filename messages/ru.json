@@ -21,15 +21,29 @@
     "yes": "Да",
     "no": "Нет",
     "retry": "Повторить",
+    "welcome": "Welcome",
+    "account": "Account",
+    "profileSettings": "Profile Settings",
+    "logOut": "Log out",
+    "backToDashboard": "Back to Dashboard",
+    "newInvoice": "Новый счет",
+    "addCustomer": "Добавить клиента",
+    "createNewInvoice": "Create New Invoice",
     "happeningToday": "Вот что происходит сегодня",
     "commonTasks": "Общие задачи для управления вашим бизнесом",
+    "getStarted": "Get started by creating your first invoice",
+    "createFirstInvoice": "Create your first invoice",
+    "addFirstCustomer": "Add your first customer",
+    "unexpectedError": "An unexpected error occurred.",
+    "tryAgain": "Please try again.",
+    "na": "N/A",
     "generateProfessionalInvoice": "Создать профессиональный счет",
     "addEditCustomerInfo": "Добавить или изменить информацию о клиенте",
     "exportData": "Экспорт данных",
     "downloadInvoicesPdfCsv": "Скачать ваши счета в формате PDF или CSV",
     "invoiceManagement": "Управление счетами",
     "viewManageInvoices": "Просмотр и управление всеми вашими счетами",
-    "newInvoice": "Новый счет",
+    "export": "Экспорт",
     "noInvoicesYet": "Пока нет счетов",
     "getStartedFirstInvoice": "Начните с создания вашего первого счета",
     "createYourFirstInvoice": "Создать ваш первый счет",
@@ -39,7 +53,6 @@
     "downloadPdf": "Скачать PDF",
     "customerManagement": "Управление клиентами",
     "viewManageCustomerDatabase": "Просмотр и управление вашей базой данных клиентов",
-    "addCustomer": "Добавить клиента",
     "addYourFirstCustomer": "Добавить вашего первого клиента",
     "name": "Имя",
     "email": "Email",
@@ -49,9 +62,7 @@
     "viewDetails": "Просмотр деталей",
     "createInvoice": "Создать счет",
     "noEmail": "Нет email",
-    "noAddress": "Нет адреса",
-    "date": "Дата",
-    "export": "Экспорт"
+    "noAddress": "Нет адреса"
   },
   "navigation": {
     "dashboard": "Панель управления",
@@ -232,17 +243,11 @@
   },
   "invoices": {
     "title": "Счета",
+    "myInvoices": "My Invoices",
+    "newInvoice": "New Invoice",
     "create": "Создать Счет",
-    "draft": "Черновик",
-    "sent": "Отправлено",
-    "paid": "Оплачено",
-    "overdue": "Просрочено",
-    "amount": "Сумма",
-    "dueDate": "Дата Оплаты",
-    "customer": "Клиент",
-    "status": "Статус",
-    "actions": "Действия",
-    "date": "Дата",
+    "createNewInvoice": "Create New Invoice",
+    "createFirstInvoice": "Create Your First Invoice",
     "newInvoicePage": {
       "title": "Создать новый счет",
       "loading": "Загрузка...",
@@ -260,6 +265,24 @@
       "fillDetails": "Заполните данные ниже для создания счета",
       "goToHomepage": "Перейти на главную страницу"
     },
+    "invoiceNumber": "Invoice #",
+    "draft": "Черновик",
+    "sent": "Отправлено",
+    "paid": "Оплачено",
+    "pending": "Pending",
+    "overdue": "Просрочено",
+    "amount": "Сумма",
+    "dueDate": "Дата Оплаты",
+    "date": "Дата",
+    "customer": "Клиент",
+    "status": "Статус",
+    "actions": "Действия",
+    "noInvoicesFound": "No Invoices Found",
+    "noInvoicesYet": "You haven't created any invoices yet.",
+    "errorFetchingInvoices": "Error Fetching Invoices",
+    "goToHomepage": "Go to Homepage",
+    "fillDetails": "Fill in the details below to generate your invoice",
+    "backToDashboard": "Back to Dashboard",
     "form": {
       "invoiceDetails": "Детали счета",
       "basicInformation": "Основная информация о вашем счете",
@@ -323,26 +346,399 @@
   "customers": {
     "title": "Клиенты",
     "customerManagement": "Управление клиентами",
+    "customerDatabase": "Customer Database",
     "add": "Добавить Клиента",
+    "addCustomer": "Add Customer",
+    "addNewCustomer": "Add New Customer",
+    "addFirstCustomer": "Add Your First Customer",
+    "editCustomer": "Edit Customer",
+    "deleteCustomer": "Delete Customer",
+    "createInvoice": "Create Invoice",
     "name": "Имя",
+    "customerName": "Customer Name",
     "email": "Email",
     "phone": "Телефон",
     "company": "Компания",
     "address": "Адрес",
+    "notes": "Notes",
+    "contact": "Contact",
+    "added": "Added",
+    "actions": "Actions",
     "totalInvoices": "Всего Счетов",
     "totalRevenue": "Общий Доход",
     "noCustomersYet": "Пока нет клиентов",
-    "noCustomersDescription": "Добавьте вашего первого клиента, чтобы начать выставление счетов."
+    "noCustomersFound": "No customers found",
+    "noCustomersDescription": "Добавьте вашего первого клиента, чтобы начать выставление счетов.",
+    "noCustomersFoundDescription": "Try adjusting your search terms or filters.",
+    "searchCustomers": "Search customers...",
+    "sortByName": "Sort by Name",
+    "sortByCompany": "Sort by Company",
+    "sortByDateAdded": "Sort by Date Added",
+    "customerAdded": "Customer added successfully!",
+    "customerUpdated": "Customer updated successfully!",
+    "customerDeleted": "Customer deleted successfully!",
+    "customerNameRequired": "Customer name is required",
+    "updateInformation": "Update information for",
+    "addToDatabase": "Add a new customer to your database",
+    "manageDatabase": "Manage your customer database and relationships",
+    "deleteConfirmation": "Are you sure you want to delete",
+    "deleteCannotBeUndone": "This action cannot be undone.",
+    "updating": "Updating...",
+    "adding": "Adding...",
+    "deleting": "Deleting...",
+    "updateCustomer": "Update Customer",
+    "loadingCustomers": "Loading customers...",
+    "noEmail": "No email",
+    "noPhone": "No phone",
+    "noCompany": "No company",
+    "noAddress": "No address",
+    "customersFound": "customers found",
+    "customerFound": "customer found",
+    "placeholders": {
+      "name": "John Doe",
+      "company": "Acme Corporation",
+      "email": "john.doe@example.com",
+      "phone": "+1 (555) 123-4567",
+      "address": "123 Main St, Anytown, USA",
+      "notes": "Additional notes about this customer"
+    }
   },
   "settings": {
     "title": "Настройки",
+    "manageAccount": "Manage your account, business information, and preferences.",
+    "loadingSettings": "Loading settings...",
     "profile": "Профиль",
     "business": "Бизнес",
+    "invoices": "Invoices",
     "invoicePreferences": "Настройки Счетов",
     "notifications": "Уведомления",
     "security": "Безопасность",
     "integrations": "Интеграции",
-    "billing": "Биллинг и Подписка"
+    "billing": "Биллинг и Подписка",
+    "profileInformation": "Profile Information",
+    "updatePersonalInfo": "Update your personal information and contact details.",
+    "businessInformation": "Business Information",
+    "configureBusinessDetails": "Configure your business details that will appear on invoices.",
+    "setDefaultValues": "Set default values and preferences for your invoices.",
+    "notificationSettings": "Notification Settings",
+    "chooseEmailNotifications": "Choose which email notifications you'd like to receive.",
+    "billingSubscription": "Billing & Subscription",
+    "manageSubscription": "Manage your subscription plan and billing information.",
+    "fullName": "Full Name",
+    "phoneNumber": "Phone Number",
+    "city": "City",
+    "stateProvince": "State/Province",
+    "country": "Country",
+    "zipPostalCode": "ZIP/Postal Code",
+    "businessName": "Business Name",
+    "businessEmail": "Business Email",
+    "businessPhone": "Business Phone",
+    "businessAddress": "Business Address",
+    "taxId": "Tax ID / Registration Number",
+    "businessCity": "City",
+    "businessState": "State/Province",
+    "businessCountry": "Country",
+    "businessZip": "ZIP/Postal Code",
+    "defaultCurrency": "Default Currency",
+    "defaultPaymentTerms": "Default Payment Terms (Days)",
+    "defaultTaxRate": "Default Tax Rate (%)",
+    "invoiceNumberFormat": "Invoice Number Format",
+    "defaultInvoiceNotes": "Default Invoice Notes",
+    "reminderSettings": "Reminder Settings",
+    "autoSendReminders": "Auto-send reminders",
+    "daysBeforeDue": "Days before due date",
+    "daysAfterDue": "Days after due date",
+    "invoiceNotifications": "Invoice Notifications",
+    "customerNotifications": "Customer Notifications",
+    "generalNotifications": "General Notifications",
+    "invoiceCreated": "Invoice Created",
+    "invoicePaid": "Invoice Paid",
+    "invoiceOverdue": "Invoice Overdue",
+    "newCustomer": "New Customer",
+    "marketingCommunications": "Marketing Communications",
+    "productUpdates": "Product Updates",
+    "currentPlan": "Current Plan",
+    "freePlan": "Free Plan",
+    "perfectForGettingStarted": "Perfect for getting started",
+    "active": "Active",
+    "invoicesPerMonth": "Invoices per month",
+    "customers": "Customers",
+    "pdfExport": "PDF Export",
+    "upgradeToPro": "Upgrade to Pro",
+    "viewAllPlans": "View All Plans",
+    "usageThisMonth": "Usage This Month",
+    "invoicesCreated": "Invoices Created",
+    "customersAdded": "Customers Added",
+    "accountSecurity": "Account Security",
+    "password": "Password",
+    "lastUpdated": "Last updated 30 days ago",
+    "changePassword": "Change Password",
+    "twoFactorAuth": "Two-Factor Authentication",
+    "addExtraLayer": "Add an extra layer of security to your account",
+    "enable2FA": "Enable 2FA",
+    "deleteAccount": "Delete Account",
+    "permanentlyDelete": "Permanently delete your account and all data",
+    "saveProfile": "Save Profile",
+    "saveBusinessInfo": "Save Business Info",
+    "savePreferences": "Save Preferences",
+    "saveNotifications": "Save Notifications",
+    "saving": "Saving...",
+    "profileUpdated": "Profile updated successfully!",
+    "businessUpdated": "Business settings updated successfully!",
+    "preferencesUpdated": "Invoice preferences updated successfully!",
+    "notificationsUpdated": "Notification settings updated successfully!",
+    "placeholders": {
+      "fullName": "Enter your full name",
+      "phone": "Enter your phone number",
+      "address": "Enter your address",
+      "city": "Enter your city",
+      "state": "Enter your state",
+      "country": "Enter your country",
+      "zipCode": "Enter your ZIP code",
+      "businessName": "Enter your business name",
+      "businessEmail": "Enter your business email",
+      "businessPhone": "Enter your business phone",
+      "businessAddress": "Enter your business address",
+      "businessCity": "Enter your business city",
+      "businessState": "Enter your business state",
+      "businessCountry": "Enter your business country",
+      "businessZip": "Enter your business ZIP code",
+      "taxId": "Enter your tax ID",
+      "paymentTerms": "30",
+      "taxRate": "0.00",
+      "invoiceFormat": "INV-{YYYY}-{MM}-{###}",
+      "invoiceNotes": "Thank you for your business!",
+      "reminderDays": "3",
+      "reminderDaysAfter": "7",
+      "selectCurrency": "Select currency"
+    },
+    "descriptions": {
+      "invoiceCreated": "Get notified when a new invoice is created",
+      "invoicePaid": "Get notified when an invoice is marked as paid",
+      "invoiceOverdue": "Get notified when an invoice becomes overdue",
+      "newCustomer": "Get notified when a new customer is added",
+      "marketing": "Receive updates about new features and tips",
+      "productUpdates": "Get notified about important product updates"
+    }
+  },
+  "notifications": {
+    "title": "Уведомления",
+    "markAllAsRead": "Отметить все как прочитанные",
+    "noNotifications": "Нет уведомлений",
+    "noNotificationsDescription": "Вы в курсе! Новых уведомлений пока нет.",
+    "categories": {
+      "all": "All",
+      "invoice_management": "Invoices",
+      "payment_financial": "Payments",
+      "system_account": "System",
+      "business_intelligence": "Reports",
+      "integration_automation": "Integrations",
+      "compliance_legal": "Compliance"
+    },
+    "status": {
+      "unread": "Unread",
+      "read": "Read",
+      "dismissed": "Dismissed",
+      "acted_upon": "Completed"
+    },
+    "priority": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High"
+    },
+    "quickActions": {
+      "view_invoice": "Просмотреть Счёт",
+      "send_invoice": "Отправить Счёт",
+      "send_reminder": "Send Reminder",
+      "mark_paid": "Mark as Paid",
+      "track_status": "Track Status",
+      "send_receipt": "Send Receipt",
+      "create_new": "Create New",
+      "view_changes": "View Changes",
+      "request_balance": "Request Balance",
+      "retry_payment": "Retry Payment",
+      "contact_customer": "Contact Customer",
+      "view_details": "View Details",
+      "notify_customer": "Notify Customer",
+      "view_refund": "View Refund",
+      "send_update_request": "Send Update Request",
+      "view_report": "View Report",
+      "export_data": "Export Data",
+      "view_tax_info": "View Tax Info",
+      "export_records": "Export Records",
+      "snooze": "Snooze",
+      "view_billing": "View Billing",
+      "download_receipt": "Download Receipt",
+      "renew_subscription": "Renew Subscription",
+      "view_plans": "View Plans",
+      "contact_support": "Contact Support",
+      "view_usage": "View Usage",
+      "upgrade_plan": "Upgrade Plan",
+      "cleanup_data": "Cleanup Data",
+      "download_backup": "Download Backup",
+      "review_activity": "Review Activity",
+      "change_password": "Change Password",
+      "share_report": "Share Report",
+      "set_new_goal": "Set New Goal",
+      "share_achievement": "Share Achievement",
+      "view_analysis": "View Analysis",
+      "view_customer": "Просмотреть Клиента",
+      "send_thank_you": "Send Thank You",
+      "view_integration": "View Integration",
+      "test_connection": "Test Connection",
+      "retry_connection": "Retry Connection",
+      "view_logs": "View Logs",
+      "download_export": "Download Export",
+      "update_settings": "Update Settings",
+      "view_requirements": "View Requirements",
+      "archive_documents": "Archive Documents",
+      "view_policy": "View Policy",
+      "dismiss": "Отклонить"
+    },
+    "types": {
+      "invoice_created": {
+        "title": "Invoice Created",
+        "message": "Invoice #{invoiceNumber} has been created successfully"
+      },
+      "invoice_sent": {
+        "title": "Invoice Sent",
+        "message": "Invoice #{invoiceNumber} has been sent to {customerName}"
+      },
+      "invoice_viewed": {
+        "title": "Invoice Viewed",
+        "message": "{customerName} has viewed invoice #{invoiceNumber}"
+      },
+      "invoice_paid": {
+        "title": "Payment Received",
+        "message": "Payment of {amount} received for invoice #{invoiceNumber}"
+      },
+      "invoice_overdue": {
+        "title": "Invoice Overdue",
+        "message": "Invoice #{invoiceNumber} is now {daysOverdue} days overdue"
+      },
+      "invoice_reminder_sent": {
+        "title": "Reminder Sent",
+        "message": "Payment reminder sent for invoice #{invoiceNumber}"
+      },
+      "invoice_cancelled": {
+        "title": "Invoice Cancelled",
+        "message": "Invoice #{invoiceNumber} has been cancelled"
+      },
+      "invoice_updated": {
+        "title": "Invoice Updated",
+        "message": "Invoice #{invoiceNumber} has been updated"
+      },
+      "partial_payment_received": {
+        "title": "Partial Payment",
+        "message": "Partial payment of {amount} received for invoice #{invoiceNumber}"
+      },
+      "payment_failed": {
+        "title": "Payment Failed",
+        "message": "Payment attempt failed for invoice #{invoiceNumber}"
+      },
+      "refund_processed": {
+        "title": "Refund Processed",
+        "message": "Refund of {amount} has been processed for invoice #{invoiceNumber}"
+      },
+      "payment_method_expired": {
+        "title": "Payment Method Expired",
+        "message": "{customerName}'s payment method has expired"
+      },
+      "monthly_revenue_summary": {
+        "title": "Monthly Revenue Summary",
+        "message": "Your revenue summary for {month} is ready"
+      },
+      "tax_deadline_reminder": {
+        "title": "Tax Deadline Reminder",
+        "message": "Tax filing deadline is approaching on {deadline}"
+      },
+      "subscription_renewal": {
+        "title": "Subscription Renewed",
+        "message": "Your {planName} subscription has been renewed"
+      },
+      "subscription_expiring": {
+        "title": "Subscription Expiring",
+        "message": "Your subscription expires in {daysLeft} days"
+      },
+      "plan_upgrade_available": {
+        "title": "Upgrade Available",
+        "message": "Consider upgrading to unlock more features"
+      },
+      "storage_limit_warning": {
+        "title": "Storage Limit Warning",
+        "message": "You're using {percentage}% of your storage limit"
+      },
+      "backup_completed": {
+        "title": "Backup Completed",
+        "message": "Your data backup has been completed successfully"
+      },
+      "security_alert": {
+        "title": "Security Alert",
+        "message": "Suspicious login attempt detected from {location}"
+      },
+      "weekly_business_summary": {
+        "title": "Weekly Summary",
+        "message": "Your business summary for week ending {date} is ready"
+      },
+      "goal_achievement": {
+        "title": "Goal Achieved",
+        "message": "Congratulations! You've reached your {goalType} goal"
+      },
+      "trend_alert": {
+        "title": "Trend Alert",
+        "message": "Significant change detected in your {metric}"
+      },
+      "customer_milestone": {
+        "title": "Customer Milestone",
+        "message": "{customerName} has been with you for {duration}"
+      },
+      "integration_connected": {
+        "title": "Integration Connected",
+        "message": "{serviceName} has been successfully connected"
+      },
+      "integration_failed": {
+        "title": "Integration Failed",
+        "message": "Connection to {serviceName} has failed"
+      },
+      "automation_triggered": {
+        "title": "Automation Triggered",
+        "message": "{automationName} has been executed successfully"
+      },
+      "data_export_ready": {
+        "title": "Export Ready",
+        "message": "Your {exportType} export is ready for download"
+      },
+      "tax_rate_update": {
+        "title": "Tax Rate Update",
+        "message": "Tax rates have been updated for {region}"
+      },
+      "compliance_reminder": {
+        "title": "Compliance Reminder",
+        "message": "{requirement} deadline is approaching on {deadline}"
+      },
+      "document_retention_alert": {
+        "title": "Document Retention",
+        "message": "Documents from {period} need to be archived"
+      }
+    },
+    "timeAgo": {
+      "justNow": "Только что",
+      "minuteAgo": "1 минуту назад",
+      "minutesAgo": "{minutes} минут назад",
+      "hourAgo": "1 час назад",
+      "hoursAgo": "{hours} часов назад",
+      "dayAgo": "1 день назад",
+      "daysAgo": "{days} дней назад",
+      "weekAgo": "1 week ago",
+      "weeksAgo": "{weeks} weeks ago",
+      "monthAgo": "1 month ago",
+      "monthsAgo": "{months} months ago"
+    },
+    "dropdown": {
+      "viewAllNotifications": "Просмотреть Все Уведомления",
+      "loading": "Загрузка уведомлений...",
+      "error": "Ошибка загрузки уведомлений"
+    }
   },
   "auth": {
     "login": {
@@ -350,19 +746,42 @@
       "subtitle": "Войдите в свой аккаунт для продолжения",
       "email": "Email",
       "password": "Пароль",
+      "signIn": "Sign in",
       "forgotPassword": "Забыли пароль?",
       "noAccount": "Нет аккаунта?",
-      "signUp": "Зарегистрироваться"
+      "signUp": "Зарегистрироваться",
+      "createAccount": "create a new account",
+      "backToHomepage": "← Back to homepage",
+      "signingIn": "Signing in...",
+      "signInSuccess": "Sign in successful! Redirecting...",
+      "signInFailed": "Sign in failed. Please check your credentials.",
+      "fillAllFields": "Please fill in all fields.",
+      "unexpectedError": "An unexpected error occurred. Please try again.",
+      "emailPlaceholder": "you@example.com"
     },
     "signup": {
       "title": "Создайте свой аккаунт",
       "subtitle": "Начните с бесплатной пробной версии сегодня",
       "email": "Email",
       "password": "Пароль",
+      "signUp": "Sign Up",
       "confirmPassword": "Подтвердите Пароль",
       "hasAccount": "Уже есть аккаунт?",
-      "signIn": "Войти"
-    }
+      "signIn": "Войти",
+      "signInExisting": "sign in to your existing account",
+      "backToHomepage": "← Back to homepage",
+      "creatingAccount": "Creating account...",
+      "accountCreated": "Account created successfully!",
+      "fillAllFields": "Please fill in all fields.",
+      "passwordTooShort": "Password must be at least 6 characters long.",
+      "unexpectedError": "An unexpected error occurred. Please try again.",
+      "emailPlaceholder": "you@example.com"
+    },
+    "logout": "Logout",
+    "accessDenied": "Access Denied",
+    "pleaseLogin": "Please log in to access this page.",
+    "pleaseLoginInvoices": "Please log in to create invoices.",
+    "pleaseLoginCustomers": "Please log in to manage customers."
   },
   "languageSwitcher": {
     "title": "Язык и Страна",
@@ -372,38 +791,14 @@
     "independentSelection": "Страна и язык независимы - выберите каждый отдельно",
     "selectCountryLabel": "Выберите Страну (влияет на налоговые ставки и правовые требования)",
     "selectLanguageLabel": "Выберите Язык (влияет только на язык интерфейса)",
-    "current": "Текущий"
+    "current": "Текущий",
+    "searchCountries": "Поиск стран...",
+    "searchLanguages": "Поиск языков..."
   },
   "languageSuggestion": {
     "suggestion": "Хотите просматривать эту страницу на {language}?",
     "description": "Мы обнаружили, что это может быть ваш предпочитаемый язык.",
     "accept": "Да, переключиться на {language}",
     "dismiss": "Нет, оставить текущий язык"
-  },
-  "notifications": {
-    "title": "Уведомления",
-    "markAllAsRead": "Отметить все как прочитанные",
-    "noNotifications": "Нет уведомлений",
-    "noNotificationsDescription": "Вы в курсе! Новых уведомлений пока нет.",
-    "quickActions": {
-      "view_invoice": "Просмотреть Счёт",
-      "send_invoice": "Отправить Счёт",
-      "view_customer": "Просмотреть Клиента",
-      "dismiss": "Отклонить"
-    },
-    "timeAgo": {
-      "justNow": "Только что",
-      "minuteAgo": "1 минуту назад",
-      "minutesAgo": "{minutes} минут назад",
-      "hourAgo": "1 час назад",
-      "hoursAgo": "{hours} часов назад",
-      "dayAgo": "1 день назад",
-      "daysAgo": "{days} дней назад"
-    },
-    "dropdown": {
-      "viewAllNotifications": "Просмотреть Все Уведомления",
-      "loading": "Загрузка уведомлений...",
-      "error": "Ошибка загрузки уведомлений"
-    }
   }
 }

@@ -1,0 +1,804 @@
+{
+  "common": {
+    "loading": "Betöltés...",
+    "error": "Hiba",
+    "success": "Sikeres",
+    "cancel": "Mégse",
+    "save": "Mentés",
+    "delete": "Törlés",
+    "edit": "Szerkesztés",
+    "create": "Létrehozás",
+    "update": "Frissítés",
+    "search": "Keresés",
+    "filter": "Szűrés",
+    "clear": "Törlés",
+    "close": "Bezárás",
+    "back": "Vissza",
+    "next": "Következő",
+    "previous": "Előző",
+    "submit": "Küldés",
+    "confirm": "Megerősítés",
+    "yes": "Igen",
+    "no": "Nem",
+    "retry": "Újrapróbálás",
+    "welcome": "Üdvözöljük",
+    "account": "Fiók",
+    "profileSettings": "Profil Beállítások",
+    "logOut": "Kijelentkezés",
+    "backToDashboard": "Vissza a Vezérlőpulthoz",
+    "newInvoice": "Új Számla",
+    "addCustomer": "Ügyfél Hozzáadása",
+    "createNewInvoice": "Új Számla Létrehozása",
+    "happeningToday": "Ez történik ma a számláival.",
+    "commonTasks": "Gyakori feladatok a kezdéshez",
+    "getStarted": "Kezdje az első számla létrehozásával",
+    "createFirstInvoice": "Hozza létre első számláját",
+    "addFirstCustomer": "Adja hozzá első ügyfelét",
+    "unexpectedError": "Váratlan hiba történt.",
+    "tryAgain": "Kérjük, próbálja újra.",
+    "na": "N/A",
+    "generateProfessionalInvoice": "Professzionális számla generálása",
+    "addEditCustomerInfo": "Ügyfél információk hozzáadása vagy szerkesztése",
+    "exportData": "Adatok Exportálása",
+    "downloadInvoicesPdfCsv": "Töltse le számláit PDF vagy CSV formátumban",
+    "invoiceManagement": "Számla Kezelés",
+    "viewManageInvoices": "Összes számla megtekintése és kezelése",
+    "export": "Exportálás",
+    "noInvoicesYet": "Még nincsenek számlák",
+    "getStartedFirstInvoice": "Kezdje az első számla létrehozásával",
+    "createYourFirstInvoice": "Hozza Létre Első Számláját",
+    "invoiceHash": "Számla #",
+    "noCustomer": "Nincs ügyfél",
+    "view": "Megtekintés",
+    "downloadPdf": "PDF Letöltése",
+    "customerManagement": "Ügyfél Kezelés",
+    "viewManageCustomerDatabase": "Ügyfél adatbázis megtekintése és kezelése",
+    "addYourFirstCustomer": "Adja Hozzá Első Ügyfelét",
+    "name": "Név",
+    "email": "E-mail",
+    "address": "Cím",
+    "added": "Hozzáadva",
+    "actions": "Műveletek",
+    "viewDetails": "Részletek Megtekintése",
+    "createInvoice": "Számla Létrehozása",
+    "noEmail": "Nincs e-mail",
+    "noAddress": "Nincs cím"
+  },
+  "navigation": {
+    "dashboard": "Vezérlőpult",
+    "invoices": "Számlák",
+    "customers": "Ügyfelek",
+    "settings": "Beállítások",
+    "newInvoice": "Új Számla",
+    "addCustomer": "Ügyfél Hozzáadása",
+    "profile": "Profil",
+    "logout": "Kijelentkezés",
+    "login": "Bejelentkezés",
+    "signup": "Kezdés",
+    "backToHomepage": "Vissza a Főoldalra",
+    "features": "Funkciók",
+    "pricing": "Árazás",
+    "testimonials": "Ajánlások"
+  },
+  "header": {
+    "notifications": "Értesítések",
+    "account": "Fiók",
+    "profileSettings": "Profil Beállítások"
+  },
+  "landing": {
+    "title": "InvoiceAgent - Professzionális Számlázó Szoftver Modern Vállalkozások Számára",
+    "description": "Egyszerűsítse számlázását az InvoiceAgent segítségével. Hozzon létre professzionális számlákat, kövesse nyomon a fizetéseket, kezelje ügyfeleit és kapja meg gyorsabban a fizetést. Ingyenes próbaverzió elérhető.",
+    "hero": {
+      "title": "Professzionális Számlázás Egyszerűsítve",
+      "subtitle": "Hozzon létre, küldjön és kövessen nyomon számlákat könnyedén. Kapja meg gyorsabban a fizetést hatékony számlázó platformunkkal, amely modern vállalkozások számára készült.",
+      "cta": "Ingyenes Próbaverzió Indítása",
+      "watchDemo": "Demó Megtekintése"
+    },
+    "features": {
+      "title": "Everything you need to get paid faster",
+      "subtitle": "Powerful features designed to streamline your invoicing process",
+      "invoice": {
+        "title": "Professional Invoices",
+        "description": "Create beautiful, professional invoices in minutes with our intuitive editor."
+      },
+      "tracking": {
+        "title": "Payment Tracking",
+        "description": "Track payment status and send automated reminders to clients."
+      },
+      "customers": {
+        "title": "Customer Management",
+        "description": "Organize your clients and their information in one central location."
+      },
+      "reports": {
+        "title": "Financial Reports",
+        "description": "Get insights into your business with detailed financial reporting."
+      },
+      "automation": {
+        "title": "Automated Workflows",
+        "description": "Save time with automated invoice generation and payment reminders."
+      },
+      "integration": {
+        "title": "Easy Integration",
+        "description": "Connect with your favorite tools and payment processors."
+      }
+    },
+    "pricing": {
+      "title": "Simple, transparent pricing",
+      "subtitle": "Choose the plan that's right for your business",
+      "monthly": "Monthly",
+      "annually": "Annually",
+      "save": "Save 20%",
+      "free": {
+        "title": "Free",
+        "price": "$0",
+        "description": "Perfect for getting started",
+        "features": {
+          "0": "Up to 5 invoices per month",
+          "1": "Basic invoice templates",
+          "2": "Email support",
+          "3": "Payment tracking"
+        }
+      },
+      "pro": {
+        "title": "Pro",
+        "price": "$19",
+        "description": "For growing businesses",
+        "features": {
+          "0": "Unlimited invoices",
+          "1": "Custom branding",
+          "2": "Advanced reporting",
+          "3": "Priority support",
+          "4": "Payment reminders",
+          "5": "Multi-currency support"
+        }
+      },
+      "enterprise": {
+        "title": "Enterprise",
+        "price": "$49",
+        "description": "For large organizations",
+        "features": {
+          "0": "Everything in Pro",
+          "1": "Team collaboration",
+          "2": "API access",
+          "3": "Custom integrations",
+          "4": "Dedicated support",
+          "5": "Advanced security"
+        }
+      }
+    },
+    "cta": {
+      "title": "Ready to get paid faster?",
+      "subtitle": "Join thousands of businesses that trust InvoiceAgent for their invoicing needs. Start your free trial today.",
+      "button": "Start Free Trial",
+      "dashboard": "Go to Dashboard",
+      "contactSales": "Contact Sales"
+    },
+    "badge": {
+      "trustedBy": "🚀 Trusted by 10,000+ businesses worldwide"
+    },
+    "testimonials": {
+      "title": "What our customers say",
+      "subtitle": "Don't just take our word for it - hear from some of our satisfied customers",
+      "customer1": {
+        "quote": "InvoiceAgent has transformed how we handle billing. The automated reminders alone have improved our cash flow significantly.",
+        "name": "Sarah Johnson",
+        "company": "Design Studio"
+      },
+      "customer2": {
+        "quote": "The professional templates and easy customization make our invoices look great. Our clients love the payment portal.",
+        "name": "Michael Chen",
+        "company": "Consulting Firm"
+      },
+      "customer3": {
+        "quote": "Professional templates and fast payment processing. Our cash flow has improved significantly.",
+        "name": "Anna Rodriguez",
+        "company": "Marketing Agency"
+      }
+    },
+    "footer": {
+      "description": "Professional invoicing made simple. Get paid faster with our powerful platform.",
+      "product": "Product",
+      "features": "Features",
+      "pricing": "Pricing",
+      "templates": "Templates",
+      "integrations": "Integrations",
+      "company": "Company",
+      "about": "About",
+      "blog": "Blog",
+      "careers": "Careers",
+      "contact": "Contact",
+      "support": "Support",
+      "helpCenter": "Help Center",
+      "documentation": "Documentation",
+      "privacyPolicy": "Privacy Policy",
+      "termsOfService": "Terms of Service",
+      "copyright": "© 2024 InvoiceAgent. All rights reserved."
+    },
+    "demo": {
+      "title": "See InvoiceAgent in Action",
+      "subtitle": "Watch how easy it is to create professional invoices in just a few clicks",
+      "loading": "Loading demo..."
+    },
+    "socialProof": {
+      "rating": "from 2,000+ reviews",
+      "invoicesCreated": "invoices created"
+    },
+    "common": {
+      "mostPopular": "Most Popular",
+      "year": "year",
+      "month": "month"
+    }
+  },
+  "dashboard": {
+    "welcome": "Üdvözöljük vissza",
+    "overview": "Áttekintés",
+    "recentActivity": "Legutóbbi Tevékenység",
+    "quickActions": "Gyors Műveletek",
+    "metrics": {
+      "totalRevenue": "Összes Bevétel",
+      "pendingInvoices": "Függőben Lévő Számlák",
+      "paidInvoices": "Kifizetett Számlák",
+      "totalCustomers": "Összes Ügyfél"
+    }
+  },
+  "invoices": {
+    "title": "Invoices",
+    "myInvoices": "My Invoices",
+    "newInvoice": "New Invoice",
+    "create": "Create Invoice",
+    "createNewInvoice": "Create New Invoice",
+    "createFirstInvoice": "Create Your First Invoice",
+    "newInvoicePage": {
+      "title": "Create New Invoice",
+      "loading": "Loading...",
+      "error": "Error",
+      "accessDenied": "Access Denied",
+      "pleaseLoginToCreateInvoices": "Please log in to create invoices.",
+      "login": "Login",
+      "dashboard": "Dashboard",
+      "newInvoice": "New Invoice",
+      "addCustomer": "Add Customer",
+      "account": "Account",
+      "backToDashboard": "Back to Dashboard",
+      "profileSettings": "Profile Settings",
+      "logOut": "Log out",
+      "fillDetails": "Fill in the details below to generate your invoice",
+      "goToHomepage": "Go to Homepage"
+    },
+    "invoiceNumber": "Invoice #",
+    "draft": "Draft",
+    "sent": "Sent",
+    "paid": "Paid",
+    "pending": "Pending",
+    "overdue": "Overdue",
+    "amount": "Amount",
+    "dueDate": "Due Date",
+    "date": "Date",
+    "customer": "Customer",
+    "status": "Status",
+    "actions": "Actions",
+    "noInvoicesFound": "No Invoices Found",
+    "noInvoicesYet": "You haven't created any invoices yet.",
+    "errorFetchingInvoices": "Error Fetching Invoices",
+    "goToHomepage": "Go to Homepage",
+    "fillDetails": "Fill in the details below to generate your invoice",
+    "backToDashboard": "Back to Dashboard",
+    "form": {
+      "invoiceDetails": "Invoice Details",
+      "basicInformation": "Basic information about your invoice",
+      "invoiceNumber": "Invoice Number",
+      "invoiceNumberRequired": "Invoice number is required",
+      "invoiceNumberPlaceholder": "INV-001",
+      "customerInformation": "Customer Information",
+      "selectExistingCustomer": "Select Existing Customer",
+      "enterNewCustomerDetails": "Enter New Customer Details",
+      "selectCustomer": "Select Customer",
+      "selectCustomerPlaceholder": "Select a customer",
+      "loadingCustomers": "Loading customers...",
+      "noCustomersFound": "No customers found.",
+      "customerDetails": "Customer Details",
+      "customerName": "Customer Name",
+      "customerNameRequired": "Customer name is required",
+      "customerNamePlaceholder": "Enter customer name",
+      "customerEmail": "Customer Email",
+      "customerEmailPlaceholder": "customer@example.com (optional)",
+      "customerAddress": "Customer Address",
+      "customerAddressPlaceholder": "Customer address (optional)",
+      "saveCustomerToDatabase": "Save this customer to my database for future use",
+      "customerWillBeSaved": "✓ This customer will be saved to your database and can be selected for future invoices.",
+      "customerNotSaved": "Customer information will only be used for this invoice and won't be saved permanently.",
+      "invoiceDate": "Invoice Date",
+      "invoiceDateRequired": "Invoice date is required",
+      "dueDate": "Due Date",
+      "invoiceItems": "Invoice Items",
+      "addProductsServices": "Add products or services to your invoice",
+      "addItem": "Add Item",
+      "itemNumber": "Item #",
+      "itemName": "Item Name",
+      "itemNameRequired": "Item name is required",
+      "itemNamePlaceholder": "Product or service name",
+      "quantity": "Quantity",
+      "quantityRequired": "Quantity is required",
+      "quantityMinimum": "Quantity must be at least 1",
+      "quantityPlaceholder": "1",
+      "price": "Price",
+      "priceRequired": "Price is required",
+      "pricePositive": "Price must be positive",
+      "pricePlaceholder": "0.00",
+      "itemTotal": "Item Total",
+      "invoiceSummary": "Invoice Summary",
+      "subtotal": "Subtotal",
+      "totalAmount": "Total Amount",
+      "actions": "Actions",
+      "saveInvoiceOrGoBack": "Save your invoice or go back to dashboard",
+      "cancel": "Cancel",
+      "creating": "Creating...",
+      "createInvoice": "Create Invoice",
+      "pleaseSelectCustomer": "Please select a customer",
+      "customerNameIsRequired": "Customer name is required",
+      "failedToSaveCustomer": "Failed to save customer",
+      "customerAddedToDatabase": " Customer has been added to your database.",
+      "invoiceCreatedSuccessfully": "Invoice created successfully!",
+      "unexpectedErrorOccurred": "An unexpected error occurred",
+      "addCustomer": "Add Customer"
+    }
+  },
+  "customers": {
+    "title": "Customers",
+    "customerManagement": "Customer Management",
+    "customerDatabase": "Customer Database",
+    "add": "Add Customer",
+    "addCustomer": "Add Customer",
+    "addNewCustomer": "Add New Customer",
+    "addFirstCustomer": "Add Your First Customer",
+    "editCustomer": "Edit Customer",
+    "deleteCustomer": "Delete Customer",
+    "createInvoice": "Create Invoice",
+    "name": "Name",
+    "customerName": "Customer Name",
+    "email": "Email",
+    "phone": "Phone",
+    "company": "Company",
+    "address": "Address",
+    "notes": "Notes",
+    "contact": "Contact",
+    "added": "Added",
+    "actions": "Actions",
+    "totalInvoices": "Total Invoices",
+    "totalRevenue": "Total Revenue",
+    "noCustomersYet": "No customers yet",
+    "noCustomersFound": "No customers found",
+    "noCustomersDescription": "Add your first customer to get started with invoicing.",
+    "noCustomersFoundDescription": "Try adjusting your search terms or filters.",
+    "searchCustomers": "Search customers...",
+    "sortByName": "Sort by Name",
+    "sortByCompany": "Sort by Company",
+    "sortByDateAdded": "Sort by Date Added",
+    "customerAdded": "Customer added successfully!",
+    "customerUpdated": "Customer updated successfully!",
+    "customerDeleted": "Customer deleted successfully!",
+    "customerNameRequired": "Customer name is required",
+    "updateInformation": "Update information for",
+    "addToDatabase": "Add a new customer to your database",
+    "manageDatabase": "Manage your customer database and relationships",
+    "deleteConfirmation": "Are you sure you want to delete",
+    "deleteCannotBeUndone": "This action cannot be undone.",
+    "updating": "Updating...",
+    "adding": "Adding...",
+    "deleting": "Deleting...",
+    "updateCustomer": "Update Customer",
+    "loadingCustomers": "Loading customers...",
+    "noEmail": "No email",
+    "noPhone": "No phone",
+    "noCompany": "No company",
+    "noAddress": "No address",
+    "customersFound": "customers found",
+    "customerFound": "customer found",
+    "placeholders": {
+      "name": "John Doe",
+      "company": "Acme Corporation",
+      "email": "john.doe@example.com",
+      "phone": "+1 (555) 123-4567",
+      "address": "123 Main St, Anytown, USA",
+      "notes": "Additional notes about this customer"
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "manageAccount": "Manage your account, business information, and preferences.",
+    "loadingSettings": "Loading settings...",
+    "profile": "Profile",
+    "business": "Business",
+    "invoices": "Invoices",
+    "invoicePreferences": "Invoice Preferences",
+    "notifications": "Notifications",
+    "security": "Security",
+    "integrations": "Integrations",
+    "billing": "Billing & Subscription",
+    "profileInformation": "Profile Information",
+    "updatePersonalInfo": "Update your personal information and contact details.",
+    "businessInformation": "Business Information",
+    "configureBusinessDetails": "Configure your business details that will appear on invoices.",
+    "setDefaultValues": "Set default values and preferences for your invoices.",
+    "notificationSettings": "Notification Settings",
+    "chooseEmailNotifications": "Choose which email notifications you'd like to receive.",
+    "billingSubscription": "Billing & Subscription",
+    "manageSubscription": "Manage your subscription plan and billing information.",
+    "fullName": "Full Name",
+    "phoneNumber": "Phone Number",
+    "city": "City",
+    "stateProvince": "State/Province",
+    "country": "Country",
+    "zipPostalCode": "ZIP/Postal Code",
+    "businessName": "Business Name",
+    "businessEmail": "Business Email",
+    "businessPhone": "Business Phone",
+    "businessAddress": "Business Address",
+    "taxId": "Tax ID / Registration Number",
+    "businessCity": "City",
+    "businessState": "State/Province",
+    "businessCountry": "Country",
+    "businessZip": "ZIP/Postal Code",
+    "defaultCurrency": "Default Currency",
+    "defaultPaymentTerms": "Default Payment Terms (Days)",
+    "defaultTaxRate": "Default Tax Rate (%)",
+    "invoiceNumberFormat": "Invoice Number Format",
+    "defaultInvoiceNotes": "Default Invoice Notes",
+    "reminderSettings": "Reminder Settings",
+    "autoSendReminders": "Auto-send reminders",
+    "daysBeforeDue": "Days before due date",
+    "daysAfterDue": "Days after due date",
+    "invoiceNotifications": "Invoice Notifications",
+    "customerNotifications": "Customer Notifications",
+    "generalNotifications": "General Notifications",
+    "invoiceCreated": "Invoice Created",
+    "invoicePaid": "Invoice Paid",
+    "invoiceOverdue": "Invoice Overdue",
+    "newCustomer": "New Customer",
+    "marketingCommunications": "Marketing Communications",
+    "productUpdates": "Product Updates",
+    "currentPlan": "Current Plan",
+    "freePlan": "Free Plan",
+    "perfectForGettingStarted": "Perfect for getting started",
+    "active": "Active",
+    "invoicesPerMonth": "Invoices per month",
+    "customers": "Customers",
+    "pdfExport": "PDF Export",
+    "upgradeToPro": "Upgrade to Pro",
+    "viewAllPlans": "View All Plans",
+    "usageThisMonth": "Usage This Month",
+    "invoicesCreated": "Invoices Created",
+    "customersAdded": "Customers Added",
+    "accountSecurity": "Account Security",
+    "password": "Password",
+    "lastUpdated": "Last updated 30 days ago",
+    "changePassword": "Change Password",
+    "twoFactorAuth": "Two-Factor Authentication",
+    "addExtraLayer": "Add an extra layer of security to your account",
+    "enable2FA": "Enable 2FA",
+    "deleteAccount": "Delete Account",
+    "permanentlyDelete": "Permanently delete your account and all data",
+    "saveProfile": "Save Profile",
+    "saveBusinessInfo": "Save Business Info",
+    "savePreferences": "Save Preferences",
+    "saveNotifications": "Save Notifications",
+    "saving": "Saving...",
+    "profileUpdated": "Profile updated successfully!",
+    "businessUpdated": "Business settings updated successfully!",
+    "preferencesUpdated": "Invoice preferences updated successfully!",
+    "notificationsUpdated": "Notification settings updated successfully!",
+    "placeholders": {
+      "fullName": "Enter your full name",
+      "phone": "Enter your phone number",
+      "address": "Enter your address",
+      "city": "Enter your city",
+      "state": "Enter your state",
+      "country": "Enter your country",
+      "zipCode": "Enter your ZIP code",
+      "businessName": "Enter your business name",
+      "businessEmail": "Enter your business email",
+      "businessPhone": "Enter your business phone",
+      "businessAddress": "Enter your business address",
+      "businessCity": "Enter your business city",
+      "businessState": "Enter your business state",
+      "businessCountry": "Enter your business country",
+      "businessZip": "Enter your business ZIP code",
+      "taxId": "Enter your tax ID",
+      "paymentTerms": "30",
+      "taxRate": "0.00",
+      "invoiceFormat": "INV-{YYYY}-{MM}-{###}",
+      "invoiceNotes": "Thank you for your business!",
+      "reminderDays": "3",
+      "reminderDaysAfter": "7",
+      "selectCurrency": "Select currency"
+    },
+    "descriptions": {
+      "invoiceCreated": "Get notified when a new invoice is created",
+      "invoicePaid": "Get notified when an invoice is marked as paid",
+      "invoiceOverdue": "Get notified when an invoice becomes overdue",
+      "newCustomer": "Get notified when a new customer is added",
+      "marketing": "Receive updates about new features and tips",
+      "productUpdates": "Get notified about important product updates"
+    }
+  },
+  "notifications": {
+    "title": "Notifications",
+    "markAllAsRead": "Mark all as read",
+    "noNotifications": "No notifications",
+    "noNotificationsDescription": "You're all caught up! No new notifications at this time.",
+    "categories": {
+      "all": "All",
+      "invoice_management": "Invoices",
+      "payment_financial": "Payments",
+      "system_account": "System",
+      "business_intelligence": "Reports",
+      "integration_automation": "Integrations",
+      "compliance_legal": "Compliance"
+    },
+    "status": {
+      "unread": "Unread",
+      "read": "Read",
+      "dismissed": "Dismissed",
+      "acted_upon": "Completed"
+    },
+    "priority": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High"
+    },
+    "quickActions": {
+      "view_invoice": "View Invoice",
+      "send_invoice": "Send Invoice",
+      "send_reminder": "Send Reminder",
+      "mark_paid": "Mark as Paid",
+      "track_status": "Track Status",
+      "send_receipt": "Send Receipt",
+      "create_new": "Create New",
+      "view_changes": "View Changes",
+      "request_balance": "Request Balance",
+      "retry_payment": "Retry Payment",
+      "contact_customer": "Contact Customer",
+      "view_details": "View Details",
+      "notify_customer": "Notify Customer",
+      "view_refund": "View Refund",
+      "send_update_request": "Send Update Request",
+      "view_report": "View Report",
+      "export_data": "Export Data",
+      "view_tax_info": "View Tax Info",
+      "export_records": "Export Records",
+      "snooze": "Snooze",
+      "view_billing": "View Billing",
+      "download_receipt": "Download Receipt",
+      "renew_subscription": "Renew Subscription",
+      "view_plans": "View Plans",
+      "contact_support": "Contact Support",
+      "view_usage": "View Usage",
+      "upgrade_plan": "Upgrade Plan",
+      "cleanup_data": "Cleanup Data",
+      "download_backup": "Download Backup",
+      "review_activity": "Review Activity",
+      "change_password": "Change Password",
+      "share_report": "Share Report",
+      "set_new_goal": "Set New Goal",
+      "share_achievement": "Share Achievement",
+      "view_analysis": "View Analysis",
+      "view_customer": "View Customer",
+      "send_thank_you": "Send Thank You",
+      "view_integration": "View Integration",
+      "test_connection": "Test Connection",
+      "retry_connection": "Retry Connection",
+      "view_logs": "View Logs",
+      "download_export": "Download Export",
+      "update_settings": "Update Settings",
+      "view_requirements": "View Requirements",
+      "archive_documents": "Archive Documents",
+      "view_policy": "View Policy",
+      "dismiss": "Dismiss"
+    },
+    "types": {
+      "invoice_created": {
+        "title": "Invoice Created",
+        "message": "Invoice #{invoiceNumber} has been created successfully"
+      },
+      "invoice_sent": {
+        "title": "Invoice Sent",
+        "message": "Invoice #{invoiceNumber} has been sent to {customerName}"
+      },
+      "invoice_viewed": {
+        "title": "Invoice Viewed",
+        "message": "{customerName} has viewed invoice #{invoiceNumber}"
+      },
+      "invoice_paid": {
+        "title": "Payment Received",
+        "message": "Payment of {amount} received for invoice #{invoiceNumber}"
+      },
+      "invoice_overdue": {
+        "title": "Invoice Overdue",
+        "message": "Invoice #{invoiceNumber} is now {daysOverdue} days overdue"
+      },
+      "invoice_reminder_sent": {
+        "title": "Reminder Sent",
+        "message": "Payment reminder sent for invoice #{invoiceNumber}"
+      },
+      "invoice_cancelled": {
+        "title": "Invoice Cancelled",
+        "message": "Invoice #{invoiceNumber} has been cancelled"
+      },
+      "invoice_updated": {
+        "title": "Invoice Updated",
+        "message": "Invoice #{invoiceNumber} has been updated"
+      },
+      "partial_payment_received": {
+        "title": "Partial Payment",
+        "message": "Partial payment of {amount} received for invoice #{invoiceNumber}"
+      },
+      "payment_failed": {
+        "title": "Payment Failed",
+        "message": "Payment attempt failed for invoice #{invoiceNumber}"
+      },
+      "refund_processed": {
+        "title": "Refund Processed",
+        "message": "Refund of {amount} has been processed for invoice #{invoiceNumber}"
+      },
+      "payment_method_expired": {
+        "title": "Payment Method Expired",
+        "message": "{customerName}'s payment method has expired"
+      },
+      "monthly_revenue_summary": {
+        "title": "Monthly Revenue Summary",
+        "message": "Your revenue summary for {month} is ready"
+      },
+      "tax_deadline_reminder": {
+        "title": "Tax Deadline Reminder",
+        "message": "Tax filing deadline is approaching on {deadline}"
+      },
+      "subscription_renewal": {
+        "title": "Subscription Renewed",
+        "message": "Your {planName} subscription has been renewed"
+      },
+      "subscription_expiring": {
+        "title": "Subscription Expiring",
+        "message": "Your subscription expires in {daysLeft} days"
+      },
+      "plan_upgrade_available": {
+        "title": "Upgrade Available",
+        "message": "Consider upgrading to unlock more features"
+      },
+      "storage_limit_warning": {
+        "title": "Storage Limit Warning",
+        "message": "You're using {percentage}% of your storage limit"
+      },
+      "backup_completed": {
+        "title": "Backup Completed",
+        "message": "Your data backup has been completed successfully"
+      },
+      "security_alert": {
+        "title": "Security Alert",
+        "message": "Suspicious login attempt detected from {location}"
+      },
+      "weekly_business_summary": {
+        "title": "Weekly Summary",
+        "message": "Your business summary for week ending {date} is ready"
+      },
+      "goal_achievement": {
+        "title": "Goal Achieved",
+        "message": "Congratulations! You've reached your {goalType} goal"
+      },
+      "trend_alert": {
+        "title": "Trend Alert",
+        "message": "Significant change detected in your {metric}"
+      },
+      "customer_milestone": {
+        "title": "Customer Milestone",
+        "message": "{customerName} has been with you for {duration}"
+      },
+      "integration_connected": {
+        "title": "Integration Connected",
+        "message": "{serviceName} has been successfully connected"
+      },
+      "integration_failed": {
+        "title": "Integration Failed",
+        "message": "Connection to {serviceName} has failed"
+      },
+      "automation_triggered": {
+        "title": "Automation Triggered",
+        "message": "{automationName} has been executed successfully"
+      },
+      "data_export_ready": {
+        "title": "Export Ready",
+        "message": "Your {exportType} export is ready for download"
+      },
+      "tax_rate_update": {
+        "title": "Tax Rate Update",
+        "message": "Tax rates have been updated for {region}"
+      },
+      "compliance_reminder": {
+        "title": "Compliance Reminder",
+        "message": "{requirement} deadline is approaching on {deadline}"
+      },
+      "document_retention_alert": {
+        "title": "Document Retention",
+        "message": "Documents from {period} need to be archived"
+      }
+    },
+    "timeAgo": {
+      "justNow": "Just now",
+      "minuteAgo": "1 minute ago",
+      "minutesAgo": "{minutes} minutes ago",
+      "hourAgo": "1 hour ago",
+      "hoursAgo": "{hours} hours ago",
+      "dayAgo": "1 day ago",
+      "daysAgo": "{days} days ago",
+      "weekAgo": "1 week ago",
+      "weeksAgo": "{weeks} weeks ago",
+      "monthAgo": "1 month ago",
+      "monthsAgo": "{months} months ago"
+    },
+    "dropdown": {
+      "viewAllNotifications": "View All Notifications",
+      "loading": "Loading notifications...",
+      "error": "Error loading notifications"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Sign in to your account",
+      "subtitle": "Welcome back",
+      "email": "Email Address",
+      "password": "Password",
+      "signIn": "Sign in",
+      "forgotPassword": "Forgot password?",
+      "noAccount": "Don't have an account?",
+      "signUp": "Sign up",
+      "createAccount": "create a new account",
+      "backToHomepage": "← Back to homepage",
+      "signingIn": "Signing in...",
+      "signInSuccess": "Sign in successful! Redirecting...",
+      "signInFailed": "Sign in failed. Please check your credentials.",
+      "fillAllFields": "Please fill in all fields.",
+      "unexpectedError": "An unexpected error occurred. Please try again.",
+      "emailPlaceholder": "you@example.com"
+    },
+    "signup": {
+      "title": "Create your account",
+      "subtitle": "Get started with your free trial today",
+      "email": "Email Address",
+      "password": "Password",
+      "signUp": "Sign Up",
+      "confirmPassword": "Confirm Password",
+      "hasAccount": "Already have an account?",
+      "signIn": "Sign in",
+      "signInExisting": "sign in to your existing account",
+      "backToHomepage": "← Back to homepage",
+      "creatingAccount": "Creating account...",
+      "accountCreated": "Account created successfully!",
+      "fillAllFields": "Please fill in all fields.",
+      "passwordTooShort": "Password must be at least 6 characters long.",
+      "unexpectedError": "An unexpected error occurred. Please try again.",
+      "emailPlaceholder": "you@example.com"
+    },
+    "logout": "Logout",
+    "accessDenied": "Access Denied",
+    "pleaseLogin": "Please log in to access this page.",
+    "pleaseLoginInvoices": "Please log in to create invoices.",
+    "pleaseLoginCustomers": "Please log in to manage customers."
+  },
+  "languageSwitcher": {
+    "title": "Nyelv és Ország",
+    "language": "Nyelv",
+    "country": "Ország",
+    "selectCountryLanguage": "Ország és Nyelv",
+    "independentSelection": "Az ország és a nyelv független - válassza ki mindkettőt külön",
+    "selectCountryLabel": "Ország Kiválasztása (befolyásolja az adókulcsokat és jogi követelményeket)",
+    "selectLanguageLabel": "Nyelv Kiválasztása (csak a felület nyelvét befolyásolja)",
+    "current": "Jelenlegi",
+    "searchCountries": "Országok keresése...",
+    "searchLanguages": "Nyelvek keresése..."
+  },
+  "languageSuggestion": {
+    "suggestion": "Szeretné megtekinteni ezt az oldalt {language} nyelven?",
+    "description": "Észleltük, hogy ez lehet az Ön előnyben részesített nyelve.",
+    "accept": "Igen, váltás {language} nyelvre",
+    "dismiss": "Nem, jelenlegi nyelv megtartása"
+  }
+}

@@ -1,0 +1,804 @@
+{
+  "common": {
+    "loading": "Laden...",
+    "error": "Fehler",
+    "success": "Erfolg",
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "create": "Erstellen",
+    "update": "Aktualisieren",
+    "search": "Suchen",
+    "filter": "Filtern",
+    "clear": "Löschen",
+    "close": "Schließen",
+    "back": "Zurück",
+    "next": "Weiter",
+    "previous": "Vorherige",
+    "submit": "Senden",
+    "confirm": "Bestätigen",
+    "yes": "Ja",
+    "no": "Nein",
+    "retry": "Wiederholen",
+    "welcome": "Willkommen",
+    "account": "Konto",
+    "profileSettings": "Profil-Einstellungen",
+    "logOut": "Abmelden",
+    "backToDashboard": "Zurück zum Dashboard",
+    "newInvoice": "Neue Rechnung",
+    "addCustomer": "Kunde hinzufügen",
+    "createNewInvoice": "Neue Rechnung erstellen",
+    "happeningToday": "Das passiert heute mit Ihren Rechnungen.",
+    "commonTasks": "Häufige Aufgaben für den Einstieg",
+    "getStarted": "Beginnen Sie mit der Erstellung Ihrer ersten Rechnung",
+    "createFirstInvoice": "Erstellen Sie Ihre erste Rechnung",
+    "addFirstCustomer": "Fügen Sie Ihren ersten Kunden hinzu",
+    "unexpectedError": "Ein unerwarteter Fehler ist aufgetreten.",
+    "tryAgain": "Bitte versuchen Sie es erneut.",
+    "na": "N/V",
+    "generateProfessionalInvoice": "Professionelle Rechnung erstellen",
+    "addEditCustomerInfo": "Kundeninformationen hinzufügen oder bearbeiten",
+    "exportData": "Daten exportieren",
+    "downloadInvoicesPdfCsv": "Laden Sie Ihre Rechnungen als PDF oder CSV herunter",
+    "invoiceManagement": "Rechnungsverwaltung",
+    "viewManageInvoices": "Alle Rechnungen anzeigen und verwalten",
+    "export": "Exportieren",
+    "noInvoicesYet": "Noch keine Rechnungen",
+    "getStartedFirstInvoice": "Beginnen Sie mit der Erstellung Ihrer ersten Rechnung",
+    "createYourFirstInvoice": "Erstellen Sie Ihre erste Rechnung",
+    "invoiceHash": "Rechnung #",
+    "noCustomer": "Kein Kunde",
+    "view": "Anzeigen",
+    "downloadPdf": "PDF herunterladen",
+    "customerManagement": "Kundenverwaltung",
+    "viewManageCustomerDatabase": "Kundendatenbank anzeigen und verwalten",
+    "addYourFirstCustomer": "Fügen Sie Ihren ersten Kunden hinzu",
+    "name": "Name",
+    "email": "E-Mail",
+    "address": "Adresse",
+    "added": "Hinzugefügt",
+    "actions": "Aktionen",
+    "viewDetails": "Details anzeigen",
+    "createInvoice": "Rechnung erstellen",
+    "noEmail": "Keine E-Mail",
+    "noAddress": "Keine Adresse"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "invoices": "Rechnungen",
+    "customers": "Kunden",
+    "settings": "Einstellungen",
+    "newInvoice": "Neue Rechnung",
+    "addCustomer": "Kunde hinzufügen",
+    "profile": "Profil",
+    "logout": "Abmelden",
+    "login": "Anmelden",
+    "signup": "Loslegen",
+    "backToHomepage": "Zurück zur Startseite",
+    "features": "Funktionen",
+    "pricing": "Preise",
+    "testimonials": "Testimonials"
+  },
+  "header": {
+    "notifications": "Benachrichtigungen",
+    "account": "Konto",
+    "profileSettings": "Profil-Einstellungen"
+  },
+  "landing": {
+    "title": "InvoiceAgent - Professionelle Rechnungssoftware für moderne Unternehmen",
+    "description": "Optimieren Sie Ihre Rechnungsstellung mit InvoiceAgent. Erstellen Sie professionelle Rechnungen, verfolgen Sie Zahlungen, verwalten Sie Kunden und werden Sie schneller bezahlt. Kostenlose Testversion verfügbar.",
+    "hero": {
+      "title": "Professionelle Rechnungsstellung leicht gemacht",
+      "subtitle": "Erstellen, versenden und verfolgen Sie Rechnungen mit Leichtigkeit. Werden Sie schneller bezahlt mit unserer leistungsstarken Rechnungsplattform für moderne Unternehmen.",
+      "cta": "Kostenlose Testversion starten",
+      "watchDemo": "Demo ansehen"
+    },
+    "features": {
+      "title": "Alles was Sie brauchen, um schneller bezahlt zu werden",
+      "subtitle": "Leistungsstarke Funktionen zur Optimierung Ihres Rechnungsprozesses",
+      "invoice": {
+        "title": "Professionelle Rechnungen",
+        "description": "Erstellen Sie schöne, professionelle Rechnungen in Minuten mit unserem intuitiven Editor."
+      },
+      "tracking": {
+        "title": "Zahlungsverfolgung",
+        "description": "Verfolgen Sie den Zahlungsstatus und senden Sie automatische Erinnerungen an Kunden."
+      },
+      "customers": {
+        "title": "Kundenverwaltung",
+        "description": "Organisieren Sie Ihre Kunden und deren Informationen an einem zentralen Ort."
+      },
+      "reports": {
+        "title": "Finanzberichte",
+        "description": "Erhalten Sie Einblicke in Ihr Unternehmen mit detaillierten Finanzberichten."
+      },
+      "automation": {
+        "title": "Automatisierte Arbeitsabläufe",
+        "description": "Sparen Sie Zeit mit automatischer Rechnungserstellung und Zahlungserinnerungen."
+      },
+      "integration": {
+        "title": "Einfache Integration",
+        "description": "Verbinden Sie sich mit Ihren bevorzugten Tools und Zahlungsanbietern."
+      }
+    },
+    "pricing": {
+      "title": "Einfache, transparente Preise",
+      "subtitle": "Wählen Sie den Plan, der am besten zu Ihrem Unternehmen passt",
+      "monthly": "Monatlich",
+      "annually": "Jährlich",
+      "save": "20% sparen",
+      "free": {
+        "title": "Kostenlos",
+        "price": "0€",
+        "description": "Perfekt für den Einstieg",
+        "features": {
+          "0": "Bis zu 5 Rechnungen pro Monat",
+          "1": "Grundlegende Vorlagen",
+          "2": "E-Mail-Support",
+          "3": "Basis-Berichte"
+        }
+      },
+      "pro": {
+        "title": "Pro",
+        "price": "19€",
+        "description": "Für wachsende Unternehmen",
+        "features": {
+          "0": "Unbegrenzte Rechnungen",
+          "1": "Erweiterte Vorlagen",
+          "2": "Prioritäts-Support",
+          "3": "Erweiterte Berichte",
+          "4": "Automatisierung",
+          "5": "Mehrere Währungen"
+        }
+      },
+      "enterprise": {
+        "title": "Enterprise",
+        "price": "49€",
+        "description": "Für große Unternehmen",
+        "features": {
+          "0": "Alle Pro-Funktionen",
+          "1": "Team-Zusammenarbeit",
+          "2": "API-Zugang",
+          "3": "Anpassbare Integrationen",
+          "4": "Dedizierter Support",
+          "5": "Erweiterte Sicherheit"
+        }
+      }
+    },
+    "cta": {
+      "title": "Bereit anzufangen?",
+      "subtitle": "Schließen Sie sich tausenden von Unternehmen an, die bereits auf unsere Lösung vertrauen",
+      "button": "Kostenlos starten",
+      "dashboard": "Zum Dashboard",
+      "contactSales": "Vertrieb kontaktieren"
+    },
+    "badge": {
+      "trustedBy": "🚀 Vertraut von über 10.000 Unternehmen weltweit"
+    },
+    "testimonials": {
+      "title": "Was unsere Kunden sagen",
+      "subtitle": "Vertrauen Sie auf die Erfahrungen tausender zufriedener Nutzer",
+      "customer1": {
+        "quote": "InvoiceAgent hat die Art, wie wir Rechnungen verwalten, revolutioniert. Allein die automatischen Erinnerungen haben unseren Cashflow erheblich verbessert.",
+        "name": "Sarah Johnson",
+        "company": "Design Studio"
+      },
+      "customer2": {
+        "quote": "Die professionellen Vorlagen und einfache Anpassung lassen unsere Rechnungen großartig aussehen. Unsere Kunden lieben das Zahlungsportal.",
+        "name": "Michael Chen",
+        "company": "Beratungsunternehmen"
+      },
+      "customer3": {
+        "quote": "Professionelle Vorlagen und schnelle Zahlungsabwicklung. Unser Cashflow hat sich erheblich verbessert.",
+        "name": "Anna Rodriguez",
+        "company": "Marketing Agentur"
+      }
+    },
+    "footer": {
+      "description": "Professionelle Rechnungsstellung leicht gemacht. Werden Sie schneller bezahlt mit unserer leistungsstarken Plattform.",
+      "product": "Produkt",
+      "features": "Funktionen",
+      "pricing": "Preise",
+      "templates": "Vorlagen",
+      "integrations": "Integrationen",
+      "company": "Unternehmen",
+      "about": "Über uns",
+      "blog": "Blog",
+      "careers": "Karriere",
+      "contact": "Kontakt",
+      "support": "Support",
+      "helpCenter": "Hilfe-Center",
+      "documentation": "Dokumentation",
+      "privacyPolicy": "Datenschutzrichtlinie",
+      "termsOfService": "Nutzungsbedingungen",
+      "copyright": "© 2024 InvoiceAgent. Alle Rechte vorbehalten."
+    },
+    "demo": {
+      "title": "Sehen Sie InvoiceAgent in Aktion",
+      "subtitle": "Schauen Sie, wie einfach es ist, professionelle Rechnungen mit nur wenigen Klicks zu erstellen",
+      "loading": "Demo wird geladen..."
+    },
+    "socialProof": {
+      "rating": "aus über 2.000 Bewertungen",
+      "invoicesCreated": "erstellte Rechnungen"
+    },
+    "common": {
+      "mostPopular": "Beliebteste",
+      "year": "Jahr",
+      "month": "Monat"
+    }
+  },
+  "dashboard": {
+    "welcome": "Willkommen zurück",
+    "overview": "Übersicht",
+    "recentActivity": "Letzte Aktivität",
+    "quickActions": "Schnellaktionen",
+    "metrics": {
+      "totalRevenue": "Gesamtumsatz",
+      "pendingInvoices": "Ausstehende Rechnungen",
+      "paidInvoices": "Bezahlte Rechnungen",
+      "totalCustomers": "Gesamte Kunden"
+    }
+  },
+  "invoices": {
+    "title": "Rechnungen",
+    "myInvoices": "My Rechnungen",
+    "newInvoice": "New Rechnung",
+    "create": "Erstellen Invoice",
+    "createNewInvoice": "Erstellen New Invoice",
+    "createFirstInvoice": "Erstellen Your First Invoice",
+    "newInvoicePage": {
+      "title": "Erstellen New Invoice",
+      "loading": "Laden...",
+      "error": "Fehler",
+      "accessDenied": "Access Denied",
+      "pleaseLoginToCreateInvoices": "Please log in to create invoices.",
+      "login": "Anmelden",
+      "dashboard": "Dashboard",
+      "newInvoice": "New Rechnung",
+      "addCustomer": "Add Kunde",
+      "account": "Konto",
+      "backToDashboard": "Zurück to Dashboard",
+      "profileSettings": "Profile Einstellungen",
+      "logOut": "Log out",
+      "fillDetails": "Fill in the details below to generate your invoice",
+      "goToHomepage": "Go to Homepage"
+    },
+    "invoiceNumber": "Rechnung #",
+    "draft": "Entwurf",
+    "sent": "Gesendet",
+    "paid": "Bezahlt",
+    "pending": "Ausstehend",
+    "overdue": "Überfällig",
+    "amount": "Betrag",
+    "dueDate": "Fälligkeitsdatum",
+    "date": "Datum",
+    "customer": "Kunde",
+    "status": "Status",
+    "actions": "Aktionen",
+    "noInvoicesFound": "Nein Invoices Found",
+    "noInvoicesYet": "You haven't created any invoices yet.",
+    "errorFetchingInvoices": "Fehler Fetching Invoices",
+    "goToHomepage": "Go to Homepage",
+    "fillDetails": "Fill in the details below to generate your invoice",
+    "backToDashboard": "Zurück to Dashboard",
+    "form": {
+      "invoiceDetails": "Rechnung Details",
+      "basicInformation": "Basic information about your invoice",
+      "invoiceNumber": "Rechnung Number",
+      "invoiceNumberRequired": "Rechnung number is required",
+      "invoiceNumberPlaceholder": "INV-001",
+      "customerInformation": "Kunde Information",
+      "selectExistingCustomer": "Select Existing Kunde",
+      "enterNewCustomerDetails": "Enter New Kunde Details",
+      "selectCustomer": "Select Kunde",
+      "selectCustomerPlaceholder": "Auswählen a customer",
+      "loadingCustomers": "Loading customers...",
+      "noCustomersFound": "Nein customers found.",
+      "customerDetails": "Kunde Details",
+      "customerName": "Customer Name",
+      "customerNameRequired": "Kunde name is required",
+      "customerNamePlaceholder": "Enter customer name",
+      "customerEmail": "Customer E-Mail",
+      "customerEmailPlaceholder": "customer@example.com (optional)",
+      "customerAddress": "Customer Adresse",
+      "customerAddressPlaceholder": "Kunde address (optional)",
+      "saveCustomerToDatabase": "Speichern this customer to my database for future use",
+      "customerWillBeSaved": "✓ This customer will be saved to your database and can be selected for future invoices.",
+      "customerNotSaved": "Kunde information will only be used for this invoice and won't be saved permanently.",
+      "invoiceDate": "Invoice Datum",
+      "invoiceDateRequired": "Rechnung date is required",
+      "dueDate": "Fälligkeitsdatum",
+      "invoiceItems": "Rechnung Items",
+      "addProductsServices": "Hinzufügen products or services to your invoice",
+      "addItem": "Hinzufügen Item",
+      "itemNumber": "Item #",
+      "itemName": "Item Name",
+      "itemNameRequired": "Item name is required",
+      "itemNamePlaceholder": "Product or service name",
+      "quantity": "Menge",
+      "quantityRequired": "Menge is required",
+      "quantityMinimum": "Menge must be at least 1",
+      "quantityPlaceholder": "1",
+      "price": "Preis",
+      "priceRequired": "Preis is required",
+      "pricePositive": "Preis must be positive",
+      "pricePlaceholder": "0.00",
+      "itemTotal": "Item Gesamt",
+      "invoiceSummary": "Rechnung Summary",
+      "subtotal": "Zwischensumme",
+      "totalAmount": "Total Betrag",
+      "actions": "Aktionen",
+      "saveInvoiceOrGoBack": "Speichern your invoice or go back to dashboard",
+      "cancel": "Abbrechen",
+      "creating": "Creating...",
+      "createInvoice": "Erstellen Invoice",
+      "pleaseSelectCustomer": "Please select a customer",
+      "customerNameIsRequired": "Kunde name is required",
+      "failedToSaveCustomer": "Failed to save customer",
+      "customerAddedToDatabase": " Kunde has been added to your database.",
+      "invoiceCreatedSuccessfully": "Rechnung created successfully!",
+      "unexpectedErrorOccurred": "An unexpected error occurred",
+      "addCustomer": "Add Kunde"
+    }
+  },
+  "customers": {
+    "title": "Kunden",
+    "customerManagement": "Kunde Management",
+    "customerDatabase": "Kunde Database",
+    "add": "Add Kunde",
+    "addCustomer": "Add Kunde",
+    "addNewCustomer": "Add New Kunde",
+    "addFirstCustomer": "Add Your First Kunde",
+    "editCustomer": "Bearbeiten Customer",
+    "deleteCustomer": "Löschen Customer",
+    "createInvoice": "Erstellen Invoice",
+    "name": "Name",
+    "customerName": "Customer Name",
+    "email": "E-Mail",
+    "phone": "Telefon",
+    "company": "Unternehmen",
+    "address": "Adresse",
+    "notes": "Notizen",
+    "contact": "Contact",
+    "added": "Hinzufügened",
+    "actions": "Aktionen",
+    "totalInvoices": "Total Rechnungen",
+    "totalRevenue": "Gesamt Revenue",
+    "noCustomersYet": "Nein customers yet",
+    "noCustomersFound": "Nein customers found",
+    "noCustomersDescription": "Hinzufügen your first customer to get started with invoicing.",
+    "noCustomersFoundDescription": "Try adjusting your search terms or filters.",
+    "searchCustomers": "Suchen customers...",
+    "sortByName": "Sort by Name",
+    "sortByCompany": "Sort by Unternehmen",
+    "sortByDateAdded": "Sort by Datum Added",
+    "customerAdded": "Kunde added successfully!",
+    "customerUpdated": "Kunde updated successfully!",
+    "customerDeleted": "Kunde deleted successfully!",
+    "customerNameRequired": "Kunde name is required",
+    "updateInformation": "Aktualisieren information for",
+    "addToDatabase": "Hinzufügen a new customer to your database",
+    "manageDatabase": "Manage your customer database and relationships",
+    "deleteConfirmation": "Are you sure you want to delete",
+    "deleteCannotBeUndone": "This action cannot be undone.",
+    "updating": "Updating...",
+    "adding": "Hinzufügening...",
+    "deleting": "Deleting...",
+    "updateCustomer": "Aktualisieren Customer",
+    "loadingCustomers": "Loading customers...",
+    "noEmail": "Nein email",
+    "noPhone": "Nein phone",
+    "noCompany": "Nein company",
+    "noAddress": "Nein address",
+    "customersFound": "customers found",
+    "customerFound": "customer found",
+    "placeholders": {
+      "name": "John Doe",
+      "company": "Acme Corporation",
+      "email": "john.doe@example.com",
+      "phone": "+1 (555) 123-4567",
+      "address": "123 Main St, Anytown, USA",
+      "notes": "Hinzufügenitional notes about this customer"
+    }
+  },
+  "settings": {
+    "title": "Einstellungen",
+    "manageAccount": "Manage your account, business information, and preferences.",
+    "loadingSettings": "Loading settings...",
+    "profile": "Profil",
+    "business": "Geschäft",
+    "invoices": "Rechnungen",
+    "invoicePreferences": "Rechnung Preferences",
+    "notifications": "Neintifications",
+    "security": "Security",
+    "integrations": "Integrations",
+    "billing": "Billing & Subscription",
+    "profileInformation": "Profil Information",
+    "updatePersonalInfo": "Aktualisieren your personal information and contact details.",
+    "businessInformation": "Geschäft Information",
+    "configureBusinessDetails": "Configure your business details that will appear on invoices.",
+    "setDefaultValues": "Set default values and preferences for your invoices.",
+    "notificationSettings": "Neintification Settings",
+    "chooseEmailNotifications": "Wählen which email notifications you'd like to receive.",
+    "billingSubscription": "Billing & Subscription",
+    "manageSubscription": "Manage your subscription plan and billing information.",
+    "fullName": "Full Name",
+    "phoneNumber": "Telefon Number",
+    "city": "Stadt",
+    "stateProvince": "State/Province",
+    "country": "Land",
+    "zipPostalCode": "PLZ/Postal Code",
+    "businessName": "Business Name",
+    "businessEmail": "Business E-Mail",
+    "businessPhone": "Business Telefon",
+    "businessAddress": "Business Adresse",
+    "taxId": "Steuer ID / Registration Number",
+    "businessCity": "Stadt",
+    "businessState": "State/Province",
+    "businessCountry": "Land",
+    "businessZip": "PLZ/Postal Code",
+    "defaultCurrency": "Default Währung",
+    "defaultPaymentTerms": "Default Zahlung Terms (Days)",
+    "defaultTaxRate": "Default Steuer Rate (%)",
+    "invoiceNumberFormat": "Rechnung Number Format",
+    "defaultInvoiceNotes": "Default Invoice Neintes",
+    "reminderSettings": "Reminder Einstellungen",
+    "autoSendReminders": "Auto-send reminders",
+    "daysBeforeDue": "Days before due date",
+    "daysAfterDue": "Days after due date",
+    "invoiceNotifications": "Invoice Neintifications",
+    "customerNotifications": "Customer Neintifications",
+    "generalNotifications": "General Neintifications",
+    "invoiceCreated": "Invoice Erstellend",
+    "invoicePaid": "Rechnung Paid",
+    "invoiceOverdue": "Rechnung Overdue",
+    "newCustomer": "New Kunde",
+    "marketingCommunications": "Marketing Communications",
+    "productUpdates": "Product Aktualisierens",
+    "currentPlan": "Current Plan",
+    "freePlan": "Kostenlos Plan",
+    "perfectForGettingStarted": "Perfect for getting started",
+    "active": "Active",
+    "invoicesPerMonth": "Rechnungen per month",
+    "customers": "Kunden",
+    "pdfExport": "PDF Exportieren",
+    "upgradeToPro": "Upgrade to Pro",
+    "viewAllPlans": "Ansehen All Plans",
+    "usageThisMonth": "Usage This Month",
+    "invoicesCreated": "Invoices Erstellend",
+    "customersAdded": "Kunden Added",
+    "accountSecurity": "Konto Security",
+    "password": "Password",
+    "lastUpdated": "Last updated 30 Tags ago",
+    "changePassword": "Change Password",
+    "twoFactorAuth": "Two-Factor Authentication",
+    "addExtraLayer": "Hinzufügen an extra layer of security to your account",
+    "enable2FA": "Enable 2FA",
+    "deleteAccount": "Löschen Account",
+    "permanentlyDelete": "Permanently delete your account and all data",
+    "saveProfile": "Speichern Profile",
+    "saveBusinessInfo": "Speichern Business Info",
+    "savePreferences": "Speichern Preferences",
+    "saveNotifications": "Speichern Notifications",
+    "saving": "Saving...",
+    "profileUpdated": "Profil updated successfully!",
+    "businessUpdated": "Geschäft settings updated successfully!",
+    "preferencesUpdated": "Rechnung preferences updated successfully!",
+    "notificationsUpdated": "Neintification settings updated successfully!",
+    "placeholders": {
+      "fullName": "Enter your full name",
+      "phone": "Enter your phone number",
+      "address": "Enter your address",
+      "city": "Enter your city",
+      "state": "Enter your state",
+      "country": "Enter your country",
+      "zipCode": "Enter your PLZ code",
+      "businessName": "Enter your business name",
+      "businessEmail": "Enter your business email",
+      "businessPhone": "Enter your business phone",
+      "businessAddress": "Enter your business address",
+      "businessCity": "Enter your business city",
+      "businessState": "Enter your business state",
+      "businessCountry": "Enter your business country",
+      "businessZip": "Enter your business PLZ code",
+      "taxId": "Enter your tax ID",
+      "paymentTerms": "30",
+      "taxRate": "0.00",
+      "invoiceFormat": "INV-{YYYY}-{MM}-{###}",
+      "invoiceNotes": "Thank you for your business!",
+      "reminderDays": "3",
+      "reminderDaysAfter": "7",
+      "selectCurrency": "Auswählen currency"
+    },
+    "descriptions": {
+      "invoiceCreated": "Get notified when a new invoice is created",
+      "invoicePaid": "Get notified when an invoice is marked as paid",
+      "invoiceOverdue": "Get notified when an invoice becomes overdue",
+      "newCustomer": "Get notified when a new customer is added",
+      "marketing": "Receive updates about new features and tips",
+      "productUpdates": "Get notified about important product updates"
+    }
+  },
+  "notifications": {
+    "title": "Neintifications",
+    "markAllAsRead": "Mark all as read",
+    "noNotifications": "Nein notifications",
+    "noNotificationsDescription": "You're all caught up! Nein new notifications at this time.",
+    "categories": {
+      "all": "All",
+      "invoice_management": "Rechnungen",
+      "payment_financial": "Zahlungs",
+      "system_account": "System",
+      "business_intelligence": "Reports",
+      "integration_automation": "Integrations",
+      "compliance_legal": "Compliance"
+    },
+    "status": {
+      "unread": "Unread",
+      "read": "Read",
+      "dismissed": "Dismissed",
+      "acted_upon": "Completed"
+    },
+    "priority": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High"
+    },
+    "quickActions": {
+      "view_invoice": "View Rechnung",
+      "send_invoice": "Send Rechnung",
+      "send_reminder": "Send Reminder",
+      "mark_paid": "Mark as Bezahlt",
+      "track_status": "Track Status",
+      "send_receipt": "Send Receipt",
+      "create_new": "Erstellen New",
+      "view_changes": "Ansehen Changes",
+      "request_balance": "Request Balance",
+      "retry_payment": "Wiederholen Payment",
+      "contact_customer": "Contact Kunde",
+      "view_details": "Ansehen Details",
+      "notify_customer": "Neintify Customer",
+      "view_refund": "Ansehen Refund",
+      "send_update_request": "Send Aktualisieren Request",
+      "view_report": "Ansehen Report",
+      "export_data": "Exportieren Data",
+      "view_tax_info": "View Steuer Info",
+      "export_records": "Exportieren Records",
+      "snooze": "Snooze",
+      "view_billing": "Ansehen Billing",
+      "download_receipt": "Herunterladen Receipt",
+      "renew_subscription": "Renew Subscription",
+      "view_plans": "Ansehen Plans",
+      "contact_support": "Contact Support",
+      "view_usage": "Ansehen Usage",
+      "upgrade_plan": "Upgrade Plan",
+      "cleanup_data": "Cleanup Data",
+      "download_backup": "Download Zurückup",
+      "review_activity": "Review Activity",
+      "change_password": "Change Password",
+      "share_report": "Share Report",
+      "set_new_goal": "Set New Goal",
+      "share_achievement": "Share Achievement",
+      "view_analysis": "Ansehen Analysis",
+      "view_customer": "View Kunde",
+      "send_thank_you": "Send Thank You",
+      "view_integration": "Ansehen Integration",
+      "test_connection": "Test Connection",
+      "retry_connection": "Wiederholen Connection",
+      "view_logs": "Ansehen Logs",
+      "download_export": "Herunterladen Export",
+      "update_settings": "Aktualisieren Settings",
+      "view_requirements": "Ansehen Requirements",
+      "archive_documents": "Archive Documents",
+      "view_policy": "Ansehen Policy",
+      "dismiss": "Dismiss"
+    },
+    "types": {
+      "invoice_created": {
+        "title": "Invoice Erstellend",
+        "message": "Rechnung #{invoiceNumber} has been created successfully"
+      },
+      "invoice_sent": {
+        "title": "Rechnung Sent",
+        "message": "Invoice #{invoiceNumber} has been sent to {customerName}"
+      },
+      "invoice_viewed": {
+        "title": "Rechnung Viewed",
+        "message": "{customerName} has viewed invoice #{invoiceNumber}"
+      },
+      "invoice_paid": {
+        "title": "Zahlung Received",
+        "message": "Zahlung of {amount} received for invoice #{invoiceNumber}"
+      },
+      "invoice_overdue": {
+        "title": "Rechnung Overdue",
+        "message": "Rechnung #{invoiceNumber} is now {daysOverdue} days overdue"
+      },
+      "invoice_reminder_sent": {
+        "title": "Reminder Gesendet",
+        "message": "Zahlung reminder sent for invoice #{invoiceNumber}"
+      },
+      "invoice_cancelled": {
+        "title": "Invoice Abbrechenled",
+        "message": "Rechnung #{invoiceNumber} has been cancelled"
+      },
+      "invoice_updated": {
+        "title": "Invoice Aktualisierend",
+        "message": "Rechnung #{invoiceNumber} has been updated"
+      },
+      "partial_payment_received": {
+        "title": "Partial Zahlung",
+        "message": "Partial payment of {amount} received for invoice #{invoiceNumber}"
+      },
+      "payment_failed": {
+        "title": "Zahlung Failed",
+        "message": "Zahlung attempt failed for invoice #{invoiceNumber}"
+      },
+      "refund_processed": {
+        "title": "Refund Processed",
+        "message": "Refund of {amount} has been processed for invoice #{invoiceNumber}"
+      },
+      "payment_method_expired": {
+        "title": "Zahlung Method Expired",
+        "message": "{customerName}'s payment method has expired"
+      },
+      "monthly_revenue_summary": {
+        "title": "Monatlich Revenue Summary",
+        "message": "Your revenue summary for {Monat} is ready"
+      },
+      "tax_deadline_reminder": {
+        "title": "Steuer Deadline Reminder",
+        "message": "Steuer filing deadline is approaching on {deadline}"
+      },
+      "subscription_renewal": {
+        "title": "Subscription Renewed",
+        "message": "Your {planName} subscription has been renewed"
+      },
+      "subscription_expiring": {
+        "title": "Subscription Expiring",
+        "message": "Your subscription expires in {TagsLeft} days"
+      },
+      "plan_upgrade_available": {
+        "title": "Upgrade Available",
+        "message": "Consider upgrading to unlock more features"
+      },
+      "storage_limit_warning": {
+        "title": "Storage Limit Warning",
+        "message": "You're using {percentage}% of your storage limit"
+      },
+      "backup_completed": {
+        "title": "Zurückup Completed",
+        "message": "Your data backup has been completed successfully"
+      },
+      "security_alert": {
+        "title": "Security Alert",
+        "message": "Suspicious login attempt detected from {location}"
+      },
+      "weekly_business_summary": {
+        "title": "Weekly Summary",
+        "message": "Your business summary for Woche ending {date} is ready"
+      },
+      "goal_achievement": {
+        "title": "Goal Achieved",
+        "message": "Congratulations! You've reached your {goalType} goal"
+      },
+      "trend_alert": {
+        "title": "Trend Alert",
+        "message": "Significant change detected in your {metric}"
+      },
+      "customer_milestone": {
+        "title": "Kunde Milestone",
+        "message": "{customerName} has been with you for {duration}"
+      },
+      "integration_connected": {
+        "title": "Integration Connected",
+        "message": "{serviceName} has been successfully connected"
+      },
+      "integration_failed": {
+        "title": "Integration Failed",
+        "message": "Connection to {serviceName} has failed"
+      },
+      "automation_triggered": {
+        "title": "Automation Triggered",
+        "message": "{automationName} has been executed successfully"
+      },
+      "data_export_ready": {
+        "title": "Exportieren Ready",
+        "message": "Your {exportType} export is ready for download"
+      },
+      "tax_rate_update": {
+        "title": "Tax Rate Aktualisieren",
+        "message": "Steuer rates have been updated for {region}"
+      },
+      "compliance_reminder": {
+        "title": "Compliance Reminder",
+        "message": "{requirement} deadline is approaching on {deadline}"
+      },
+      "document_retention_alert": {
+        "title": "Document Retention",
+        "message": "Documents from {period} need to be archived"
+      }
+    },
+    "timeAgo": {
+      "justNow": "Just now",
+      "minuteAgo": "1 Minute ago",
+      "minutesAgo": "{Minutes} minutes ago",
+      "hourAgo": "1 Stunde ago",
+      "hoursAgo": "{Stundes} hours ago",
+      "dayAgo": "1 Tag ago",
+      "daysAgo": "{Tags} days ago",
+      "weekAgo": "1 Woche ago",
+      "weeksAgo": "{Woches} weeks ago",
+      "monthAgo": "1 Monat ago",
+      "monthsAgo": "{Monats} months ago"
+    },
+    "dropdown": {
+      "viewAllNotifications": "View All Neintifications",
+      "loading": "Loading notifications...",
+      "error": "Fehler loading notifications"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Sign in to your account",
+      "subtitle": "Willkommen back",
+      "email": "E-Mail Address",
+      "password": "Password",
+      "signIn": "Sign in",
+      "forgotPassword": "Forgot password?",
+      "noAccount": "Don't have an account?",
+      "signUp": "Sign up",
+      "createAccount": "create a new account",
+      "backToHomepage": "← Zurück to homepage",
+      "signingIn": "Signing in...",
+      "signInSuccess": "Sign in successful! Redirecting...",
+      "signInFailed": "Sign in failed. Please check your credentials.",
+      "fillAllFields": "Please fill in all fields.",
+      "unexpectedError": "An unexpected error occurred. Please try again.",
+      "emailPlaceholder": "you@example.com"
+    },
+    "signup": {
+      "title": "Erstellen your account",
+      "subtitle": "Get started with your free trial toTag",
+      "email": "E-Mail Address",
+      "password": "Password",
+      "signUp": "Sign Up",
+      "confirmPassword": "Bestätigen Password",
+      "hasAccount": "Already have an account?",
+      "signIn": "Sign in",
+      "signInExisting": "sign in to your existing account",
+      "backToHomepage": "← Zurück to homepage",
+      "creatingAccount": "Creating account...",
+      "accountCreated": "Konto created successfully!",
+      "fillAllFields": "Please fill in all fields.",
+      "passwordTooShort": "Password must be at least 6 characters long.",
+      "unexpectedError": "An unexpected error occurred. Please try again.",
+      "emailPlaceholder": "you@example.com"
+    },
+    "logout": "Logout",
+    "accessDenied": "Access Denied",
+    "pleaseLogin": "Please log in to access this page.",
+    "pleaseLoginInvoices": "Please log in to create invoices.",
+    "pleaseLoginCustomers": "Please log in to manage customers."
+  },
+  "languageSwitcher": {
+    "title": "Sprache und Land",
+    "language": "Sprache",
+    "country": "Land",
+    "selectCountryLanguage": "Land und Sprache",
+    "independentSelection": "Land und Sprache sind unabhängig - wählen Sie jedes separat aus",
+    "selectCountryLabel": "Land auswählen (beeinflusst Steuersätze und rechtliche Anforderungen)",
+    "selectLanguageLabel": "Sprache auswählen (beeinflusst nur die Oberflächensprache)",
+    "current": "Aktuell",
+    "searchCountries": "Länder suchen...",
+    "searchLanguages": "Sprachen suchen..."
+  },
+  "languageSuggestion": {
+    "suggestion": "Möchten Sie diese Seite auf {language} anzeigen?",
+    "description": "Wir haben erkannt, dass dies Ihre bevorzugte Sprache sein könnte.",
+    "accept": "Ja, zu {language} wechseln",
+    "dismiss": "Nein, aktuelle Sprache beibehalten"
+  }
+}
