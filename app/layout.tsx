@@ -5,6 +5,7 @@ import Script from "next/script";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
+import { Toaster } from '@/components/ui/toaster';
 
 export const viewport: Viewport = {
   themeColor: "#f97316",
@@ -96,6 +97,7 @@ export default async function RootLayout({
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider>
             {children}
+            <Toaster />
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>

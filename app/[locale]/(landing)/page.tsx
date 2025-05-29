@@ -43,7 +43,7 @@ const Home = () => {
   React.useEffect(() => {
     const timer = setTimeout(() => {
       setAuthInitialized(true);
-    }, 1000); // Reduced timeout to 1 second for better UX
+    }, 500); // Reduced timeout to 500ms for better UX
 
     if (!loading) {
       clearTimeout(timer);
@@ -124,7 +124,12 @@ const Home = () => {
               {t('hero.subtitle')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-              {user ? (
+              {loading ? (
+                <Button size="lg" className="text-lg px-8 py-4" disabled>
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                  {tCommon('loading')}
+                </Button>
+              ) : user ? (
                 <Link href="/dashboard">
                   <Button size="lg" className="text-lg px-8 py-4">
                     {t('cta.dashboard')} <ArrowRight className="ml-2 h-5 w-5" />
@@ -420,7 +425,12 @@ const Home = () => {
             {t('cta.subtitle')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            {user ? (
+            {loading ? (
+              <Button size="lg" variant="secondary" className="text-lg px-8 py-4" disabled>
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-orange-500 mr-2"></div>
+                {tCommon('loading')}
+              </Button>
+            ) : user ? (
               <Link href="/dashboard">
                 <Button size="lg" variant="secondary" className="text-lg px-8 py-4">
                   {t('cta.dashboard')}

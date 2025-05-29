@@ -369,8 +369,8 @@ describe("Internationalization System", () => {
         const hasPlaceholders = placeholderPattern.test(content);
 
         if (hasPlaceholders) {
-          const placeholderCount = (content.match(placeholderPattern) || [])
-            .length;
+          const globalPattern = /\[([A-Z]{2})\]\s/g;
+          const placeholderCount = (content.match(globalPattern) || []).length;
           console.warn(
             `⚠️  ${locale}.json contains ${placeholderCount} placeholder translations`
           );

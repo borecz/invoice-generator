@@ -92,7 +92,10 @@ export function useAuth(): AuthState {
     // Set up the auth state change listener
     const { data: authListener } = supabase.auth.onAuthStateChange(
       async (event, session) => {
-        console.log("useAuth: onAuthStateChange event:", event);
+        // Only log auth events in development for debugging
+        if (process.env.NODE_ENV === "development") {
+          console.log("useAuth: onAuthStateChange event:", event);
+        }
 
         // Only handle specific events to reduce unnecessary re-renders
         if (event === "SIGNED_IN") {

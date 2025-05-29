@@ -23,18 +23,47 @@ This project provides a user-friendly invoice generation tool for freelancers, s
 - **Framework:** [Next.js](https://nextjs.org)
 - **Styling:** [Tailwind CSS](http://tailwindcss.com)
 
-### Running Locally
-
-Ensure that you have Bun installed.
+### 🚀 Quick Start
 
 ```bash
-git clone https://github.com/pranavp10/invoice-generator.git
+# Clone and setup
+git clone https://github.com/borecz/invoice-generator.git
 cd invoice-generator
-bun install
-bun run dev
+npm install
+
+# Install Supabase CLI (if not already installed)
+npm install -g supabase
+
+# Start development environment
+npm run dev
 ```
 
-Create `.env.local` file similar to `.env.example`.
+That's it! The development server will start at http://localhost:3001 with a local database.
+
+### 📚 Development Workflow
+
+This project follows a comprehensive development workflow with:
+
+- **Local-First Development**: Always use local Supabase for development
+- **Comprehensive Testing**: Unit tests (Vitest) + E2E tests (Playwright)
+- **Environment Management**: Easy switching between local/remote databases
+- **Database Management**: Automated migrations and seeding
+
+**Key Commands:**
+
+```bash
+npm run dev              # Start development (local database)
+npm run test:all         # Run all tests
+npm run env:status       # Check current environment
+npm run db:studio        # Open database dashboard
+npm run workflow:validate # Validate setup
+```
+
+**Documentation:**
+
+- 📖 [Development Workflow Guide](./docs/DEVELOPMENT-WORKFLOW.md)
+- 🚀 [Quick Start Guide](./QUICK-START.md)
+- 🧪 [Testing Documentation](./docs/TESTING.md)
 
 [Live Invoice Generator Link](https://invoice-generator.prolab.sh/)
 

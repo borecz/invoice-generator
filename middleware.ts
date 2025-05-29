@@ -154,6 +154,7 @@ export async function middleware(req: NextRequest) {
     "/invoices",
     "/customers",
     "/settings",
+    "/notifications",
   ];
   // Define auth routes (for logged-in users to be redirected away from)
   const authRoutes = ["/auth/login", "/auth/signup"];

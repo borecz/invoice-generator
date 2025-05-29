@@ -69,4 +69,11 @@ supabase/.gitignore
 # Coverage reports
 /coverage/
 
+# Environment backups (created by workflow scripts)
+.env.local.backup.*
+.env.remote.backup.*
+
+# Workflow temporary files
+.workflow-temp/
+
 .env.public
