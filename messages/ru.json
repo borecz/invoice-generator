@@ -64,7 +64,10 @@
     "noEmail": "Нет email",
     "noAddress": "Нет адреса",
     "comingSoon": "Скоро",
-    "deleting": "Удаление..."
+    "deleting": "Удаление...",
+    "mostPopular": "Самый Популярный",
+    "year": "год",
+    "month": "месяц"
   },
   "navigation": {
     "dashboard": "Панель управления",
@@ -224,11 +227,6 @@
     "socialProof": {
       "rating": "из более чем 2000 отзывов",
       "invoicesCreated": "созданных счетов"
-    },
-    "common": {
-      "mostPopular": "Самый Популярный",
-      "year": "год",
-      "month": "месяц"
     }
   },
   "dashboard": {

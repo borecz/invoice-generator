@@ -7,13 +7,14 @@ export function ThemeToggle() {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <button
-      onClick={toggleTheme}
-      className="relative inline-flex h-8 w-16 items-center justify-center rounded-full bg-gradient-to-r from-orange-400 to-pink-500 p-1 transition-all duration-300 hover:shadow-lg hover:scale-105 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
-      aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
-    >
-      {/* Toggle Track */}
-      <div className="relative h-6 w-14 rounded-full bg-white/20 backdrop-blur-sm">
+    <div className="relative inline-flex h-11 w-16 items-center justify-center rounded-full bg-gradient-to-r from-orange-400 to-pink-500 p-0.5 transition-all duration-300 hover:shadow-lg hover:scale-105">
+      <button
+        onClick={toggleTheme}
+        className="relative inline-flex h-full w-full items-center justify-center rounded-full bg-background focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
+        aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+      >
+        {/* Toggle Track */}
+        <div className="relative h-6 w-14 rounded-full bg-white dark:bg-gray-800">
         {/* Background Scene */}
         <div className="absolute inset-0 overflow-hidden rounded-full">
           {/* Light Mode Scene */}
@@ -87,5 +88,6 @@ export function ThemeToggle() {
         </div>
       </div>
     </button>
+    </div>
   );
 }

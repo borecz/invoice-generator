@@ -64,7 +64,10 @@
     "noEmail": "No email",
     "noAddress": "No address",
     "comingSoon": "Coming Soon",
-    "deleting": "Deleting..."
+    "deleting": "Deleting...",
+    "mostPopular": "Most Popular",
+    "year": "year",
+    "month": "month"
   },
   "navigation": {
     "dashboard": "Dashboard",
@@ -224,11 +227,6 @@
     "socialProof": {
       "rating": "from 2,000+ reviews",
       "invoicesCreated": "invoices created"
-    },
-    "common": {
-      "mostPopular": "Most Popular",
-      "year": "year",
-      "month": "month"
     }
   },
   "dashboard": {
@@ -250,6 +248,24 @@
     "create": "Create Invoice",
     "createNewInvoice": "Create New Invoice",
     "createFirstInvoice": "Create Your First Invoice",
+    "createInvoice": "Create Invoice",
+    "invoiceManagement": "Invoice Management",
+    "manageAllInvoices": "Manage all your invoices, archived items, and trash",
+    "failedToLoadInvoices": "Failed to load invoices",
+    "invoiceRestored": "Invoice restored successfully",
+    "invoicePermanentlyDeleted": "Invoice permanently deleted",
+    "noInvoicesFound": "No invoices found",
+    "noArchivedInvoices": "No archived invoices",
+    "noDeletedInvoices": "No deleted invoices",
+    "refresh": "Refresh",
+    "filter": "Filter",
+    "export": "Export",
+    "active": "Active",
+    "archived": "Archived",
+    "trash": "Trash",
+    "restore": "Restore",
+    "deletePermanently": "Delete Permanently",
+    "noCustomer": "No Customer",
     "newInvoicePage": {
       "title": "Create New Invoice",
       "loading": "Loading...",
@@ -303,7 +319,6 @@
       "shareFeatureComingSoon": "Public sharing feature coming soon!",
       "downloadFeatureComingSoon": "PDF download feature coming soon!"
     },
-    "noInvoicesFound": "No Invoices Found",
     "noInvoicesYet": "You haven't created any invoices yet.",
     "errorFetchingInvoices": "Error Fetching Invoices",
     "goToHomepage": "Go to Homepage",

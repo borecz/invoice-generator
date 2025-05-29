@@ -64,7 +64,10 @@
     "noEmail": "Geen e-mail",
     "noAddress": "Geen adres",
     "comingSoon": "Binnenkort beschikbaar",
-    "deleting": "Verwijderen..."
+    "deleting": "Verwijderen...",
+    "mostPopular": "Meest Populair",
+    "year": "jaar",
+    "month": "maand"
   },
   "navigation": {
     "dashboard": "Dashboard",
@@ -224,11 +227,6 @@
     "socialProof": {
       "rating": "uit meer dan 2.000 beoordelingen",
       "invoicesCreated": "gemaakte facturen"
-    },
-    "common": {
-      "mostPopular": "Meest Populair",
-      "year": "jaar",
-      "month": "maand"
     }
   },
   "dashboard": {

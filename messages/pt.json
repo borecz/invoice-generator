@@ -64,7 +64,10 @@
     "noEmail": "Sem e-mail",
     "noAddress": "Sem endereço",
     "comingSoon": "Em breve",
-    "deleting": "Excluindo..."
+    "deleting": "Excluindo...",
+    "mostPopular": "Mais Popular",
+    "year": "ano",
+    "month": "mês"
   },
   "navigation": {
     "dashboard": "Painel",
@@ -224,11 +227,6 @@
     "socialProof": {
       "rating": "from 2,000+ reviews",
       "invoicesCreated": "invoices created"
-    },
-    "common": {
-      "mostPopular": "Most Popular",
-      "year": "year",
-      "month": "month"
     }
   },
   "dashboard": {

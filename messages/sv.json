@@ -64,7 +64,10 @@
     "noEmail": "Ingen e-post",
     "noAddress": "Ingen adress",
     "comingSoon": "Kommer snart",
-    "deleting": "Raderar..."
+    "deleting": "Raderar...",
+    "mostPopular": "Mest Populär",
+    "year": "år",
+    "month": "månad"
   },
   "navigation": {
     "dashboard": "Instrumentpanel",
@@ -224,11 +227,6 @@
     "socialProof": {
       "rating": "from 2,000+ reviews",
       "invoicesCreated": "invoices created"
-    },
-    "common": {
-      "mostPopular": "Most Popular",
-      "year": "year",
-      "month": "month"
     }
   },
   "dashboard": {

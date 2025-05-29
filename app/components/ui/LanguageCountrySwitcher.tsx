@@ -219,7 +219,7 @@ export function LanguageCountrySwitcher() {
         <Button
           variant="ghost"
           size="sm"
-          className="flex items-center space-x-1.5 hover:bg-accent/50 transition-colors px-2 py-1.5 h-auto"
+          className="flex items-center space-x-1.5 hover:bg-accent/50 transition-colors px-2 py-1.5 min-h-[44px] h-auto"
           aria-label={`Language and region settings. Current: ${currentLanguageConfig.native}, ${currentCountryConfig.name}`}
         >
           <div className="flex items-center space-x-1.5 min-w-0">
@@ -310,7 +310,7 @@ export function LanguageCountrySwitcher() {
               )}
             </div>
 
-            <div className="space-y-1 max-h-64 overflow-y-auto">
+            <div className="space-y-1 max-h-64 overflow-y-auto" role="radiogroup" aria-label="Select country and region">
               {/* Sort filtered countries with selected country first */}
               {filteredCountries
                 .sort(([countryCodeA], [countryCodeB]) => {
@@ -327,6 +327,8 @@ export function LanguageCountrySwitcher() {
                     <button
                       key={countryOption}
                       onClick={() => handleCountrySelection(countryOption)}
+                      role="radio"
+                      aria-checked={isSelected}
                       className={`w-full flex items-center space-x-2 p-2 rounded-md text-left transition-all duration-200 ${
                         isSelected
                           ? 'bg-gradient-to-r from-orange-100 to-pink-100 dark:from-orange-950/30 dark:to-pink-950/30 border border-orange-200 dark:border-orange-800'
@@ -384,7 +386,7 @@ export function LanguageCountrySwitcher() {
               )}
             </div>
 
-            <div className="space-y-1 max-h-64 overflow-y-auto">
+            <div className="space-y-1 max-h-64 overflow-y-auto" role="radiogroup" aria-label="Select language">
               {filteredLanguages.map((locale) => {
                 const isCurrentLanguage = locale === displayLanguage;
 
@@ -392,6 +394,8 @@ export function LanguageCountrySwitcher() {
                   <button
                     key={locale}
                     onClick={() => handleLanguageSelection(locale)}
+                    role="radio"
+                    aria-checked={isCurrentLanguage}
                     className={`w-full p-2 text-left rounded-md border transition-all duration-200 ${
                       isCurrentLanguage
                         ? 'bg-gradient-to-r from-orange-100 to-pink-100 dark:from-orange-950/30 dark:to-pink-950/30 border border-orange-200 dark:border-orange-800'

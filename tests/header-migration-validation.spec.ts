@@ -15,7 +15,7 @@ test.describe("Header Migration Validation", () => {
   });
 
   test("Landing page - Enhanced Header with mobile menu", async ({ page }) => {
-    await page.goto("http://localhost:3000/en");
+    await page.goto("/en");
 
     // Verify header is present
     const header = page.locator('header[role="banner"]');
@@ -60,7 +60,7 @@ test.describe("Header Migration Validation", () => {
   test("Invoice creation page - Minimal header with breadcrumbs", async ({
     page,
   }) => {
-    await page.goto("http://localhost:3000/en/new");
+    await page.goto("/en/new");
 
     // Verify header is present
     const header = page.locator('header[role="banner"]');
@@ -218,7 +218,7 @@ test.describe("Header Migration Validation", () => {
       }
     });
 
-    await page.goto("http://localhost:3000/en");
+    await page.goto("/en");
 
     // Wait for initial load
     await page.waitForLoadState("networkidle");

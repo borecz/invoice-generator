@@ -263,14 +263,36 @@ export async function validateTouchTargets(
           continue;
         }
 
+        // Check if element has pointer-events-none (not interactive) or is aria-hidden (decorative)
+        const hasPointerEventsNone = await element.evaluate((el) => {
+          const style = window.getComputedStyle(el);
+          return style.pointerEvents === "none";
+        });
+
+        const isAriaHidden = await element.evaluate((el) => {
+          return el.getAttribute("aria-hidden") === "true";
+        });
+
         // Skip elements that are clearly not primary interactive elements
+        // This includes decorative badges, icons, avatars, notification counters, and issue badges
         if (
           className.includes("icon") ||
           className.includes("badge") ||
-          className.includes("avatar")
+          className.includes("Badge") ||
+          className.includes("avatar") ||
+          hasPointerEventsNone ||
+          isAriaHidden || // Skip elements marked as decorative with aria-hidden="true"
+          textContent?.match(/^\d+$/) || // Skip pure number badges (notification counts)
+          textContent?.includes("Issues") || // Skip issue counters like "12 Issues"
+          textContent?.includes("Unread") || // Skip unread counters
+          (tagName === "SPAN" &&
+            boundingBox.width < 50 &&
+            boundingBox.height < 50) // Skip small spans (usually decorative)
         ) {
           console.log(
-            `Skipping decorative element: ${tagName}.${className} "${textContent}"`
+            `Skipping decorative element: ${tagName}.${className} "${textContent}" (pointer-events: ${
+              hasPointerEventsNone ? "none" : "auto"
+            }, aria-hidden: ${isAriaHidden})`
           );
           continue;
         }

@@ -88,7 +88,7 @@ test.describe("Header Visual Audit - Comprehensive UI/UX Analysis", () => {
         });
 
         for (const pageConfig of pages) {
-          const url = `http://localhost:3001/${locale}${pageConfig.path}`;
+          const url = `/${locale}${pageConfig.path}`;
 
           try {
             await page.goto(url, { waitUntil: "networkidle", timeout: 10000 });

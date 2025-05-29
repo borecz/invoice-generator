@@ -64,7 +64,10 @@
     "noEmail": "Nincs e-mail",
     "noAddress": "Nincs cím",
     "comingSoon": "Hamarosan",
-    "deleting": "Törlés..."
+    "deleting": "Törlés...",
+    "mostPopular": "Legnépszerűbb",
+    "year": "év",
+    "month": "hónap"
   },
   "navigation": {
     "dashboard": "Vezérlőpult",
@@ -224,11 +227,6 @@
     "socialProof": {
       "rating": "from 2,000+ reviews",
       "invoicesCreated": "invoices created"
-    },
-    "common": {
-      "mostPopular": "Most Popular",
-      "year": "year",
-      "month": "month"
     }
   },
   "dashboard": {

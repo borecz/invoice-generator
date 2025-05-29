@@ -156,7 +156,7 @@ export function Header({
             <div className="flex items-center space-x-3 lg:space-x-6 min-w-0 flex-1">
               <Link
                 href={mode === 'landing' ? "/" : (user ? "/dashboard" : "/")}
-                className="flex items-center space-x-2 lg:space-x-3 hover:opacity-80 transition-opacity focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 rounded-md"
+                className="flex items-center space-x-2 lg:space-x-3 hover:opacity-80 transition-opacity focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 rounded-md min-h-[44px] py-2"
                 aria-label="InvoiceAgent home"
               >
                 <Image
@@ -286,7 +286,7 @@ export function Header({
                 variant="ghost"
                 size="sm"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="min-w-[44px] min-h-[44px] p-2 focus:ring-2 focus:ring-ring focus:ring-offset-2 hover:bg-accent/50 transition-colors"
+                className="w-11 h-11 p-2 focus:ring-2 focus:ring-ring focus:ring-offset-2 hover:bg-accent/50 transition-colors"
                 aria-label="Toggle mobile menu"
                 aria-expanded={isMobileMenuOpen}
                 aria-controls="mobile-menu"

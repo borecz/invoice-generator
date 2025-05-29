@@ -64,7 +64,10 @@
     "noEmail": "Ei sähköpostia",
     "noAddress": "Ei osoitetta",
     "comingSoon": "Tulossa pian",
-    "deleting": "Poistetaan..."
+    "deleting": "Poistetaan...",
+    "mostPopular": "Suosituin",
+    "year": "vuosi",
+    "month": "kuukausi"
   },
   "navigation": {
     "dashboard": "Hallintapaneeli",
@@ -224,11 +227,6 @@
     "socialProof": {
       "rating": "from 2,000+ reviews",
       "invoicesCreated": "invoices created"
-    },
-    "common": {
-      "mostPopular": "Most Popular",
-      "year": "year",
-      "month": "month"
     }
   },
   "dashboard": {

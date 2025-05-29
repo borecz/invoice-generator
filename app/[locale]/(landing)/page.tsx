@@ -288,7 +288,7 @@ const Home = () => {
               <Card key={plan.name} className={`relative ${plan.popular ? 'border-orange-500 shadow-lg scale-105' : 'border-gray-200'}`}>
                 {plan.popular && (
                   <Badge variant="orange" className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                    {t('common.mostPopular')}
+                    {tCommon('mostPopular')}
                   </Badge>
                 )}
                 <CardHeader className="text-center">
@@ -299,7 +299,7 @@ const Home = () => {
                       ${isYearly ? plan.price.yearly : plan.price.monthly}
                     </span>
                     <span className="text-gray-500 ml-1">
-                      /{isYearly ? t('common.year') : t('common.month')}
+                      /{isYearly ? tCommon('year') : tCommon('month')}
                     </span>
                   </div>
                 </CardHeader>

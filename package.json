@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "npm run dev:local",
-    "dev:local": "npm run env:switch local && npm run db:start && next dev -p 3001",
-    "dev:remote": "npm run env:switch remote && next dev -p 3001",
+    "dev:local": "npm run env:switch local && npm run db:start && next dev",
+    "dev:remote": "npm run env:switch remote && next dev",
     "dev:alt": "next dev -p 3001",
     "build": "next build",
     "start": "next start",

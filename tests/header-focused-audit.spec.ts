@@ -264,7 +264,7 @@ test.describe("Header Focused UI/UX Audit", () => {
     const locales = ["en", "it", "cs", "ru"];
 
     for (const locale of locales) {
-      await page.goto(`http://localhost:3001/${locale}`, {
+      await page.goto(`/${locale}`, {
         waitUntil: "domcontentloaded",
       });
       await page.waitForSelector("nav", { timeout: 10000 });

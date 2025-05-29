@@ -99,72 +99,21 @@ export function useAuth(): AuthState {
 
         // Only handle specific events to reduce unnecessary re-renders
         if (event === "SIGNED_IN") {
-          try {
-            const {
-              data: { user },
-              error,
-            } = await supabase.auth.getUser();
-
-            // Handle auth session missing as normal state
-            if (error && error.message === "Auth session missing!") {
-              setAuthState({
-                user: null,
-                session: null,
-                loading: false,
-                error: null,
-              });
-              return;
-            }
-
-            if (error) {
-              console.error(
-                "useAuth: Error re-fetching user after auth change:",
-                error.message
-              );
-              setAuthState({
-                user: null,
-                session: null,
-                loading: false,
-                error,
-              });
-            } else {
-              setAuthState({
-                user: user,
-                session: user
-                  ? ({
-                      user,
-                      access_token: "",
-                      refresh_token: "",
-                      expires_in: 3600,
-                      token_type: "bearer",
-                      expires_at: Date.now() + 3600000,
-                    } as Session)
-                  : null,
-                loading: false,
-                error: null,
-              });
-            }
-          } catch (catchError: any) {
-            // Handle auth session missing as normal state
-            if (catchError.message === "Auth session missing!") {
-              setAuthState({
-                user: null,
-                session: null,
-                loading: false,
-                error: null,
-              });
-              return;
-            }
-
-            console.error(
-              "useAuth: Catch error re-fetching user:",
-              catchError.message
-            );
+          // Use the session data directly instead of making another API call
+          // This prevents the hanging getUser() call that was causing loading state issues
+          if (session && session.user) {
+            setAuthState({
+              user: session.user,
+              session: session,
+              loading: false,
+              error: null,
+            });
+          } else {
             setAuthState({
               user: null,
               session: null,
               loading: false,
-              error: catchError,
+              error: null,
             });
           }
         } else if (event === "SIGNED_OUT") {

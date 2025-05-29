@@ -64,7 +64,10 @@
     "noEmail": "Žádný email",
     "noAddress": "Žádná adresa",
     "comingSoon": "Již brzy",
-    "deleting": "Mazání..."
+    "deleting": "Mazání...",
+    "mostPopular": "Nejpopulárnější",
+    "year": "rok",
+    "month": "měsíc"
   },
   "navigation": {
     "dashboard": "Přehled",
@@ -224,11 +227,6 @@
     "socialProof": {
       "rating": "z více než 2 000 recenzí",
       "invoicesCreated": "vytvořených faktur"
-    },
-    "common": {
-      "mostPopular": "Nejpopulárnější",
-      "year": "rok",
-      "month": "měsíc"
     }
   },
   "dashboard": {

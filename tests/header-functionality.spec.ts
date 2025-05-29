@@ -8,7 +8,7 @@ test.describe("Header Functionality Tests", () => {
   });
 
   test("Logo navigation works correctly", async ({ page }) => {
-    await page.goto("http://localhost:3000/en");
+    await page.goto("/en");
     await page.waitForLoadState("networkidle");
 
     const logo = page.locator('a[aria-label="InvoiceAgent home"]');
@@ -22,7 +22,7 @@ test.describe("Header Functionality Tests", () => {
   });
 
   test("Language switcher functionality", async ({ page }) => {
-    await page.goto("http://localhost:3000/en");
+    await page.goto("/en");
     await page.waitForLoadState("networkidle");
 
     const languageSwitcher = page.locator(
@@ -56,7 +56,7 @@ test.describe("Header Functionality Tests", () => {
 
   test("Theme toggle functionality", async ({ page }) => {
     await test.step("Navigate to page and find theme toggle", async () => {
-      await page.goto("http://localhost:3000/en");
+      await page.goto("/en");
       await page.waitForLoadState("networkidle");
     });
 
@@ -243,7 +243,7 @@ test.describe("Header Functionality Tests", () => {
   });
 
   test("Breadcrumb navigation", async ({ page }) => {
-    await page.goto("http://localhost:3000/en");
+    await page.goto("/en");
 
     // Mock breadcrumb data
     await page.evaluate(() => {
@@ -296,7 +296,7 @@ test.describe("Header Functionality Tests", () => {
   test("Header performance and loading", async ({ page }) => {
     const startTime = Date.now();
 
-    await page.goto("http://localhost:3000/en");
+    await page.goto("/en");
     await page.waitForLoadState("networkidle");
 
     const loadTime = Date.now() - startTime;

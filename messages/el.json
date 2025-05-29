@@ -64,7 +64,10 @@
     "noEmail": "Χωρίς email",
     "noAddress": "Χωρίς διεύθυνση",
     "comingSoon": "Έρχεται σύντομα",
-    "deleting": "Διαγραφή..."
+    "deleting": "Διαγραφή...",
+    "mostPopular": "Πιο Δημοφιλής",
+    "year": "έτος",
+    "month": "μήνας"
   },
   "navigation": {
     "dashboard": "Πίνακας Ελέγχου",
@@ -224,11 +227,6 @@
     "socialProof": {
       "rating": "from 2,000+ reviews",
       "invoicesCreated": "invoices created"
-    },
-    "common": {
-      "mostPopular": "Most Popular",
-      "year": "year",
-      "month": "month"
     }
   },
   "dashboard": {
