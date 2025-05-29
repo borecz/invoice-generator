@@ -53,9 +53,15 @@ CREATE TABLE IF NOT EXISTS notifications (
     title TEXT NOT NULL,
     message TEXT NOT NULL,
     priority TEXT NOT NULL DEFAULT 'medium' CHECK (priority IN ('low', 'medium', 'high', 'urgent')),
-    status TEXT NOT NULL DEFAULT 'unread' CHECK (status IN ('unread', 'read', 'dismissed', 'archived')),
+    status TEXT NOT NULL DEFAULT 'unread' CHECK (status IN ('unread', 'read', 'dismissed', 'acted_upon')),
     context_data JSONB DEFAULT '{}',
     quick_actions JSONB DEFAULT '[]',
+    related_entity_type TEXT,
+    related_entity_id TEXT,
+    read_at TIMESTAMP WITH TIME ZONE,
+    acted_at TIMESTAMP WITH TIME ZONE,
+    dismissed_at TIMESTAMP WITH TIME ZONE,
+    expires_at TIMESTAMP WITH TIME ZONE,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );

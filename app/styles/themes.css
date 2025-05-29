@@ -303,65 +303,66 @@ body {
   color: rgb(194 65 12) !important; /* orange-700 for better contrast */
 }
 
-/* Touch target accessibility - ensure minimum 44px touch targets */
-button,
-a,
-input[type="button"],
-input[type="submit"],
-input[type="reset"],
-[role="button"],
-[role="tab"],
-[role="menuitem"],
-.clickable {
-  min-width: 44px !important;
-  min-height: 44px !important;
+/* Touch target accessibility - ensure minimum 44px touch targets for primary interactive elements only */
+/* Apply to main action buttons, form controls, and navigation elements */
+button:not(.text-link):not(.badge):not([class*="text-"]):not([class*="px-1"]):not([class*="px-2"]):not([class*="py-0"]):not([class*="py-1"]),
+input[type="button"]:not(.text-link),
+input[type="submit"]:not(.text-link),
+input[type="reset"]:not(.text-link),
+[role="button"]:not(.text-link):not(.badge):not([class*="text-"]),
+[role="tab"]:not(.text-link),
+[role="menuitem"]:not(.text-link),
+.clickable:not(.text-link):not(.badge) {
+  min-width: 44px;
+  min-height: 44px;
 }
 
-/* Exception for text-only links that are part of paragraphs */
-p a:not([role="button"]),
-span a:not([role="button"]),
-.text-link {
+/* Specific touch target requirements for key interactive elements */
+/* Main navigation buttons */
+header button[aria-label*="menu"],
+header button[aria-label*="Menu"],
+/* Form submit buttons */
+button[type="submit"],
+/* Primary action buttons */
+.btn-primary,
+.button-primary,
+/* Navigation controls that need touch targets */
+button[aria-label*="Language and region settings"],
+button[aria-label*="Switch to"]:not([class*="text-"]),
+/* Dropdown triggers */
+[role="button"][aria-haspopup="true"]:not(.text-link) {
+  min-width: 44px;
+  min-height: 44px;
+}
+
+/* Exception for text-only links, badges, and decorative elements */
+p a,
+span a,
+.text-link,
+.badge,
+[class*="badge"],
+.text-xs,
+.text-sm,
+.text-base,
+[class*="text-"],
+.inline-flex.items-center.rounded-full.text-xs,
+.inline-flex.items-center.rounded-full.text-sm,
+.px-1,
+.px-2,
+.px-2\.5,
+.py-0,
+.py-0\.5,
+.py-1,
+/* Theme toggle is custom sized */
+button[aria-label*="Switch to"][class*="h-8"],
+/* Language switcher elements that are properly sized */
+button[aria-label*="Language"][class*="h-auto"] {
   min-width: unset !important;
   min-height: unset !important;
 }
 
-/* Ensure proper spacing between touch targets */
-button + button,
-a + a,
-button + a,
-a + button {
+/* Ensure proper spacing between touch targets - only for actual touch targets */
+button:not(.text-link):not(.badge) + button:not(.text-link):not(.badge),
+[role="button"]:not(.text-link):not(.badge) + [role="button"]:not(.text-link):not(.badge) {
   margin-left: 8px;
-}
-
-/* Specific fixes for small elements */
-.h-9,
-.h-10,
-.h-11 {
-  min-height: 44px !important;
-}
-
-/* Badge and small element overrides for accessibility */
-.badge,
-[class*="badge"],
-.inline-flex.items-center.rounded-full,
-.inline-flex.items-center.justify-center {
-  min-height: 44px !important;
-  min-width: 44px !important;
-}
-
-/* Specific overrides for common small elements */
-.px-2\.5,
-.py-0\.5,
-.text-xs,
-.text-sm {
-  min-height: 44px !important;
-  min-width: 44px !important;
-}
-
-/* Language switcher and small buttons */
-button[aria-label*="Language"],
-button[aria-label*="Switch"],
-button[aria-label*="Toggle"] {
-  min-width: 44px !important;
-  min-height: 44px !important;
 }

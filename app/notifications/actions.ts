@@ -77,12 +77,7 @@ export async function getNotificationsForUser(
 
     let query = supabase
       .from("notifications")
-      .select(
-        `
-        *,
-        notification_types!inner(category, description)
-      `
-      )
+      .select("*")
       .eq("user_id", user.id)
       .order("created_at", { ascending: false })
       .range(offset, offset + limit - 1);
@@ -92,7 +87,7 @@ export async function getNotificationsForUser(
     }
 
     if (category) {
-      query = query.eq("notification_types.category", category);
+      query = query.eq("category", category);
     }
 
     const { data, error } = await query;

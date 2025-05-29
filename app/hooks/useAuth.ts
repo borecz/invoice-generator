@@ -94,8 +94,8 @@ export function useAuth(): AuthState {
       async (event, session) => {
         console.log("useAuth: onAuthStateChange event:", event);
 
-        // For security, re-fetch user data using getUser() instead of trusting session data
-        if (event === "SIGNED_IN" || event === "TOKEN_REFRESHED") {
+        // Only handle specific events to reduce unnecessary re-renders
+        if (event === "SIGNED_IN") {
           try {
             const {
               data: { user },
@@ -172,6 +172,8 @@ export function useAuth(): AuthState {
             error: null,
           });
         }
+        // Ignore TOKEN_REFRESHED and INITIAL_SESSION events to reduce re-renders
+        // as they don't change the user state significantly
       }
     );
 

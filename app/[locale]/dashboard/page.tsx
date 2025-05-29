@@ -77,82 +77,27 @@ const DashboardPage = () => {
   const [activeTab, setActiveTab] = useState('overview');
   const [dataError, setDataError] = useState<string | null>(null);
   const [fetchAttempts, setFetchAttempts] = useState(0);
-  // Circuit breaker for API calls
-  const MAX_FETCH_ATTEMPTS = 3;
-  const LOADING_TIMEOUT = 30000; // 30 seconds timeout
-  const FORCE_TIMEOUT = 60000; // 60 seconds absolute timeout
 
-  // Refs for cleanup
-  const mountedRef = useRef(true);
-  const timeoutRef = useRef<NodeJS.Timeout>();
-  const forceTimeoutRef = useRef<NodeJS.Timeout>();
 
-  // Component mount and cleanup
+  // Data fetching effect
   useEffect(() => {
-    mountedRef.current = true;
-
-    // Set absolute force timeout to prevent infinite loading
-    forceTimeoutRef.current = setTimeout(() => {
-      if (mountedRef.current) {
-        setLoadingData(false);
-        setDataError('Dashboard failed to load within reasonable time. Please refresh the page.');
-      }
-    }, FORCE_TIMEOUT);
-
-    // Emergency fallback: if auth is still loading after 15 seconds, force it to complete
-    const emergencyAuthTimeout = setTimeout(() => {
-      if (mountedRef.current && loading) {
-        // This is a last resort to prevent infinite loading
-        console.warn('Emergency auth timeout triggered after 15 seconds - this may indicate a network issue');
-        // Don't throw an error, just log it as a warning since this is expected in some network conditions
-      }
-    }, 15000);
-
-    return () => {
-      mountedRef.current = false;
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
-      if (forceTimeoutRef.current) clearTimeout(forceTimeoutRef.current);
-      clearTimeout(emergencyAuthTimeout);
-    };
-  }, []);
-
-  // Ensure re-render when locale changes
-  useEffect(() => {
-    // Component will re-render when locale changes
-  }, [currentLocale]);
-
-  useEffect(() => {
-    let isMounted = true;
-    let timeoutId: NodeJS.Timeout;
+    let mounted = true;
 
     const fetchData = async () => {
-      if (!mountedRef.current || !isMounted) {
-        return;
-      }
-
       if (!user) {
-        setLoadingData(false);
-        return;
-      }
-
-      // Circuit breaker: prevent excessive API calls
-      if (fetchAttempts >= MAX_FETCH_ATTEMPTS) {
-        setDataError('Unable to load data after multiple attempts. Please refresh the page.');
-        setLoadingData(false);
-        return;
-      }
-
-      setLoadingData(true);
-      setDataError(null);
-      setFetchAttempts(prev => prev + 1);
-
-      // Set a timeout to prevent infinite loading
-      timeoutId = setTimeout(() => {
-        if (isMounted && mountedRef.current) {
-          setDataError('Loading is taking longer than expected. Please refresh the page.');
+        if (mounted) {
           setLoadingData(false);
+          setDataError(null);
+          setInvoices([]);
+          setCustomers([]);
         }
-      }, LOADING_TIMEOUT);
+        return;
+      }
+
+      if (mounted) {
+        setLoadingData(true);
+        setDataError(null);
+      }
 
       try {
         const [invoicesResult, customersResult] = await Promise.all([
@@ -160,42 +105,30 @@ const DashboardPage = () => {
           getCustomersForUser()
         ]);
 
-        if (!isMounted || !mountedRef.current) {
-          return;
-        }
-
-        if (invoicesResult.data) {
-          setInvoices(invoicesResult.data);
-        }
-        if (customersResult.data) {
-          setCustomers(customersResult.data);
-        }
-
-        // Reset fetch attempts on successful load
-        setFetchAttempts(0);
-      } catch (err) {
-        if (!isMounted || !mountedRef.current) {
-          return;
-        }
-
-        console.error('Error fetching dashboard data:', err);
-        setDataError('Failed to load dashboard data. Please try refreshing the page.');
-      } finally {
-        if (isMounted && mountedRef.current) {
+        if (mounted) {
+          if (invoicesResult.data) {
+            setInvoices(invoicesResult.data);
+          }
+          if (customersResult.data) {
+            setCustomers(customersResult.data);
+          }
           setLoadingData(false);
-          clearTimeout(timeoutId);
+        }
+      } catch (err) {
+        if (mounted) {
+          console.error('Dashboard: Error fetching data:', err);
+          setDataError('Failed to load dashboard data. Please try refreshing the page.');
+          setLoadingData(false);
         }
       }
     };
 
     fetchData();
 
-    // Cleanup function
     return () => {
-      isMounted = false;
-      clearTimeout(timeoutId);
+      mounted = false;
     };
-  }, [user]); // Removed fetchAttempts to prevent infinite loops
+  }, [user]);
 
   if (loading) {
     return (
@@ -414,11 +347,26 @@ const DashboardPage = () => {
                 </CardHeader>
                 <CardContent>
                   {loadingData ? (
-                    <div className="space-y-3">
+                    <div className="space-y-4">
+                      <div className="text-center py-2">
+                        <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-orange-500 mx-auto mb-2"></div>
+                        <p className="text-sm text-gray-500">Loading recent activity...</p>
+                      </div>
                       {[...Array(3)].map((_, i) => (
                         <div key={i} className="animate-pulse">
-                          <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
-                          <div className="h-3 bg-gray-200 rounded w-1/2"></div>
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center space-x-3">
+                              <div className="h-4 w-4 bg-gray-200 rounded-full"></div>
+                              <div>
+                                <div className="h-4 bg-gray-200 rounded w-32 mb-1"></div>
+                                <div className="h-3 bg-gray-200 rounded w-24"></div>
+                              </div>
+                            </div>
+                            <div className="text-right">
+                              <div className="h-4 bg-gray-200 rounded w-16 mb-1"></div>
+                              <div className="h-3 bg-gray-200 rounded w-12"></div>
+                            </div>
+                          </div>
                         </div>
                       ))}
                     </div>
@@ -540,6 +488,10 @@ const DashboardPage = () => {
               <CardContent>
                 {loadingData ? (
                   <div className="space-y-4">
+                    <div className="text-center py-4">
+                      <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-orange-500 mx-auto mb-2"></div>
+                      <p className="text-sm text-gray-500">Loading invoices...</p>
+                    </div>
                     {[...Array(5)].map((_, i) => (
                       <div key={i} className="animate-pulse">
                         <div className="h-16 bg-gray-200 rounded"></div>
@@ -670,6 +622,10 @@ const DashboardPage = () => {
               <CardContent>
                 {loadingData ? (
                   <div className="space-y-4">
+                    <div className="text-center py-4">
+                      <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-orange-500 mx-auto mb-2"></div>
+                      <p className="text-sm text-gray-500">Loading customers...</p>
+                    </div>
                     {[...Array(5)].map((_, i) => (
                       <div key={i} className="animate-pulse">
                         <div className="h-16 bg-gray-200 rounded"></div>
