@@ -62,7 +62,9 @@
     "viewDetails": "Részletek Megtekintése",
     "createInvoice": "Számla Létrehozása",
     "noEmail": "Nincs e-mail",
-    "noAddress": "Nincs cím"
+    "noAddress": "Nincs cím",
+    "comingSoon": "[HU] common.comingSoon",
+    "deleting": "[HU] common.deleting"
   },
   "navigation": {
     "dashboard": "Vezérlőpult",
@@ -276,7 +278,31 @@
     "date": "Date",
     "customer": "Customer",
     "status": "Status",
-    "actions": "Actions",
+    "actions": {
+      "view": "[HU] invoices.actions.view",
+      "edit": "[HU] invoices.actions.edit",
+      "duplicate": "[HU] invoices.actions.duplicate",
+      "archive": "[HU] invoices.actions.archive",
+      "unarchive": "[HU] invoices.actions.unarchive",
+      "delete": "[HU] invoices.actions.delete",
+      "restore": "[HU] invoices.actions.restore",
+      "deletePermanently": "[HU] invoices.actions.deletePermanently",
+      "downloadPdf": "[HU] invoices.actions.downloadPdf",
+      "sendEmail": "[HU] invoices.actions.sendEmail",
+      "sharePublicLink": "[HU] invoices.actions.sharePublicLink",
+      "markAsSent": "[HU] invoices.actions.markAsSent",
+      "openActionsMenu": "[HU] invoices.actions.openActionsMenu",
+      "duplicateSuccess": "[HU] invoices.actions.duplicateSuccess",
+      "archiveSuccess": "[HU] invoices.actions.archiveSuccess",
+      "unarchiveSuccess": "[HU] invoices.actions.unarchiveSuccess",
+      "deleteSuccess": "[HU] invoices.actions.deleteSuccess",
+      "markAsSentSuccess": "[HU] invoices.actions.markAsSentSuccess",
+      "deleteConfirmTitle": "[HU] invoices.actions.deleteConfirmTitle",
+      "deleteConfirmDescription": "[HU] invoices.actions.deleteConfirmDescription",
+      "emailFeatureComingSoon": "[HU] invoices.actions.emailFeatureComingSoon",
+      "shareFeatureComingSoon": "[HU] invoices.actions.shareFeatureComingSoon",
+      "downloadFeatureComingSoon": "[HU] invoices.actions.downloadFeatureComingSoon"
+    },
     "noInvoicesFound": "No Invoices Found",
     "noInvoicesYet": "You haven't created any invoices yet.",
     "errorFetchingInvoices": "Error Fetching Invoices",
@@ -341,6 +367,24 @@
       "invoiceCreatedSuccessfully": "Invoice created successfully!",
       "unexpectedErrorOccurred": "An unexpected error occurred",
       "addCustomer": "Add Customer"
+    },
+    "management": {
+      "invoiceManagement": "[HU] invoices.management.invoiceManagement",
+      "manageAllInvoices": "[HU] invoices.management.manageAllInvoices",
+      "active": "[HU] invoices.management.active",
+      "archived": "[HU] invoices.management.archived",
+      "trash": "[HU] invoices.management.trash",
+      "refresh": "[HU] invoices.management.refresh",
+      "filter": "[HU] invoices.management.filter",
+      "export": "[HU] invoices.management.export",
+      "newInvoice": "[HU] invoices.management.newInvoice",
+      "noInvoicesFound": "[HU] invoices.management.noInvoicesFound",
+      "createFirstInvoice": "[HU] invoices.management.createFirstInvoice",
+      "noArchivedInvoices": "[HU] invoices.management.noArchivedInvoices",
+      "noDeletedInvoices": "[HU] invoices.management.noDeletedInvoices",
+      "failedToLoadInvoices": "[HU] invoices.management.failedToLoadInvoices",
+      "invoiceRestored": "[HU] invoices.management.invoiceRestored",
+      "invoicePermanentlyDeleted": "[HU] invoices.management.invoicePermanentlyDeleted"
     }
   },
   "customers": {

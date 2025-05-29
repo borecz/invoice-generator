@@ -62,7 +62,9 @@
     "viewDetails": "Visualizza Dettagli",
     "createInvoice": "Crea Fattura",
     "noEmail": "Nessuna email",
-    "noAddress": "Nessun indirizzo"
+    "noAddress": "Nessun indirizzo",
+    "comingSoon": "[IT] common.comingSoon",
+    "deleting": "[IT] common.deleting"
   },
   "navigation": {
     "dashboard": "Dashboard",
@@ -276,7 +278,31 @@
     "date": "Data",
     "customer": "Cliente",
     "status": "Stato",
-    "actions": "Azioni",
+    "actions": {
+      "view": "[IT] invoices.actions.view",
+      "edit": "[IT] invoices.actions.edit",
+      "duplicate": "[IT] invoices.actions.duplicate",
+      "archive": "[IT] invoices.actions.archive",
+      "unarchive": "[IT] invoices.actions.unarchive",
+      "delete": "[IT] invoices.actions.delete",
+      "restore": "[IT] invoices.actions.restore",
+      "deletePermanently": "[IT] invoices.actions.deletePermanently",
+      "downloadPdf": "[IT] invoices.actions.downloadPdf",
+      "sendEmail": "[IT] invoices.actions.sendEmail",
+      "sharePublicLink": "[IT] invoices.actions.sharePublicLink",
+      "markAsSent": "[IT] invoices.actions.markAsSent",
+      "openActionsMenu": "[IT] invoices.actions.openActionsMenu",
+      "duplicateSuccess": "[IT] invoices.actions.duplicateSuccess",
+      "archiveSuccess": "[IT] invoices.actions.archiveSuccess",
+      "unarchiveSuccess": "[IT] invoices.actions.unarchiveSuccess",
+      "deleteSuccess": "[IT] invoices.actions.deleteSuccess",
+      "markAsSentSuccess": "[IT] invoices.actions.markAsSentSuccess",
+      "deleteConfirmTitle": "[IT] invoices.actions.deleteConfirmTitle",
+      "deleteConfirmDescription": "[IT] invoices.actions.deleteConfirmDescription",
+      "emailFeatureComingSoon": "[IT] invoices.actions.emailFeatureComingSoon",
+      "shareFeatureComingSoon": "[IT] invoices.actions.shareFeatureComingSoon",
+      "downloadFeatureComingSoon": "[IT] invoices.actions.downloadFeatureComingSoon"
+    },
     "noInvoicesFound": "No Invoices Found",
     "noInvoicesYet": "You haven't created any invoices yet.",
     "errorFetchingInvoices": "Errore Fetching Invoices",
@@ -341,6 +367,24 @@
       "invoiceCreatedSuccessfully": "Fattura creata con successo!",
       "unexpectedErrorOccurred": "Si è verificato un errore imprevisto",
       "addCustomer": "Aggiungi Cliente"
+    },
+    "management": {
+      "invoiceManagement": "[IT] invoices.management.invoiceManagement",
+      "manageAllInvoices": "[IT] invoices.management.manageAllInvoices",
+      "active": "[IT] invoices.management.active",
+      "archived": "[IT] invoices.management.archived",
+      "trash": "[IT] invoices.management.trash",
+      "refresh": "[IT] invoices.management.refresh",
+      "filter": "[IT] invoices.management.filter",
+      "export": "[IT] invoices.management.export",
+      "newInvoice": "[IT] invoices.management.newInvoice",
+      "noInvoicesFound": "[IT] invoices.management.noInvoicesFound",
+      "createFirstInvoice": "[IT] invoices.management.createFirstInvoice",
+      "noArchivedInvoices": "[IT] invoices.management.noArchivedInvoices",
+      "noDeletedInvoices": "[IT] invoices.management.noDeletedInvoices",
+      "failedToLoadInvoices": "[IT] invoices.management.failedToLoadInvoices",
+      "invoiceRestored": "[IT] invoices.management.invoiceRestored",
+      "invoicePermanentlyDeleted": "[IT] invoices.management.invoicePermanentlyDeleted"
     }
   },
   "customers": {

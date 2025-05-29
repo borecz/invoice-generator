@@ -139,7 +139,12 @@ export async function saveInvoice(invoiceData: InvoiceData) {
   return { data, error: null };
 }
 
-export async function getInvoicesForUser() {
+export async function getInvoicesForUser(options?: {
+  includeDeleted?: boolean;
+  includeArchived?: boolean;
+  status?: string;
+  limit?: number;
+}) {
   const supabase = await createSupabaseServerActionClient();
 
   // 1. Get current user session
@@ -158,8 +163,8 @@ export async function getInvoicesForUser() {
 
   const userId = session.user.id;
 
-  // 2. Fetch invoices for the user
-  const { data, error } = await supabase
+  // 2. Build query with filters
+  let query = supabase
     .from("invoices")
     .select(
       `
@@ -172,11 +177,33 @@ export async function getInvoicesForUser() {
       customer_name,
       customer_email,
       customer_address,
+      deleted_at,
+      archived_at,
       customers ( name )
     `
     )
-    .eq("user_id", userId)
-    .order("invoice_date", { ascending: false });
+    .eq("user_id", userId);
+
+  // Apply filters
+  if (!options?.includeDeleted) {
+    query = query.is("deleted_at", null);
+  }
+
+  if (!options?.includeArchived) {
+    query = query.is("archived_at", null);
+  }
+
+  if (options?.status) {
+    query = query.eq("status", options.status);
+  }
+
+  if (options?.limit) {
+    query = query.limit(options.limit);
+  }
+
+  query = query.order("invoice_date", { ascending: false });
+
+  const { data, error } = await query;
 
   if (error) {
     console.error("getInvoicesForUser Supabase Error:", error.message);
@@ -252,7 +279,48 @@ export async function updateInvoiceStatus(invoiceId: string, status: string) {
   return { data, error: null };
 }
 
+// Soft delete invoice (move to trash)
 export async function deleteInvoice(invoiceId: string) {
+  const supabase = await createSupabaseServerActionClient();
+  const { session, error: sessionError } = await readUserSession();
+
+  if (sessionError || !session || !session.user) {
+    return {
+      data: null,
+      error: { message: "User not authenticated. Please log in." },
+    };
+  }
+
+  const userId = session.user.id;
+
+  const { data, error } = await supabase
+    .from("invoices")
+    .update({ deleted_at: new Date().toISOString() })
+    .eq("id", invoiceId)
+    .eq("user_id", userId)
+    .is("deleted_at", null) // Only delete if not already deleted
+    .select();
+
+  if (error) {
+    console.error("deleteInvoice Supabase Error:", error.message);
+    return {
+      data: null,
+      error: { message: `Failed to delete invoice: ${error.message}` },
+    };
+  }
+
+  if (!data || data.length === 0) {
+    return {
+      data: null,
+      error: { message: "Invoice not found or already deleted." },
+    };
+  }
+
+  return { data, error: null };
+}
+
+// Permanently delete invoice
+export async function permanentlyDeleteInvoice(invoiceId: string) {
   const supabase = await createSupabaseServerActionClient();
   const { session, error: sessionError } = await readUserSession();
 
@@ -273,10 +341,302 @@ export async function deleteInvoice(invoiceId: string) {
     .select();
 
   if (error) {
-    console.error("deleteInvoice Supabase Error:", error.message);
+    console.error("permanentlyDeleteInvoice Supabase Error:", error.message);
     return {
       data: null,
-      error: { message: `Failed to delete invoice: ${error.message}` },
+      error: {
+        message: `Failed to permanently delete invoice: ${error.message}`,
+      },
+    };
+  }
+
+  return { data, error: null };
+}
+
+// Restore invoice from trash
+export async function restoreInvoice(invoiceId: string) {
+  const supabase = await createSupabaseServerActionClient();
+  const { session, error: sessionError } = await readUserSession();
+
+  if (sessionError || !session || !session.user) {
+    return {
+      data: null,
+      error: { message: "User not authenticated. Please log in." },
+    };
+  }
+
+  const userId = session.user.id;
+
+  const { data, error } = await supabase
+    .from("invoices")
+    .update({ deleted_at: null })
+    .eq("id", invoiceId)
+    .eq("user_id", userId)
+    .not("deleted_at", "is", null) // Only restore if deleted
+    .select();
+
+  if (error) {
+    console.error("restoreInvoice Supabase Error:", error.message);
+    return {
+      data: null,
+      error: { message: `Failed to restore invoice: ${error.message}` },
+    };
+  }
+
+  if (!data || data.length === 0) {
+    return {
+      data: null,
+      error: { message: "Invoice not found or not deleted." },
+    };
+  }
+
+  return { data, error: null };
+}
+
+// Archive/Unarchive invoice
+export async function toggleArchiveInvoice(
+  invoiceId: string,
+  archive: boolean
+) {
+  const supabase = await createSupabaseServerActionClient();
+  const { session, error: sessionError } = await readUserSession();
+
+  if (sessionError || !session || !session.user) {
+    return {
+      data: null,
+      error: { message: "User not authenticated. Please log in." },
+    };
+  }
+
+  const userId = session.user.id;
+
+  const { data, error } = await supabase
+    .from("invoices")
+    .update({
+      archived_at: archive ? new Date().toISOString() : null,
+      status: archive ? "archived" : "draft",
+    })
+    .eq("id", invoiceId)
+    .eq("user_id", userId)
+    .is("deleted_at", null) // Don't archive deleted invoices
+    .select();
+
+  if (error) {
+    console.error("toggleArchiveInvoice Supabase Error:", error.message);
+    return {
+      data: null,
+      error: {
+        message: `Failed to ${archive ? "archive" : "unarchive"} invoice: ${
+          error.message
+        }`,
+      },
+    };
+  }
+
+  return { data, error: null };
+}
+
+// Duplicate invoice
+export async function duplicateInvoice(invoiceId: string) {
+  const supabase = await createSupabaseServerActionClient();
+  const { session, error: sessionError } = await readUserSession();
+
+  if (sessionError || !session || !session.user) {
+    return {
+      data: null,
+      error: { message: "User not authenticated. Please log in." },
+    };
+  }
+
+  const userId = session.user.id;
+
+  // First, get the original invoice
+  const { data: originalInvoice, error: fetchError } = await supabase
+    .from("invoices")
+    .select("*")
+    .eq("id", invoiceId)
+    .eq("user_id", userId)
+    .is("deleted_at", null)
+    .single();
+
+  if (fetchError || !originalInvoice) {
+    console.error("duplicateInvoice Fetch Error:", fetchError?.message);
+    return {
+      data: null,
+      error: { message: "Failed to fetch original invoice for duplication." },
+    };
+  }
+
+  // Create new invoice data with updated fields
+  const newInvoiceData = {
+    ...originalInvoice,
+    id: undefined, // Let database generate new ID
+    invoice_number: `${originalInvoice.invoice_number}-COPY-${Date.now()}`,
+    status: "draft",
+    created_at: undefined,
+    updated_at: undefined,
+    deleted_at: null,
+    archived_at: null,
+    public_url_token: null,
+    public_url_enabled: false,
+    email_sent_at: null,
+    last_viewed_at: null,
+    view_count: 0,
+    payment_due_reminder_sent_at: null,
+  };
+
+  const { data, error } = await supabase
+    .from("invoices")
+    .insert([newInvoiceData])
+    .select();
+
+  if (error) {
+    console.error("duplicateInvoice Insert Error:", error.message);
+    return {
+      data: null,
+      error: { message: `Failed to duplicate invoice: ${error.message}` },
+    };
+  }
+
+  return { data, error: null };
+}
+
+// Get deleted invoices (trash)
+export async function getDeletedInvoices() {
+  const supabase = await createSupabaseServerActionClient();
+  const { session, error: sessionError } = await readUserSession();
+
+  if (sessionError || !session || !session.user) {
+    return {
+      data: null,
+      error: { message: "User not authenticated. Please log in." },
+    };
+  }
+
+  const userId = session.user.id;
+
+  const { data, error } = await supabase
+    .from("invoices")
+    .select(
+      `
+      *,
+      customers (
+        name
+      )
+    `
+    )
+    .eq("user_id", userId)
+    .not("deleted_at", "is", null)
+    .order("deleted_at", { ascending: false });
+
+  if (error) {
+    console.error("getDeletedInvoices Supabase Error:", error.message);
+    return {
+      data: null,
+      error: { message: `Failed to fetch deleted invoices: ${error.message}` },
+    };
+  }
+
+  return { data, error: null };
+}
+
+// Get archived invoices
+export async function getArchivedInvoices() {
+  const supabase = await createSupabaseServerActionClient();
+  const { session, error: sessionError } = await readUserSession();
+
+  if (sessionError || !session || !session.user) {
+    return {
+      data: null,
+      error: { message: "User not authenticated. Please log in." },
+    };
+  }
+
+  const userId = session.user.id;
+
+  const { data, error } = await supabase
+    .from("invoices")
+    .select(
+      `
+      *,
+      customers (
+        name
+      )
+    `
+    )
+    .eq("user_id", userId)
+    .not("archived_at", "is", null)
+    .is("deleted_at", null)
+    .order("archived_at", { ascending: false });
+
+  if (error) {
+    console.error("getArchivedInvoices Supabase Error:", error.message);
+    return {
+      data: null,
+      error: { message: `Failed to fetch archived invoices: ${error.message}` },
+    };
+  }
+
+  return { data, error: null };
+}
+
+// Update invoice data (for editing)
+export async function updateInvoice(
+  invoiceId: string,
+  invoiceData: Partial<InvoiceData>
+) {
+  const supabase = await createSupabaseServerActionClient();
+  const { session, error: sessionError } = await readUserSession();
+
+  if (sessionError || !session || !session.user) {
+    return {
+      data: null,
+      error: { message: "User not authenticated. Please log in." },
+    };
+  }
+
+  const userId = session.user.id;
+
+  // Prepare update data
+  const updateData: any = {};
+
+  if (invoiceData.invoice_number)
+    updateData.invoice_number = invoiceData.invoice_number;
+  if (invoiceData.customer_id !== undefined)
+    updateData.customer_id = invoiceData.customer_id;
+  if (invoiceData.inline_customer) {
+    updateData.customer_name = invoiceData.inline_customer.name;
+    updateData.customer_email = invoiceData.inline_customer.email;
+    updateData.customer_address = invoiceData.inline_customer.address;
+  }
+  if (invoiceData.invoice_date)
+    updateData.invoice_date = invoiceData.invoice_date;
+  if (invoiceData.due_date !== undefined)
+    updateData.due_date = invoiceData.due_date;
+  if (invoiceData.items) updateData.items = JSON.stringify(invoiceData.items);
+  if (invoiceData.total_amount !== undefined)
+    updateData.total_amount = invoiceData.total_amount;
+
+  const { data, error } = await supabase
+    .from("invoices")
+    .update(updateData)
+    .eq("id", invoiceId)
+    .eq("user_id", userId)
+    .is("deleted_at", null) // Don't update deleted invoices
+    .select();
+
+  if (error) {
+    console.error("updateInvoice Supabase Error:", error.message);
+    return {
+      data: null,
+      error: { message: `Failed to update invoice: ${error.message}` },
+    };
+  }
+
+  if (!data || data.length === 0) {
+    return {
+      data: null,
+      error: { message: "Invoice not found or cannot be updated." },
     };
   }
 

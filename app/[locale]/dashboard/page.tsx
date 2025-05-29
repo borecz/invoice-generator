@@ -39,6 +39,7 @@ import {
 import { getInvoicesForUser } from '@/app/invoices/actions';
 import { getCustomersForUser } from '@/app/customers/actions';
 import { Header } from '@/app/components/layout/Header';
+import { InvoiceManagementTabs } from '@/app/components/invoices/InvoiceManagementTabs';
 
 interface Invoice {
   id: string;
@@ -460,136 +461,7 @@ const DashboardPage = () => {
 
           {/* Invoices Tab */}
           <TabsContent value="invoices" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
-                  <div>
-                    <CardTitle>{tCommon('invoiceManagement')}</CardTitle>
-                    <CardDescription>{tCommon('viewManageInvoices')}</CardDescription>
-                  </div>
-                  <div className="flex flex-col sm:flex-row gap-2">
-                    <Button variant="outline" size="sm">
-                      <Filter className="h-4 w-4 mr-2" />
-                      {tCommon('filter')}
-                    </Button>
-                    <Button variant="outline" size="sm">
-                      <Download className="h-4 w-4 mr-2" />
-                      {tCommon('export')}
-                    </Button>
-                    <Link href="/new">
-                      <Button size="sm" className="bg-gradient-to-r from-orange-500 to-pink-500">
-                        <Plus className="h-4 w-4 mr-2" />
-                        {tCommon('newInvoice')}
-                      </Button>
-                    </Link>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent>
-                {loadingData ? (
-                  <div className="space-y-4">
-                    <div className="text-center py-4">
-                      <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-orange-500 mx-auto mb-2"></div>
-                      <p className="text-sm text-gray-500">Loading invoices...</p>
-                    </div>
-                    {[...Array(5)].map((_, i) => (
-                      <div key={i} className="animate-pulse">
-                        <div className="h-16 bg-gray-200 rounded"></div>
-                      </div>
-                    ))}
-                  </div>
-                ) : invoices.length === 0 ? (
-                  <div className="text-center py-12">
-                    <FileText className="h-16 w-16 text-gray-400 mx-auto mb-4" />
-                    <h3 className="text-lg font-medium text-gray-900 mb-2">{tCommon('noInvoicesYet')}</h3>
-                    <p className="text-gray-500 mb-6">{tCommon('getStartedFirstInvoice')}</p>
-                    <Link href="/new">
-                      <Button className="bg-gradient-to-r from-orange-500 to-pink-500">
-                        <Plus className="h-4 w-4 mr-2" />
-                        {tCommon('createYourFirstInvoice')}
-                      </Button>
-                    </Link>
-                  </div>
-                ) : (
-                  <div className="space-y-4">
-                    {/* Invoice Table Header */}
-                    <div className="hidden md:grid md:grid-cols-6 gap-4 px-4 py-2 bg-gray-50 rounded-lg text-sm font-medium text-gray-500">
-                      <div>{tCommon('invoiceHash')}</div>
-                      <div>{tInvoices('customer')}</div>
-                      <div>{tInvoices('date')}</div>
-                      <div>{tInvoices('amount')}</div>
-                      <div>{tInvoices('status')}</div>
-                      <div>{tCommon('actions')}</div>
-                    </div>
-
-                    {/* Invoice Rows */}
-                    {invoices.map((invoice) => (
-                      <div key={invoice.id} className="border border-gray-200 rounded-lg p-4 hover:border-orange-300 transition-colors">
-                        <div className="grid grid-cols-1 md:grid-cols-6 gap-4 items-center">
-                          <div className="md:col-span-1">
-                            <p className="font-medium text-gray-900">#{invoice.invoice_number}</p>
-                            <p className="text-sm text-gray-500 md:hidden">
-                              {invoice.customers?.[0]?.name || invoice.customer_name || tCommon('noCustomer')}
-                            </p>
-                          </div>
-                          <div className="hidden md:block">
-                            <p className="text-gray-900">{invoice.customers?.[0]?.name || invoice.customer_name || tCommon('noCustomer')}</p>
-                          </div>
-                          <div className="hidden md:block">
-                            <p className="text-gray-900">{new Date(invoice.invoice_date).toLocaleDateString()}</p>
-                          </div>
-                          <div className="hidden md:block">
-                            <p className="font-medium text-gray-900">${invoice.total_amount.toFixed(2)}</p>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            {getStatusIcon(invoice.status)}
-                            <Badge variant={getStatusBadgeVariant(invoice.status) as any}>
-                              {invoice.status}
-                            </Badge>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <DropdownMenu>
-                              <DropdownMenuTrigger asChild>
-                                <Button variant="ghost" size="sm">
-                                  <MoreHorizontal className="h-4 w-4" />
-                                </Button>
-                              </DropdownMenuTrigger>
-                              <DropdownMenuContent align="end">
-                                <DropdownMenuItem>
-                                  <Eye className="h-4 w-4 mr-2" />
-                                  {tCommon('view')}
-                                </DropdownMenuItem>
-                                <DropdownMenuItem>
-                                  <Edit className="h-4 w-4 mr-2" />
-                                  {tCommon('edit')}
-                                </DropdownMenuItem>
-                                <DropdownMenuItem>
-                                  <Download className="h-4 w-4 mr-2" />
-                                  {tCommon('downloadPdf')}
-                                </DropdownMenuItem>
-                                <DropdownMenuSeparator />
-                                <DropdownMenuItem className="text-red-600">
-                                  <Trash2 className="h-4 w-4 mr-2" />
-                                  {tCommon('delete')}
-                                </DropdownMenuItem>
-                              </DropdownMenuContent>
-                            </DropdownMenu>
-                          </div>
-                        </div>
-
-                        {/* Mobile-only additional info */}
-                        <div className="md:hidden mt-3 pt-3 border-t border-gray-100 flex justify-between text-sm">
-                          <span className="text-gray-500">
-                            {new Date(invoice.invoice_date).toLocaleDateString()}
-                          </span>
-                          <span className="font-medium">${invoice.total_amount.toFixed(2)}</span>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </CardContent>
-            </Card>
+            <InvoiceManagementTabs />
           </TabsContent>
 
           {/* Customers Tab */}

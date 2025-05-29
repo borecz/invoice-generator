@@ -62,7 +62,9 @@
     "viewDetails": "Просмотр деталей",
     "createInvoice": "Создать счет",
     "noEmail": "Нет email",
-    "noAddress": "Нет адреса"
+    "noAddress": "Нет адреса",
+    "comingSoon": "[RU] common.comingSoon",
+    "deleting": "[RU] common.deleting"
   },
   "navigation": {
     "dashboard": "Панель управления",
@@ -276,7 +278,31 @@
     "date": "Дата",
     "customer": "Клиент",
     "status": "Статус",
-    "actions": "Действия",
+    "actions": {
+      "view": "[RU] invoices.actions.view",
+      "edit": "[RU] invoices.actions.edit",
+      "duplicate": "[RU] invoices.actions.duplicate",
+      "archive": "[RU] invoices.actions.archive",
+      "unarchive": "[RU] invoices.actions.unarchive",
+      "delete": "[RU] invoices.actions.delete",
+      "restore": "[RU] invoices.actions.restore",
+      "deletePermanently": "[RU] invoices.actions.deletePermanently",
+      "downloadPdf": "[RU] invoices.actions.downloadPdf",
+      "sendEmail": "[RU] invoices.actions.sendEmail",
+      "sharePublicLink": "[RU] invoices.actions.sharePublicLink",
+      "markAsSent": "[RU] invoices.actions.markAsSent",
+      "openActionsMenu": "[RU] invoices.actions.openActionsMenu",
+      "duplicateSuccess": "[RU] invoices.actions.duplicateSuccess",
+      "archiveSuccess": "[RU] invoices.actions.archiveSuccess",
+      "unarchiveSuccess": "[RU] invoices.actions.unarchiveSuccess",
+      "deleteSuccess": "[RU] invoices.actions.deleteSuccess",
+      "markAsSentSuccess": "[RU] invoices.actions.markAsSentSuccess",
+      "deleteConfirmTitle": "[RU] invoices.actions.deleteConfirmTitle",
+      "deleteConfirmDescription": "[RU] invoices.actions.deleteConfirmDescription",
+      "emailFeatureComingSoon": "[RU] invoices.actions.emailFeatureComingSoon",
+      "shareFeatureComingSoon": "[RU] invoices.actions.shareFeatureComingSoon",
+      "downloadFeatureComingSoon": "[RU] invoices.actions.downloadFeatureComingSoon"
+    },
     "noInvoicesFound": "No Invoices Found",
     "noInvoicesYet": "You haven't created any invoices yet.",
     "errorFetchingInvoices": "Error Fetching Invoices",
@@ -341,6 +367,24 @@
       "invoiceCreatedSuccessfully": "Счет успешно создан!",
       "unexpectedErrorOccurred": "Произошла неожиданная ошибка",
       "addCustomer": "Добавить клиента"
+    },
+    "management": {
+      "invoiceManagement": "[RU] invoices.management.invoiceManagement",
+      "manageAllInvoices": "[RU] invoices.management.manageAllInvoices",
+      "active": "[RU] invoices.management.active",
+      "archived": "[RU] invoices.management.archived",
+      "trash": "[RU] invoices.management.trash",
+      "refresh": "[RU] invoices.management.refresh",
+      "filter": "[RU] invoices.management.filter",
+      "export": "[RU] invoices.management.export",
+      "newInvoice": "[RU] invoices.management.newInvoice",
+      "noInvoicesFound": "[RU] invoices.management.noInvoicesFound",
+      "createFirstInvoice": "[RU] invoices.management.createFirstInvoice",
+      "noArchivedInvoices": "[RU] invoices.management.noArchivedInvoices",
+      "noDeletedInvoices": "[RU] invoices.management.noDeletedInvoices",
+      "failedToLoadInvoices": "[RU] invoices.management.failedToLoadInvoices",
+      "invoiceRestored": "[RU] invoices.management.invoiceRestored",
+      "invoicePermanentlyDeleted": "[RU] invoices.management.invoicePermanentlyDeleted"
     }
   },
   "customers": {

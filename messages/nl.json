@@ -62,7 +62,9 @@
     "viewDetails": "Details Bekijken",
     "createInvoice": "Factuur Aanmaken",
     "noEmail": "Geen e-mail",
-    "noAddress": "Geen adres"
+    "noAddress": "Geen adres",
+    "comingSoon": "[NL] common.comingSoon",
+    "deleting": "[NL] common.deleting"
   },
   "navigation": {
     "dashboard": "Dashboard",
@@ -276,7 +278,31 @@
     "date": "Date",
     "customer": "Customer",
     "status": "Status",
-    "actions": "Actions",
+    "actions": {
+      "view": "[NL] invoices.actions.view",
+      "edit": "[NL] invoices.actions.edit",
+      "duplicate": "[NL] invoices.actions.duplicate",
+      "archive": "[NL] invoices.actions.archive",
+      "unarchive": "[NL] invoices.actions.unarchive",
+      "delete": "[NL] invoices.actions.delete",
+      "restore": "[NL] invoices.actions.restore",
+      "deletePermanently": "[NL] invoices.actions.deletePermanently",
+      "downloadPdf": "[NL] invoices.actions.downloadPdf",
+      "sendEmail": "[NL] invoices.actions.sendEmail",
+      "sharePublicLink": "[NL] invoices.actions.sharePublicLink",
+      "markAsSent": "[NL] invoices.actions.markAsSent",
+      "openActionsMenu": "[NL] invoices.actions.openActionsMenu",
+      "duplicateSuccess": "[NL] invoices.actions.duplicateSuccess",
+      "archiveSuccess": "[NL] invoices.actions.archiveSuccess",
+      "unarchiveSuccess": "[NL] invoices.actions.unarchiveSuccess",
+      "deleteSuccess": "[NL] invoices.actions.deleteSuccess",
+      "markAsSentSuccess": "[NL] invoices.actions.markAsSentSuccess",
+      "deleteConfirmTitle": "[NL] invoices.actions.deleteConfirmTitle",
+      "deleteConfirmDescription": "[NL] invoices.actions.deleteConfirmDescription",
+      "emailFeatureComingSoon": "[NL] invoices.actions.emailFeatureComingSoon",
+      "shareFeatureComingSoon": "[NL] invoices.actions.shareFeatureComingSoon",
+      "downloadFeatureComingSoon": "[NL] invoices.actions.downloadFeatureComingSoon"
+    },
     "noInvoicesFound": "No Invoices Found",
     "noInvoicesYet": "You haven't created any invoices yet.",
     "errorFetchingInvoices": "Error Fetching Invoices",
@@ -341,6 +367,24 @@
       "invoiceCreatedSuccessfully": "Invoice created successfully!",
       "unexpectedErrorOccurred": "An unexpected error occurred",
       "addCustomer": "Add Customer"
+    },
+    "management": {
+      "invoiceManagement": "[NL] invoices.management.invoiceManagement",
+      "manageAllInvoices": "[NL] invoices.management.manageAllInvoices",
+      "active": "[NL] invoices.management.active",
+      "archived": "[NL] invoices.management.archived",
+      "trash": "[NL] invoices.management.trash",
+      "refresh": "[NL] invoices.management.refresh",
+      "filter": "[NL] invoices.management.filter",
+      "export": "[NL] invoices.management.export",
+      "newInvoice": "[NL] invoices.management.newInvoice",
+      "noInvoicesFound": "[NL] invoices.management.noInvoicesFound",
+      "createFirstInvoice": "[NL] invoices.management.createFirstInvoice",
+      "noArchivedInvoices": "[NL] invoices.management.noArchivedInvoices",
+      "noDeletedInvoices": "[NL] invoices.management.noDeletedInvoices",
+      "failedToLoadInvoices": "[NL] invoices.management.failedToLoadInvoices",
+      "invoiceRestored": "[NL] invoices.management.invoiceRestored",
+      "invoicePermanentlyDeleted": "[NL] invoices.management.invoicePermanentlyDeleted"
     }
   },
   "customers": {

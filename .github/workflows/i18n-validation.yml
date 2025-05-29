@@ -1,0 +1,223 @@
+name: 🌍 Translation Validation
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'messages/**'
+      - 'scripts/validate-translations.ts'
+      - 'scripts/fix-duplicate-keys.ts'
+      - 'tests/i18n.test.ts'
+      - '.github/workflows/i18n-validation.yml'
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - 'messages/**'
+      - 'scripts/validate-translations.ts'
+      - 'scripts/fix-duplicate-keys.ts'
+      - 'tests/i18n.test.ts'
+      - '.github/workflows/i18n-validation.yml'
+
+jobs:
+  validate-translations:
+    name: 🔍 Validate Translations
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: 📥 Install dependencies
+        run: npm ci
+
+      - name: 🔍 Validate translation completeness
+        run: npm run validate:translations
+
+      - name: 🧪 Run i18n unit tests
+        run: npm run test:run -- tests/i18n.test.ts
+
+  test-validation-system:
+    name: 🧪 Test Validation System
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: 📥 Install dependencies
+        run: npm ci
+
+      - name: 🧪 Run all unit tests (including i18n)
+        run: npm run test:run
+
+  validate-specific-locales:
+    name: 🌐 Validate Specific Locales
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        locale: [it, cs, ru, de, fr, es, pt, nl, sv, da, fi, el, hu, pl]
+      fail-fast: false
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: 📥 Install dependencies
+        run: npm ci
+
+      - name: 🔍 Validate ${{ matrix.locale }} locale
+        run: tsx scripts/validate-translations.ts --locale=${{ matrix.locale }}
+
+  check-translation-coverage:
+    name: 📈 Translation Coverage Report
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: 📥 Install dependencies
+        run: npm ci
+
+      - name: 📊 Generate detailed coverage report
+        id: coverage
+        run: |
+          echo "## 🌍 Translation Coverage Report" >> coverage_report.md
+          echo "" >> coverage_report.md
+          npm run validate:translations >> coverage_report.md 2>&1 || true
+          echo "" >> coverage_report.md
+          echo "Generated on: $(date)" >> coverage_report.md
+
+      - name: 📝 Comment PR with coverage report
+        uses: actions/github-script@v7
+        if: github.event_name == 'pull_request'
+        with:
+          script: |
+            const fs = require('fs');
+            const coverageReport = fs.readFileSync('coverage_report.md', 'utf8');
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: coverageReport
+            });
+
+  auto-fix-translations:
+    name: 🔧 Auto-fix Missing Translations
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: 📥 Install dependencies
+        run: npm ci
+
+      - name: 🔧 Generate placeholder translations
+        run: tsx scripts/validate-translations.ts --generate-placeholders
+
+      - name: 📝 Check for changes
+        id: changes
+        run: |
+          if git diff --quiet messages/; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: 💾 Commit auto-generated translations
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add messages/
+          git commit -m "🤖 Auto-generate missing translation placeholders"
+          git push
+
+  validate-on-schedule:
+    name: 🕐 Scheduled Translation Audit
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule'
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: 📥 Install dependencies
+        run: npm ci
+
+      - name: 🔍 Full translation audit
+        run: npm run validate:translations
+
+      - name: 📧 Create issue for translation problems
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: '🌍 Translation Validation Issues Found',
+              body: `
+                ## Translation Validation Failed
+                
+                The scheduled translation validation has found issues that need attention.
+                
+                **What to do:**
+                1. Run \`npm run validate:translations\` locally to see detailed errors
+                2. Fix missing or incorrect translations
+                3. Run \`npm run fix:translations\` to fix duplicate keys
+                4. Run \`tsx scripts/validate-translations.ts --generate-placeholders\` to auto-generate placeholders if needed
+                
+                **Validation Date:** ${new Date().toISOString()}
+                **Workflow:** ${context.workflow}
+                **Run:** ${context.runNumber}
+              `,
+              labels: ['i18n', 'bug', 'translations']
+            });
+
+# Add scheduled run (weekly on Mondays at 9 AM UTC)
+on:
+  schedule:
+    - cron: '0 9 * * 1'

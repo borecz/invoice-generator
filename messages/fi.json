@@ -62,7 +62,9 @@
     "viewDetails": "Näytä Tiedot",
     "createInvoice": "Luo Lasku",
     "noEmail": "Ei sähköpostia",
-    "noAddress": "Ei osoitetta"
+    "noAddress": "Ei osoitetta",
+    "comingSoon": "[FI] common.comingSoon",
+    "deleting": "[FI] common.deleting"
   },
   "navigation": {
     "dashboard": "Hallintapaneeli",
@@ -276,7 +278,31 @@
     "date": "Date",
     "customer": "Customer",
     "status": "Status",
-    "actions": "Actions",
+    "actions": {
+      "view": "[FI] invoices.actions.view",
+      "edit": "[FI] invoices.actions.edit",
+      "duplicate": "[FI] invoices.actions.duplicate",
+      "archive": "[FI] invoices.actions.archive",
+      "unarchive": "[FI] invoices.actions.unarchive",
+      "delete": "[FI] invoices.actions.delete",
+      "restore": "[FI] invoices.actions.restore",
+      "deletePermanently": "[FI] invoices.actions.deletePermanently",
+      "downloadPdf": "[FI] invoices.actions.downloadPdf",
+      "sendEmail": "[FI] invoices.actions.sendEmail",
+      "sharePublicLink": "[FI] invoices.actions.sharePublicLink",
+      "markAsSent": "[FI] invoices.actions.markAsSent",
+      "openActionsMenu": "[FI] invoices.actions.openActionsMenu",
+      "duplicateSuccess": "[FI] invoices.actions.duplicateSuccess",
+      "archiveSuccess": "[FI] invoices.actions.archiveSuccess",
+      "unarchiveSuccess": "[FI] invoices.actions.unarchiveSuccess",
+      "deleteSuccess": "[FI] invoices.actions.deleteSuccess",
+      "markAsSentSuccess": "[FI] invoices.actions.markAsSentSuccess",
+      "deleteConfirmTitle": "[FI] invoices.actions.deleteConfirmTitle",
+      "deleteConfirmDescription": "[FI] invoices.actions.deleteConfirmDescription",
+      "emailFeatureComingSoon": "[FI] invoices.actions.emailFeatureComingSoon",
+      "shareFeatureComingSoon": "[FI] invoices.actions.shareFeatureComingSoon",
+      "downloadFeatureComingSoon": "[FI] invoices.actions.downloadFeatureComingSoon"
+    },
     "noInvoicesFound": "No Invoices Found",
     "noInvoicesYet": "You haven't created any invoices yet.",
     "errorFetchingInvoices": "Error Fetching Invoices",
@@ -341,6 +367,24 @@
       "invoiceCreatedSuccessfully": "Invoice created successfully!",
       "unexpectedErrorOccurred": "An unexpected error occurred",
       "addCustomer": "Add Customer"
+    },
+    "management": {
+      "invoiceManagement": "[FI] invoices.management.invoiceManagement",
+      "manageAllInvoices": "[FI] invoices.management.manageAllInvoices",
+      "active": "[FI] invoices.management.active",
+      "archived": "[FI] invoices.management.archived",
+      "trash": "[FI] invoices.management.trash",
+      "refresh": "[FI] invoices.management.refresh",
+      "filter": "[FI] invoices.management.filter",
+      "export": "[FI] invoices.management.export",
+      "newInvoice": "[FI] invoices.management.newInvoice",
+      "noInvoicesFound": "[FI] invoices.management.noInvoicesFound",
+      "createFirstInvoice": "[FI] invoices.management.createFirstInvoice",
+      "noArchivedInvoices": "[FI] invoices.management.noArchivedInvoices",
+      "noDeletedInvoices": "[FI] invoices.management.noDeletedInvoices",
+      "failedToLoadInvoices": "[FI] invoices.management.failedToLoadInvoices",
+      "invoiceRestored": "[FI] invoices.management.invoiceRestored",
+      "invoicePermanentlyDeleted": "[FI] invoices.management.invoicePermanentlyDeleted"
     }
   },
   "customers": {

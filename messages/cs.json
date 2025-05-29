@@ -62,7 +62,9 @@
     "viewDetails": "Zobrazit detaily",
     "createInvoice": "Vytvořit fakturu",
     "noEmail": "Žádný email",
-    "noAddress": "Žádná adresa"
+    "noAddress": "Žádná adresa",
+    "comingSoon": "[CS] common.comingSoon",
+    "deleting": "[CS] common.deleting"
   },
   "navigation": {
     "dashboard": "Přehled",
@@ -276,7 +278,31 @@
     "date": "Datum",
     "customer": "Zákazník",
     "status": "Stav",
-    "actions": "Akce",
+    "actions": {
+      "view": "[CS] invoices.actions.view",
+      "edit": "[CS] invoices.actions.edit",
+      "duplicate": "[CS] invoices.actions.duplicate",
+      "archive": "[CS] invoices.actions.archive",
+      "unarchive": "[CS] invoices.actions.unarchive",
+      "delete": "[CS] invoices.actions.delete",
+      "restore": "[CS] invoices.actions.restore",
+      "deletePermanently": "[CS] invoices.actions.deletePermanently",
+      "downloadPdf": "[CS] invoices.actions.downloadPdf",
+      "sendEmail": "[CS] invoices.actions.sendEmail",
+      "sharePublicLink": "[CS] invoices.actions.sharePublicLink",
+      "markAsSent": "[CS] invoices.actions.markAsSent",
+      "openActionsMenu": "[CS] invoices.actions.openActionsMenu",
+      "duplicateSuccess": "[CS] invoices.actions.duplicateSuccess",
+      "archiveSuccess": "[CS] invoices.actions.archiveSuccess",
+      "unarchiveSuccess": "[CS] invoices.actions.unarchiveSuccess",
+      "deleteSuccess": "[CS] invoices.actions.deleteSuccess",
+      "markAsSentSuccess": "[CS] invoices.actions.markAsSentSuccess",
+      "deleteConfirmTitle": "[CS] invoices.actions.deleteConfirmTitle",
+      "deleteConfirmDescription": "[CS] invoices.actions.deleteConfirmDescription",
+      "emailFeatureComingSoon": "[CS] invoices.actions.emailFeatureComingSoon",
+      "shareFeatureComingSoon": "[CS] invoices.actions.shareFeatureComingSoon",
+      "downloadFeatureComingSoon": "[CS] invoices.actions.downloadFeatureComingSoon"
+    },
     "noInvoicesFound": "No Invoices Found",
     "noInvoicesYet": "You haven't created any invoices yet.",
     "errorFetchingInvoices": "Error Fetching Invoices",
@@ -341,6 +367,24 @@
       "invoiceCreatedSuccessfully": "Faktura byla úspěšně vytvořena!",
       "unexpectedErrorOccurred": "Došlo k neočekávané chybě",
       "addCustomer": "Přidat zákazníka"
+    },
+    "management": {
+      "invoiceManagement": "[CS] invoices.management.invoiceManagement",
+      "manageAllInvoices": "[CS] invoices.management.manageAllInvoices",
+      "active": "[CS] invoices.management.active",
+      "archived": "[CS] invoices.management.archived",
+      "trash": "[CS] invoices.management.trash",
+      "refresh": "[CS] invoices.management.refresh",
+      "filter": "[CS] invoices.management.filter",
+      "export": "[CS] invoices.management.export",
+      "newInvoice": "[CS] invoices.management.newInvoice",
+      "noInvoicesFound": "[CS] invoices.management.noInvoicesFound",
+      "createFirstInvoice": "[CS] invoices.management.createFirstInvoice",
+      "noArchivedInvoices": "[CS] invoices.management.noArchivedInvoices",
+      "noDeletedInvoices": "[CS] invoices.management.noDeletedInvoices",
+      "failedToLoadInvoices": "[CS] invoices.management.failedToLoadInvoices",
+      "invoiceRestored": "[CS] invoices.management.invoiceRestored",
+      "invoicePermanentlyDeleted": "[CS] invoices.management.invoicePermanentlyDeleted"
     }
   },
   "customers": {

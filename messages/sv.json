@@ -62,7 +62,9 @@
     "viewDetails": "Visa Detaljer",
     "createInvoice": "Skapa Faktura",
     "noEmail": "Ingen e-post",
-    "noAddress": "Ingen adress"
+    "noAddress": "Ingen adress",
+    "comingSoon": "[SV] common.comingSoon",
+    "deleting": "[SV] common.deleting"
   },
   "navigation": {
     "dashboard": "Instrumentpanel",
@@ -276,7 +278,31 @@
     "date": "Date",
     "customer": "Customer",
     "status": "Status",
-    "actions": "Actions",
+    "actions": {
+      "view": "[SV] invoices.actions.view",
+      "edit": "[SV] invoices.actions.edit",
+      "duplicate": "[SV] invoices.actions.duplicate",
+      "archive": "[SV] invoices.actions.archive",
+      "unarchive": "[SV] invoices.actions.unarchive",
+      "delete": "[SV] invoices.actions.delete",
+      "restore": "[SV] invoices.actions.restore",
+      "deletePermanently": "[SV] invoices.actions.deletePermanently",
+      "downloadPdf": "[SV] invoices.actions.downloadPdf",
+      "sendEmail": "[SV] invoices.actions.sendEmail",
+      "sharePublicLink": "[SV] invoices.actions.sharePublicLink",
+      "markAsSent": "[SV] invoices.actions.markAsSent",
+      "openActionsMenu": "[SV] invoices.actions.openActionsMenu",
+      "duplicateSuccess": "[SV] invoices.actions.duplicateSuccess",
+      "archiveSuccess": "[SV] invoices.actions.archiveSuccess",
+      "unarchiveSuccess": "[SV] invoices.actions.unarchiveSuccess",
+      "deleteSuccess": "[SV] invoices.actions.deleteSuccess",
+      "markAsSentSuccess": "[SV] invoices.actions.markAsSentSuccess",
+      "deleteConfirmTitle": "[SV] invoices.actions.deleteConfirmTitle",
+      "deleteConfirmDescription": "[SV] invoices.actions.deleteConfirmDescription",
+      "emailFeatureComingSoon": "[SV] invoices.actions.emailFeatureComingSoon",
+      "shareFeatureComingSoon": "[SV] invoices.actions.shareFeatureComingSoon",
+      "downloadFeatureComingSoon": "[SV] invoices.actions.downloadFeatureComingSoon"
+    },
     "noInvoicesFound": "No Invoices Found",
     "noInvoicesYet": "You haven't created any invoices yet.",
     "errorFetchingInvoices": "Error Fetching Invoices",
@@ -341,6 +367,24 @@
       "invoiceCreatedSuccessfully": "Invoice created successfully!",
       "unexpectedErrorOccurred": "An unexpected error occurred",
       "addCustomer": "Add Customer"
+    },
+    "management": {
+      "invoiceManagement": "[SV] invoices.management.invoiceManagement",
+      "manageAllInvoices": "[SV] invoices.management.manageAllInvoices",
+      "active": "[SV] invoices.management.active",
+      "archived": "[SV] invoices.management.archived",
+      "trash": "[SV] invoices.management.trash",
+      "refresh": "[SV] invoices.management.refresh",
+      "filter": "[SV] invoices.management.filter",
+      "export": "[SV] invoices.management.export",
+      "newInvoice": "[SV] invoices.management.newInvoice",
+      "noInvoicesFound": "[SV] invoices.management.noInvoicesFound",
+      "createFirstInvoice": "[SV] invoices.management.createFirstInvoice",
+      "noArchivedInvoices": "[SV] invoices.management.noArchivedInvoices",
+      "noDeletedInvoices": "[SV] invoices.management.noDeletedInvoices",
+      "failedToLoadInvoices": "[SV] invoices.management.failedToLoadInvoices",
+      "invoiceRestored": "[SV] invoices.management.invoiceRestored",
+      "invoicePermanentlyDeleted": "[SV] invoices.management.invoicePermanentlyDeleted"
     }
   },
   "customers": {
