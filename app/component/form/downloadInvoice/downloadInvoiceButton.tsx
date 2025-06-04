@@ -80,8 +80,17 @@ export const DownloadInvoiceButton = () => {
         const flagResponse = await fetchWithTimeout(
           `/flag/1x1/${currencyDetails?.iconName || defaultCurrency?.iconName}.svg`
         );
-        const svgFlag = await flagResponse.text();
-        countryImageUrl = await svgToDataUri(svgFlag);
+        
+        // Add explicit error handling for text() call
+        const svgText = await flagResponse.text().catch(error => {
+          console.error("Error reading flag response:", error);
+          throw new Error("Failed to read flag data");
+        });
+        
+        countryImageUrl = await svgToDataUri(svgText).catch(error => {
+          console.error("Error converting SVG to data URI:", error);
+          throw new Error("Failed to process flag image");
+        });
 
         if (!countryImageUrl) {
           throw new Error("Failed to convert SVG to data URI");
