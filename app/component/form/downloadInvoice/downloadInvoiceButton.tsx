@@ -36,6 +36,30 @@ export const DownloadInvoiceButton = () => {
     }
   }, [status]);
 
+  const fetchWithTimeout = async (url: string, timeout = 5000) => {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), timeout);
+
+    try {
+      const response = await fetch(url, { signal: controller.signal });
+      clearTimeout(timeoutId);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      return response;
+    } catch (error) {
+      clearTimeout(timeoutId);
+      if (error instanceof Error) {
+        if (error.name === 'AbortError') {
+          throw new Error('Flag fetch request timed out');
+        }
+      }
+      throw error;
+    }
+  };
+
   const handleDownload = async () => {
     try {
       setStatus("downloading");
@@ -51,19 +75,21 @@ export const DownloadInvoiceButton = () => {
           currencyDetail.value.toLowerCase() === "INR".toLowerCase()
       )?.details;
 
-      const flagResponse = await fetch(
-        `/flag/1x1/${currencyDetails?.iconName || defaultCurrency?.iconName}.svg`
-      );
-      
-      if (!flagResponse.ok) {
-        throw new Error("Failed to fetch flag SVG");
-      }
+      let countryImageUrl;
+      try {
+        const flagResponse = await fetchWithTimeout(
+          `/flag/1x1/${currencyDetails?.iconName || defaultCurrency?.iconName}.svg`
+        );
+        const svgFlag = await flagResponse.text();
+        countryImageUrl = await svgToDataUri(svgFlag);
 
-      const svgFlag = await flagResponse.text();
-      const countryImageUrl = await svgToDataUri(svgFlag);
-
-      if (!countryImageUrl) {
-        throw new Error("Failed to convert SVG to data URI");
+        if (!countryImageUrl) {
+          throw new Error("Failed to convert SVG to data URI");
+        }
+      } catch (flagError) {
+        console.error("Flag fetch error:", flagError);
+        // Continue without the flag if there's an error
+        countryImageUrl = null;
       }
 
       const pdfDoc = (
