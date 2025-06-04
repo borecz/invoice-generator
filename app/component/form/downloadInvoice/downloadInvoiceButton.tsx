@@ -55,6 +55,10 @@ export const DownloadInvoiceButton = () => {
         if (error.name === 'AbortError') {
           throw new Error('Flag fetch request timed out');
         }
+        // Handle the specific terminated error
+        if (error instanceof TypeError && error.message.includes('terminated')) {
+          throw new Error('Request was terminated unexpectedly');
+        }
       }
       throw error;
     }
