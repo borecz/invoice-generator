@@ -51,16 +51,22 @@ export const DownloadInvoiceButton = () => {
       return response;
     } catch (error) {
       clearTimeout(timeoutId);
+      
+      // Handle specific error types
       if (error instanceof Error) {
         if (error.name === 'AbortError') {
           throw new Error('Flag fetch request timed out');
         }
-        // Handle the specific terminated error
+        // Handle the terminated error specifically
         if (error instanceof TypeError && error.message.includes('terminated')) {
-          throw new Error('Request was terminated unexpectedly');
+          throw new Error('Network request was terminated');
         }
+        // For any other error, throw with the original message
+        throw new Error(error.message || 'An error occurred while fetching the flag');
       }
-      throw error;
+      
+      // For unknown error types, throw a generic error
+      throw new Error('An unexpected error occurred');
     }
   };
 
@@ -85,7 +91,6 @@ export const DownloadInvoiceButton = () => {
           `/flag/1x1/${currencyDetails?.iconName || defaultCurrency?.iconName}.svg`
         );
         
-        // Add explicit error handling for text() call
         const svgText = await flagResponse.text().catch(error => {
           console.error("Error reading flag response:", error);
           throw new Error("Failed to read flag data");
