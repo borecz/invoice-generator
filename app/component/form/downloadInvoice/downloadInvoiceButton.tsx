@@ -119,7 +119,13 @@ export const DownloadInvoiceButton = () => {
         )}
         <Button
           disabled={status === "downloading"}
-          onClick={handleDownload}
+          onClick={() => {
+            handleDownload().catch(error => {
+              console.error("Global error handler:", error);
+              setStatus("error");
+              setErrorMessage("An unexpected error occurred. Please try again.");
+            });
+          }}
           type="button"
           className="w-full h-12 rounded-lg text-lg"
         >
