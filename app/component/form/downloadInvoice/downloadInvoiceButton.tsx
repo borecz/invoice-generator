@@ -81,12 +81,23 @@ export const DownloadInvoiceButton = () => {
         </Document>
       );
 
-      const pdfPromise = pdf(pdfDoc).toBlob();
+      const pdfPromise = pdf(pdfDoc)
+        .toBlob()
+        .catch(error => {
+          console.error("PDF generation error:", error);
+          throw new Error("Failed to generate PDF. Please try again.");
+        });
+
       const timeoutPromise = new Promise((_, reject) => {
         setTimeout(() => reject(new Error("PDF generation timed out")), 10000);
       });
 
       const blob = await Promise.race([pdfPromise, timeoutPromise]);
+      
+      if (!blob) {
+        throw new Error("PDF generation failed - no data received");
+      }
+
       await saveAs(blob, "invoice.pdf");
       setStatus("downloaded");
     } catch (error) {
