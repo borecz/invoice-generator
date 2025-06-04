@@ -1,11 +1,11 @@
 import { Canvg } from "canvg";
 
-export const svgToDataUri = async (svgString: string) => {
+export const svgToDataUri = async (svgString: string): Promise<string | null> => {
   try {
     // Validate SVG input
     if (!svgString || svgString.trim().length === 0) {
       console.error("Invalid SVG input");
-      return "";
+      return null;
     }
 
     const canvas: HTMLCanvasElement = document.createElement("canvas");
@@ -15,7 +15,7 @@ export const svgToDataUri = async (svgString: string) => {
     const context = canvas.getContext("2d");
     if (!context) {
       console.error("Could not get canvas context");
-      return "";
+      return null;
     }
 
     try {
@@ -30,13 +30,13 @@ export const svgToDataUri = async (svgString: string) => {
       await Promise.race([renderPromise, timeoutPromise]);
       
       const dataUri = canvas.toDataURL("image/png", 0.8); // Add quality parameter
-      return dataUri;
+      return dataUri || null;
     } catch (renderError) {
       console.error("Error during SVG rendering:", renderError);
-      return "";
+      return null;
     }
   } catch (error) {
     console.error("Error in svgToDataUri:", error);
-    return "";
+    return null;
   }
 };

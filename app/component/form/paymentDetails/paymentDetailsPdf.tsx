@@ -133,7 +133,7 @@ export const PaymentDetailsPdf: React.FC<PaymentDetailsPdfProps> = ({
         <Text style={{ ...pdfTypography.title, paddingBottom: 12 }}>
           Payable in
         </Text>
-        {currencyDetails && (
+        {currencyDetails && countryImageUrl && (
           <View style={{ ...pdfUtils.flexRowItemCenter, gap: 8 }}>
             <Image
               src={countryImageUrl}
