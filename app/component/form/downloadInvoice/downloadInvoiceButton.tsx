@@ -132,7 +132,7 @@ export const DownloadInvoiceButton = () => {
           throw new Error("Failed to generate PDF. Please try again.");
         });
 
-      const timeoutPromise = new Promise((_, reject) => {
+      const timeoutPromise = new Promise<never>((_, reject) => {
         setTimeout(() => reject(new Error("PDF generation timed out")), 10000);
       });
 
