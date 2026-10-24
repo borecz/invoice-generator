@@ -19,7 +19,7 @@ export const PdfDetails = ({
   invoiceDetails: InvoiceItemDetails;
   paymentDetails: PaymentDetails;
   invoiceTerms: InvoiceTerms;
-  countryImageUrl: string;
+  countryImageUrl: string | null;
 }) => (
   <View>
     <InvoiceTermsPdf {...invoiceTerms} />
